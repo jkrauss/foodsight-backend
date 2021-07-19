@@ -1,0 +1,8 @@
+
+# implement authentication and authorization, build respective login / logout widgets into frontend
+# setup account at ready2order , fill data and build integration, setup plugin-system for custom data-sources
+# same for lightspeed
+# build button and service that sends the selected order amounts to server and delivers a nice pdf
+# build out header and footer
+# implement forgot password flow
+# 

@@ -1,0 +1,9 @@
+- Every csv-file in this folder has a column "date" that is a datetime
+- Every file has a column 'index' that is it's unique identifier / key
+- there exists a file called 'current_sales_history.csv'
+- 'current_sales_history' contains a column called 'sales' that is the target
+- 'curent_sales_history' contains a column called 'store'
+- The composite key for 'current_sales_history' is date x sales x store - so exactly one row per (date, sales, store)
+- there exists a file called 'date_dimension.csv' with key 'date' - so exactly 1 row per date
+- date_dimension gets the entity-name 'days', 'current_sales_history' gets the entity-name 'sales
+- every other entity is named as it's filename (less the .csv)

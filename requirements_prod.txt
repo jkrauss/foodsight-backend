@@ -1,0 +1,23 @@
+
+
+fastapi
+aiofiles
+uvicorn
+requests
+
+pandas
+featuretools[tsfresh, categorical_encoding, autonormalize]
+
+catboost
+traitlets
+
+holidays
+
+fastapi_utils
+
+schedule
+
+# required for fastapi auth
+python-multipart
+python-jose[cryptography]
+passlib[bcrypt]
