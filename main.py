@@ -18,6 +18,7 @@ from main_auth import *
 
 app = FastAPI()
 
+"""
 origins = [
     "http://localhost",
     "http://localhost:8000",
@@ -26,6 +27,11 @@ origins = [
     "http://127.0.0.1:8000",
     "http://127.0.0.1:5000",
     "https://foodsight.azurewebsites.net/",
+]
+"""
+
+origins = [
+    "*"
 ]
 
 app.add_middleware(
@@ -42,6 +48,7 @@ def home():
 
 @app.get('/api/forecast/')
 def get_forecast(store:int, days:int=1, current_user: User = Depends(get_current_active_user)):
+#def get_forecast(store:int, days:int=1):
 
     try:
         days = int(days)
