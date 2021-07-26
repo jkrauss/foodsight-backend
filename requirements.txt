@@ -16,7 +16,7 @@ cycler==0.10.0
 dask==2021.7.0
 distributed==2021.7.0
 ecdsa==0.17.0
-fastapi==0.66.1
+fastapi==0.67.0
 fastapi-utils==0.2.1
 featuretools==0.26.0
 featuretools-tsfresh-primitives==0.4.0
@@ -54,6 +54,7 @@ pydantic==1.8.2
 PyMeeus==0.5.11
 pyparsing==2.4.7
 python-dateutil==2.8.2
+python-dotenv==0.18.0
 python-jose==3.3.0
 python-multipart==0.0.5
 pytz==2021.1
@@ -65,10 +66,10 @@ scikit-learn==0.24.2
 scipy==1.7.0
 six==1.16.0
 sortedcontainers==2.4.0
-SQLAlchemy==1.4.21
+SQLAlchemy==1.4.22
 starlette==0.14.2
 statsmodels==0.12.2
-stumpy==1.8.0
+stumpy==1.9.1
 tblib==1.7.0
 tenacity==8.0.1
 threadpoolctl==2.2.0

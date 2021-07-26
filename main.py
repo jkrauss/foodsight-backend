@@ -47,8 +47,8 @@ def home():
     return FileResponse('client/public/index.html')
 
 @app.get('/api/forecast/')
-def get_forecast(store:int, days:int=1, current_user: User = Depends(get_current_active_user)):
-#def get_forecast(store:int, days:int=1):
+#def get_forecast(store:int, days:int=1, current_user: User = Depends(get_current_active_user)):
+def get_forecast(store:int, days:int=1):
 
     try:
         days = int(days)

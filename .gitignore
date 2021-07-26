@@ -7,3 +7,8 @@ dask-worker-space/
 catboost_info/
 *.ipynb
 client/
+.git/
+customer.toml
+.env
+looki.xlsx
+*looki*

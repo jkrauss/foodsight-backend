@@ -1,0 +1,81 @@
+,invoice_total,invoice_totalTip,invoice_address_city,invoice_deleted_at,customerCategory_id,tableArea_id,address.company,address.city,item_product_discountable,item_product_pricePerUnit,product,sales,date,item_retour,item_expirationDate,item_price,item_lineDiscountGross,item_invoiceDiscountGross,item_discountable,paymentMethod_id_x,productgroup_name,user_name,table_name,index,store
+0,12.6,0,,,,cat_172501,,,True,1.8,Cola,1,2021-07-26,False,,1.8,,,True,cat_480952,Alkoholfreie Getränke,jonaskrauss,Außen 7,401533668,1
+1,12.6,0,,,,cat_172501,,,True,1.8,Cola,1,2021-07-26,False,,1.8,,,True,cat_480952,Alkoholfreie Getränke,jonaskrauss,Außen 7,401533669,1
+2,12.6,0,,,,cat_172501,,,True,4.5,Schnitzel,1,2021-07-26,False,,4.5,,,True,cat_480952,Speisen,jonaskrauss,Außen 7,401533670,1
+3,12.6,0,,,,cat_172501,,,True,4.5,Schnitzel,1,2021-07-26,False,,4.5,,,True,cat_480952,Speisen,jonaskrauss,Außen 7,401533671,1
+4,34.54,0,,,,cat_172501,,,True,1.5,Soda Zitrone,1,2021-07-26,False,,1.5,,,True,cat_480951,Alkoholfreie Getränke,jonaskrauss,Außen 6,401533615,1
+5,34.54,0,,,,cat_172501,,,True,1.5,Soda Zitrone,1,2021-07-26,False,,1.5,,,True,cat_480951,Alkoholfreie Getränke,jonaskrauss,Außen 6,401533616,1
+6,34.54,0,,,,cat_172501,,,True,3.5,Cola Bacardi,1,2021-07-26,False,,3.5,,,True,cat_480951,Alkoholische Getränke,jonaskrauss,Außen 6,401533617,1
+7,34.54,0,,,,cat_172501,,,True,3.5,Cola Bacardi,1,2021-07-26,False,,3.5,,,True,cat_480951,Alkoholische Getränke,jonaskrauss,Außen 6,401533618,1
+8,34.54,0,,,,cat_172501,,,True,5.2,Spaghetti,1,2021-07-26,False,,5.2,,,True,cat_480951,Speisen,jonaskrauss,Außen 6,401533619,1
+9,34.54,0,,,,cat_172501,,,True,4.5,Schnitzel,1,2021-07-26,False,,4.5,,,True,cat_480951,Speisen,jonaskrauss,Außen 6,401533620,1
+10,34.54,0,,,,cat_172501,,,True,7.42,Worschtsalat,1,2021-07-26,False,,7.42,,,True,cat_480951,Speisen,jonaskrauss,Außen 6,401533621,1
+11,34.54,0,,,,cat_172501,,,True,7.42,Worschtsalat,1,2021-07-26,False,,7.42,,,True,cat_480951,Speisen,jonaskrauss,Außen 6,401533622,1
+12,12.3,0,,,,cat_172500,,,True,1.8,Cola,1,2021-07-26,False,,1.8,,,True,cat_480952,Alkoholfreie Getränke,jonaskrauss,Innen 10,401533597,1
+13,12.3,0,,,,cat_172500,,,True,1.5,Soda Zitrone,1,2021-07-26,False,,1.5,,,True,cat_480952,Alkoholfreie Getränke,jonaskrauss,Innen 10,401533598,1
+14,12.3,0,,,,cat_172500,,,True,4.5,Schnitzel,1,2021-07-26,False,,4.5,,,True,cat_480952,Speisen,jonaskrauss,Innen 10,401533599,1
+15,12.3,0,,,,cat_172500,,,True,4.5,Schnitzel,1,2021-07-26,False,,4.5,,,True,cat_480952,Speisen,jonaskrauss,Innen 10,401533600,1
+16,8.92,0,,,,cat_172500,,,True,1.5,Soda Zitrone,1,2021-07-26,False,,1.5,,,True,cat_480951,Alkoholfreie Getränke,jonaskrauss,Innen 8,401533584,1
+17,8.92,0,,,,cat_172500,,,True,7.42,Worschtsalat,1,2021-07-26,False,,7.42,,,True,cat_480951,Speisen,jonaskrauss,Innen 8,401533585,1
+18,10.6,0,,,,cat_172500,,,True,3.5,Cola Bacardi,1,2021-07-25,False,,3.5,,,True,cat_480951,Alkoholische Getränke,jonaskrauss,Innen 10,401108378,1
+19,10.6,0,,,,cat_172500,,,True,3.5,Cola Bacardi,1,2021-07-25,False,,3.5,,,True,cat_480951,Alkoholische Getränke,jonaskrauss,Innen 10,401108379,1
+20,10.6,0,,,,cat_172500,,,True,1.8,"Spritzer 0,25l",1,2021-07-25,False,,1.8,,,True,cat_480951,Alkoholische Getränke,jonaskrauss,Innen 10,401108380,1
+21,10.6,0,,,,cat_172500,,,True,1.8,"Spritzer 0,25l",1,2021-07-25,False,,1.8,,,True,cat_480951,Alkoholische Getränke,jonaskrauss,Innen 10,401108381,1
+22,24.44,0,,,,cat_172500,,,True,1.8,Cola,1,2021-07-25,False,,1.8,,,True,cat_480951,Alkoholfreie Getränke,jonaskrauss,Innen 1,401108341,1
+23,24.44,0,,,,cat_172500,,,True,1.5,Soda Zitrone,1,2021-07-25,False,,1.5,,,True,cat_480951,Alkoholfreie Getränke,jonaskrauss,Innen 1,401108342,1
+24,24.44,0,,,,cat_172500,,,True,1.8,"Spritzer 0,25l",1,2021-07-25,False,,1.8,,,True,cat_480951,Alkoholische Getränke,jonaskrauss,Innen 1,401108343,1
+25,24.44,0,,,,cat_172500,,,True,7.42,Worschtsalat,1,2021-07-25,False,,7.42,,,True,cat_480951,Speisen,jonaskrauss,Innen 1,401108344,1
+26,24.44,0,,,,cat_172500,,,True,7.42,Worschtsalat,1,2021-07-25,False,,7.42,,,True,cat_480951,Speisen,jonaskrauss,Innen 1,401108345,1
+27,24.44,0,,,,cat_172500,,,True,4.5,Schnitzel,1,2021-07-25,False,,4.5,,,True,cat_480951,Speisen,jonaskrauss,Innen 1,401108346,1
+28,15.5,0,,,,cat_172500,,,True,1.8,Cola,1,2021-07-25,False,,1.8,,,True,cat_480951,Alkoholfreie Getränke,jonaskrauss,Innen 5,401108274,1
+29,15.5,0,,,,cat_172500,,,True,1.8,Cola,1,2021-07-25,False,,1.8,,,True,cat_480951,Alkoholfreie Getränke,jonaskrauss,Innen 5,401108275,1
+30,15.5,0,,,,cat_172500,,,True,1.5,Soda Zitrone,1,2021-07-25,False,,1.5,,,True,cat_480951,Alkoholfreie Getränke,jonaskrauss,Innen 5,401108276,1
+31,15.5,0,,,,cat_172500,,,True,5.2,Spaghetti,1,2021-07-25,False,,5.2,,,True,cat_480951,Speisen,jonaskrauss,Innen 5,401108277,1
+32,15.5,0,,,,cat_172500,,,True,5.2,Spaghetti,1,2021-07-25,False,,5.2,,,True,cat_480951,Speisen,jonaskrauss,Innen 5,401108278,1
+33,26.94,0,,,,cat_172500,,,True,1.8,Cola,1,2021-07-21,False,,1.8,,,True,cat_480951,Alkoholfreie Getränke,jonaskrauss,Innen 7,398503401,1
+34,26.94,0,,,,cat_172500,,,True,1.8,Cola,1,2021-07-21,False,,1.8,,,True,cat_480951,Alkoholfreie Getränke,jonaskrauss,Innen 7,398503403,1
+35,26.94,0,,,,cat_172500,,,True,1.5,Soda Zitrone,1,2021-07-21,False,,1.5,,,True,cat_480951,Alkoholfreie Getränke,jonaskrauss,Innen 7,398503404,1
+36,26.94,0,,,,cat_172500,,,True,1.8,"Spritzer 0,25l",1,2021-07-21,False,,1.8,,,True,cat_480951,Alkoholische Getränke,jonaskrauss,Innen 7,398503405,1
+37,26.94,0,,,,cat_172500,,,True,7.42,Worschtsalat,1,2021-07-21,False,,7.42,,,True,cat_480951,Speisen,jonaskrauss,Innen 7,398503407,1
+38,26.94,0,,,,cat_172500,,,True,7.42,Worschtsalat,1,2021-07-21,False,,7.42,,,True,cat_480951,Speisen,jonaskrauss,Innen 7,398503408,1
+39,26.94,0,,,,cat_172500,,,True,5.2,Spaghetti,1,2021-07-21,False,,5.2,,,True,cat_480951,Speisen,jonaskrauss,Innen 7,398503410,1
+40,27.0,0,,,,cat_172500,,,True,1.5,Soda Zitrone,1,2021-07-21,False,,1.5,,,True,cat_480951,Alkoholfreie Getränke,jonaskrauss,Innen 6,398503285,1
+41,27.0,0,,,,cat_172500,,,True,1.5,Soda Zitrone,1,2021-07-21,False,,1.5,,,True,cat_480951,Alkoholfreie Getränke,jonaskrauss,Innen 6,398503286,1
+42,27.0,0,,,,cat_172500,,,True,3.5,Cola Bacardi,1,2021-07-21,False,,3.5,,,True,cat_480951,Alkoholische Getränke,jonaskrauss,Innen 6,398503287,1
+43,27.0,0,,,,cat_172500,,,True,3.5,Cola Bacardi,1,2021-07-21,False,,3.5,,,True,cat_480951,Alkoholische Getränke,jonaskrauss,Innen 6,398503288,1
+44,27.0,0,,,,cat_172500,,,True,3.5,Cola Bacardi,1,2021-07-21,False,,3.5,,,True,cat_480951,Alkoholische Getränke,jonaskrauss,Innen 6,398503289,1
+45,27.0,0,,,,cat_172500,,,True,4.5,Schnitzel,1,2021-07-21,False,,4.5,,,True,cat_480951,Speisen,jonaskrauss,Innen 6,398503290,1
+46,27.0,0,,,,cat_172500,,,True,4.5,Schnitzel,1,2021-07-21,False,,4.5,,,True,cat_480951,Speisen,jonaskrauss,Innen 6,398503291,1
+47,27.0,0,,,,cat_172500,,,True,4.5,Schnitzel,1,2021-07-21,False,,4.5,,,True,cat_480951,Speisen,jonaskrauss,Innen 6,398503292,1
+48,16.72,0,,,,cat_172501,,,True,1.5,Soda Zitrone,1,2021-07-21,False,,1.5,,,True,cat_480951,Alkoholfreie Getränke,jonaskrauss,Außen 8,398405895,1
+49,16.72,0,,,,cat_172501,,,True,1.5,Soda Zitrone,1,2021-07-21,False,,1.5,,,True,cat_480951,Alkoholfreie Getränke,jonaskrauss,Außen 8,398405896,1
+50,16.72,0,,,,cat_172501,,,True,1.8,"Spritzer 0,25l",1,2021-07-21,False,,1.8,,,True,cat_480951,Alkoholische Getränke,jonaskrauss,Außen 8,398405897,1
+51,16.72,0,,,,cat_172501,,,True,4.5,Schnitzel,1,2021-07-21,False,,4.5,,,True,cat_480951,Speisen,jonaskrauss,Außen 8,398405898,1
+52,16.72,0,,,,cat_172501,,,True,7.42,Worschtsalat,1,2021-07-21,False,,7.42,,,True,cat_480951,Speisen,jonaskrauss,Außen 8,398405899,1
+53,1.8,0,,,,cat_172500,,,True,1.8,Cola,1,2021-07-21,False,,1.8,,,True,cat_480951,Alkoholfreie Getränke,jonaskrauss,Innen 7,398405852,1
+54,13.4,0,,,,cat_172501,,,True,1.5,Soda Zitrone,1,2021-07-21,False,,1.5,,,True,cat_480951,Alkoholfreie Getränke,jonaskrauss,Außen 3,398405783,1
+55,13.4,0,,,,cat_172501,,,True,1.5,Soda Zitrone,1,2021-07-21,False,,1.5,,,True,cat_480951,Alkoholfreie Getränke,jonaskrauss,Außen 3,398405784,1
+56,13.4,0,,,,cat_172501,,,True,5.2,Spaghetti,1,2021-07-21,False,,5.2,,,True,cat_480951,Speisen,jonaskrauss,Außen 3,398405785,1
+57,13.4,0,,,,cat_172501,,,True,5.2,Spaghetti,1,2021-07-21,False,,5.2,,,True,cat_480951,Speisen,jonaskrauss,Außen 3,398405786,1
+58,19.64,0,,,,cat_172500,,,True,1.5,Soda Zitrone,1,2021-07-21,False,,1.5,,,True,cat_480951,Alkoholfreie Getränke,jonaskrauss,Innen 5,398405745,1
+59,19.64,0,,,,cat_172500,,,True,1.5,Soda Zitrone,1,2021-07-21,False,,1.5,,,True,cat_480951,Alkoholfreie Getränke,jonaskrauss,Innen 5,398405746,1
+60,19.64,0,,,,cat_172500,,,True,1.8,Cola,1,2021-07-21,False,,1.8,,,True,cat_480951,Alkoholfreie Getränke,jonaskrauss,Innen 5,398405747,1
+61,19.64,0,,,,cat_172500,,,True,7.42,Worschtsalat,1,2021-07-21,False,,7.42,,,True,cat_480951,Speisen,jonaskrauss,Innen 5,398405749,1
+62,19.64,0,,,,cat_172500,,,True,7.42,Worschtsalat,1,2021-07-21,False,,7.42,,,True,cat_480951,Speisen,jonaskrauss,Innen 5,398405750,1
+63,28.62,0,,,,cat_172500,,,True,1.8,Cola,1,2021-07-21,False,,1.8,,,True,cat_480951,Alkoholfreie Getränke,jonaskrauss,Innen 10,398399726,1
+64,28.62,0,,,,cat_172500,,,True,1.5,Soda Zitrone,1,2021-07-21,False,,1.5,,,True,cat_480951,Alkoholfreie Getränke,jonaskrauss,Innen 10,398399727,1
+65,28.62,0,,,,cat_172500,,,True,1.5,Soda Zitrone,1,2021-07-21,False,,1.5,,,True,cat_480951,Alkoholfreie Getränke,jonaskrauss,Innen 10,398399728,1
+66,28.62,0,,,,cat_172500,,,True,1.5,Soda Zitrone,1,2021-07-21,False,,1.5,,,True,cat_480951,Alkoholfreie Getränke,jonaskrauss,Innen 10,398399729,1
+67,28.62,0,,,,cat_172500,,,True,7.42,Worschtsalat,1,2021-07-21,False,,7.42,,,True,cat_480951,Speisen,jonaskrauss,Innen 10,398399730,1
+68,28.62,0,,,,cat_172500,,,True,5.2,Spaghetti,1,2021-07-21,False,,5.2,,,True,cat_480951,Speisen,jonaskrauss,Innen 10,398399731,1
+69,28.62,0,,,,cat_172500,,,True,5.2,Spaghetti,1,2021-07-21,False,,5.2,,,True,cat_480951,Speisen,jonaskrauss,Innen 10,398399732,1
+70,28.62,0,,,,cat_172500,,,True,4.5,Schnitzel,1,2021-07-21,False,,4.5,,,True,cat_480951,Speisen,jonaskrauss,Innen 10,398399733,1
+71,10.92,0,,,,cat_172500,,,True,3.5,Cola Bacardi,1,2021-07-21,False,,3.5,,,True,cat_480951,Alkoholische Getränke,jonaskrauss,Innen 3,398399686,1
+72,10.92,0,,,,cat_172500,,,True,7.42,Worschtsalat,1,2021-07-21,False,,7.42,,,True,cat_480951,Speisen,jonaskrauss,Innen 3,398399687,1
+73,14.42,0,,,,cat_172500,,,True,1.8,Cola,1,2021-07-21,False,,1.8,,,True,cat_480951,Alkoholfreie Getränke,jonaskrauss,Innen 1,398399657,1
+74,14.42,0,,,,cat_172500,,,True,5.2,Spaghetti,1,2021-07-21,False,,5.2,,,True,cat_480951,Speisen,jonaskrauss,Innen 1,398399658,1
+75,14.42,0,,,,cat_172500,,,True,7.42,Worschtsalat,1,2021-07-21,False,,7.42,,,True,cat_480951,Speisen,jonaskrauss,Innen 1,398399659,1
+76,12.7,0,,,,cat_172500,,,True,1.5,Soda Zitrone,1,2021-07-21,False,,1.5,,,True,cat_480951,Alkoholfreie Getränke,jonaskrauss,Innen 8,398399610,1
+77,12.7,0,,,,cat_172500,,,True,1.5,Soda Zitrone,1,2021-07-21,False,,1.5,,,True,cat_480951,Alkoholfreie Getränke,jonaskrauss,Innen 8,398399611,1
+78,12.7,0,,,,cat_172500,,,True,4.5,Schnitzel,1,2021-07-21,False,,4.5,,,True,cat_480951,Speisen,jonaskrauss,Innen 8,398399612,1
+79,12.7,0,,,,cat_172500,,,True,5.2,Spaghetti,1,2021-07-21,False,,5.2,,,True,cat_480951,Speisen,jonaskrauss,Innen 8,398399613,1
