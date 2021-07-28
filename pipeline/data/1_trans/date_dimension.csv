@@ -304,7 +304,7 @@ date,year,month,day,week,weekday,season,is_holiday,holiday_name,is_weekend,is_fr
 2000-10-29,2000,10,29,43,7,fall,False,,True,True,True
 2000-10-30,2000,10,30,44,1,fall,False,,False,False,False
 2000-10-31,2000,10,31,44,2,fall,False,,False,False,False
-2000-11-01,2000,11,1,44,3,fall,False,,False,False,False
+2000-11-01,2000,11,1,44,3,fall,True,Allerheiligen,False,True,True
 2000-11-02,2000,11,2,44,4,fall,False,,False,False,False
 2000-11-03,2000,11,3,44,5,fall,False,,False,False,False
 2000-11-04,2000,11,4,44,6,fall,False,,True,True,False
@@ -669,7 +669,7 @@ date,year,month,day,week,weekday,season,is_holiday,holiday_name,is_weekend,is_fr
 2001-10-29,2001,10,29,44,1,fall,False,,False,False,False
 2001-10-30,2001,10,30,44,2,fall,False,,False,False,False
 2001-10-31,2001,10,31,44,3,fall,False,,False,False,False
-2001-11-01,2001,11,1,44,4,fall,False,,False,False,False
+2001-11-01,2001,11,1,44,4,fall,True,Allerheiligen,False,True,True
 2001-11-02,2001,11,2,44,5,fall,False,,False,False,False
 2001-11-03,2001,11,3,44,6,fall,False,,True,True,False
 2001-11-04,2001,11,4,44,7,fall,False,,True,True,True
@@ -1034,7 +1034,7 @@ date,year,month,day,week,weekday,season,is_holiday,holiday_name,is_weekend,is_fr
 2002-10-29,2002,10,29,44,2,fall,False,,False,False,False
 2002-10-30,2002,10,30,44,3,fall,False,,False,False,False
 2002-10-31,2002,10,31,44,4,fall,False,,False,False,False
-2002-11-01,2002,11,1,44,5,fall,False,,False,False,False
+2002-11-01,2002,11,1,44,5,fall,True,Allerheiligen,False,True,True
 2002-11-02,2002,11,2,44,6,fall,False,,True,True,False
 2002-11-03,2002,11,3,44,7,fall,False,,True,True,True
 2002-11-04,2002,11,4,45,1,fall,False,,False,False,False
@@ -1399,7 +1399,7 @@ date,year,month,day,week,weekday,season,is_holiday,holiday_name,is_weekend,is_fr
 2003-10-29,2003,10,29,44,3,fall,False,,False,False,False
 2003-10-30,2003,10,30,44,4,fall,False,,False,False,False
 2003-10-31,2003,10,31,44,5,fall,False,,False,False,False
-2003-11-01,2003,11,1,44,6,fall,False,,True,True,False
+2003-11-01,2003,11,1,44,6,fall,True,Allerheiligen,True,True,True
 2003-11-02,2003,11,2,44,7,fall,False,,True,True,True
 2003-11-03,2003,11,3,45,1,fall,False,,False,False,False
 2003-11-04,2003,11,4,45,2,fall,False,,False,False,False
@@ -1765,7 +1765,7 @@ date,year,month,day,week,weekday,season,is_holiday,holiday_name,is_weekend,is_fr
 2004-10-29,2004,10,29,44,5,fall,False,,False,False,False
 2004-10-30,2004,10,30,44,6,fall,False,,True,True,False
 2004-10-31,2004,10,31,44,7,fall,False,,True,True,True
-2004-11-01,2004,11,1,45,1,fall,False,,False,False,False
+2004-11-01,2004,11,1,45,1,fall,True,Allerheiligen,False,True,True
 2004-11-02,2004,11,2,45,2,fall,False,,False,False,False
 2004-11-03,2004,11,3,45,3,fall,False,,False,False,False
 2004-11-04,2004,11,4,45,4,fall,False,,False,False,False
@@ -2130,7 +2130,7 @@ date,year,month,day,week,weekday,season,is_holiday,holiday_name,is_weekend,is_fr
 2005-10-29,2005,10,29,43,6,fall,False,,True,True,False
 2005-10-30,2005,10,30,43,7,fall,False,,True,True,True
 2005-10-31,2005,10,31,44,1,fall,False,,False,False,False
-2005-11-01,2005,11,1,44,2,fall,False,,False,False,False
+2005-11-01,2005,11,1,44,2,fall,True,Allerheiligen,False,True,True
 2005-11-02,2005,11,2,44,3,fall,False,,False,False,False
 2005-11-03,2005,11,3,44,4,fall,False,,False,False,False
 2005-11-04,2005,11,4,44,5,fall,False,,False,False,False
@@ -2495,7 +2495,7 @@ date,year,month,day,week,weekday,season,is_holiday,holiday_name,is_weekend,is_fr
 2006-10-29,2006,10,29,43,7,fall,False,,True,True,True
 2006-10-30,2006,10,30,44,1,fall,False,,False,False,False
 2006-10-31,2006,10,31,44,2,fall,False,,False,False,False
-2006-11-01,2006,11,1,44,3,fall,False,,False,False,False
+2006-11-01,2006,11,1,44,3,fall,True,Allerheiligen,False,True,True
 2006-11-02,2006,11,2,44,4,fall,False,,False,False,False
 2006-11-03,2006,11,3,44,5,fall,False,,False,False,False
 2006-11-04,2006,11,4,44,6,fall,False,,True,True,False
@@ -2860,7 +2860,7 @@ date,year,month,day,week,weekday,season,is_holiday,holiday_name,is_weekend,is_fr
 2007-10-29,2007,10,29,44,1,fall,False,,False,False,False
 2007-10-30,2007,10,30,44,2,fall,False,,False,False,False
 2007-10-31,2007,10,31,44,3,fall,False,,False,False,False
-2007-11-01,2007,11,1,44,4,fall,False,,False,False,False
+2007-11-01,2007,11,1,44,4,fall,True,Allerheiligen,False,True,True
 2007-11-02,2007,11,2,44,5,fall,False,,False,False,False
 2007-11-03,2007,11,3,44,6,fall,False,,True,True,False
 2007-11-04,2007,11,4,44,7,fall,False,,True,True,True
@@ -3226,7 +3226,7 @@ date,year,month,day,week,weekday,season,is_holiday,holiday_name,is_weekend,is_fr
 2008-10-29,2008,10,29,44,3,fall,False,,False,False,False
 2008-10-30,2008,10,30,44,4,fall,False,,False,False,False
 2008-10-31,2008,10,31,44,5,fall,False,,False,False,False
-2008-11-01,2008,11,1,44,6,fall,False,,True,True,False
+2008-11-01,2008,11,1,44,6,fall,True,Allerheiligen,True,True,True
 2008-11-02,2008,11,2,44,7,fall,False,,True,True,True
 2008-11-03,2008,11,3,45,1,fall,False,,False,False,False
 2008-11-04,2008,11,4,45,2,fall,False,,False,False,False
@@ -3591,7 +3591,7 @@ date,year,month,day,week,weekday,season,is_holiday,holiday_name,is_weekend,is_fr
 2009-10-29,2009,10,29,44,4,fall,False,,False,False,False
 2009-10-30,2009,10,30,44,5,fall,False,,False,False,False
 2009-10-31,2009,10,31,44,6,fall,False,,True,True,False
-2009-11-01,2009,11,1,44,7,fall,False,,True,True,True
+2009-11-01,2009,11,1,44,7,fall,True,Allerheiligen,True,True,True
 2009-11-02,2009,11,2,45,1,fall,False,,False,False,False
 2009-11-03,2009,11,3,45,2,fall,False,,False,False,False
 2009-11-04,2009,11,4,45,3,fall,False,,False,False,False
@@ -3956,7 +3956,7 @@ date,year,month,day,week,weekday,season,is_holiday,holiday_name,is_weekend,is_fr
 2010-10-29,2010,10,29,43,5,fall,False,,False,False,False
 2010-10-30,2010,10,30,43,6,fall,False,,True,True,False
 2010-10-31,2010,10,31,43,7,fall,False,,True,True,True
-2010-11-01,2010,11,1,44,1,fall,False,,False,False,False
+2010-11-01,2010,11,1,44,1,fall,True,Allerheiligen,False,True,True
 2010-11-02,2010,11,2,44,2,fall,False,,False,False,False
 2010-11-03,2010,11,3,44,3,fall,False,,False,False,False
 2010-11-04,2010,11,4,44,4,fall,False,,False,False,False
@@ -4321,7 +4321,7 @@ date,year,month,day,week,weekday,season,is_holiday,holiday_name,is_weekend,is_fr
 2011-10-29,2011,10,29,43,6,fall,False,,True,True,False
 2011-10-30,2011,10,30,43,7,fall,False,,True,True,True
 2011-10-31,2011,10,31,44,1,fall,False,,False,False,False
-2011-11-01,2011,11,1,44,2,fall,False,,False,False,False
+2011-11-01,2011,11,1,44,2,fall,True,Allerheiligen,False,True,True
 2011-11-02,2011,11,2,44,3,fall,False,,False,False,False
 2011-11-03,2011,11,3,44,4,fall,False,,False,False,False
 2011-11-04,2011,11,4,44,5,fall,False,,False,False,False
@@ -4687,7 +4687,7 @@ date,year,month,day,week,weekday,season,is_holiday,holiday_name,is_weekend,is_fr
 2012-10-29,2012,10,29,44,1,fall,False,,False,False,False
 2012-10-30,2012,10,30,44,2,fall,False,,False,False,False
 2012-10-31,2012,10,31,44,3,fall,False,,False,False,False
-2012-11-01,2012,11,1,44,4,fall,False,,False,False,False
+2012-11-01,2012,11,1,44,4,fall,True,Allerheiligen,False,True,True
 2012-11-02,2012,11,2,44,5,fall,False,,False,False,False
 2012-11-03,2012,11,3,44,6,fall,False,,True,True,False
 2012-11-04,2012,11,4,44,7,fall,False,,True,True,True
@@ -5052,7 +5052,7 @@ date,year,month,day,week,weekday,season,is_holiday,holiday_name,is_weekend,is_fr
 2013-10-29,2013,10,29,44,2,fall,False,,False,False,False
 2013-10-30,2013,10,30,44,3,fall,False,,False,False,False
 2013-10-31,2013,10,31,44,4,fall,False,,False,False,False
-2013-11-01,2013,11,1,44,5,fall,False,,False,False,False
+2013-11-01,2013,11,1,44,5,fall,True,Allerheiligen,False,True,True
 2013-11-02,2013,11,2,44,6,fall,False,,True,True,False
 2013-11-03,2013,11,3,44,7,fall,False,,True,True,True
 2013-11-04,2013,11,4,45,1,fall,False,,False,False,False
@@ -5417,7 +5417,7 @@ date,year,month,day,week,weekday,season,is_holiday,holiday_name,is_weekend,is_fr
 2014-10-29,2014,10,29,44,3,fall,False,,False,False,False
 2014-10-30,2014,10,30,44,4,fall,False,,False,False,False
 2014-10-31,2014,10,31,44,5,fall,False,,False,False,False
-2014-11-01,2014,11,1,44,6,fall,False,,True,True,False
+2014-11-01,2014,11,1,44,6,fall,True,Allerheiligen,True,True,True
 2014-11-02,2014,11,2,44,7,fall,False,,True,True,True
 2014-11-03,2014,11,3,45,1,fall,False,,False,False,False
 2014-11-04,2014,11,4,45,2,fall,False,,False,False,False
@@ -5782,7 +5782,7 @@ date,year,month,day,week,weekday,season,is_holiday,holiday_name,is_weekend,is_fr
 2015-10-29,2015,10,29,44,4,fall,False,,False,False,False
 2015-10-30,2015,10,30,44,5,fall,False,,False,False,False
 2015-10-31,2015,10,31,44,6,fall,False,,True,True,False
-2015-11-01,2015,11,1,44,7,fall,False,,True,True,True
+2015-11-01,2015,11,1,44,7,fall,True,Allerheiligen,True,True,True
 2015-11-02,2015,11,2,45,1,fall,False,,False,False,False
 2015-11-03,2015,11,3,45,2,fall,False,,False,False,False
 2015-11-04,2015,11,4,45,3,fall,False,,False,False,False
@@ -6148,7 +6148,7 @@ date,year,month,day,week,weekday,season,is_holiday,holiday_name,is_weekend,is_fr
 2016-10-29,2016,10,29,43,6,fall,False,,True,True,False
 2016-10-30,2016,10,30,43,7,fall,False,,True,True,True
 2016-10-31,2016,10,31,44,1,fall,False,,False,False,False
-2016-11-01,2016,11,1,44,2,fall,False,,False,False,False
+2016-11-01,2016,11,1,44,2,fall,True,Allerheiligen,False,True,True
 2016-11-02,2016,11,2,44,3,fall,False,,False,False,False
 2016-11-03,2016,11,3,44,4,fall,False,,False,False,False
 2016-11-04,2016,11,4,44,5,fall,False,,False,False,False
@@ -6513,7 +6513,7 @@ date,year,month,day,week,weekday,season,is_holiday,holiday_name,is_weekend,is_fr
 2017-10-29,2017,10,29,43,7,fall,False,,True,True,True
 2017-10-30,2017,10,30,44,1,fall,False,,False,False,False
 2017-10-31,2017,10,31,44,2,fall,True,Reformationstag,False,True,True
-2017-11-01,2017,11,1,44,3,fall,False,,False,False,False
+2017-11-01,2017,11,1,44,3,fall,True,Allerheiligen,False,True,True
 2017-11-02,2017,11,2,44,4,fall,False,,False,False,False
 2017-11-03,2017,11,3,44,5,fall,False,,False,False,False
 2017-11-04,2017,11,4,44,6,fall,False,,True,True,False
@@ -6878,7 +6878,7 @@ date,year,month,day,week,weekday,season,is_holiday,holiday_name,is_weekend,is_fr
 2018-10-29,2018,10,29,44,1,fall,False,,False,False,False
 2018-10-30,2018,10,30,44,2,fall,False,,False,False,False
 2018-10-31,2018,10,31,44,3,fall,False,,False,False,False
-2018-11-01,2018,11,1,44,4,fall,False,,False,False,False
+2018-11-01,2018,11,1,44,4,fall,True,Allerheiligen,False,True,True
 2018-11-02,2018,11,2,44,5,fall,False,,False,False,False
 2018-11-03,2018,11,3,44,6,fall,False,,True,True,False
 2018-11-04,2018,11,4,44,7,fall,False,,True,True,True
@@ -7243,7 +7243,7 @@ date,year,month,day,week,weekday,season,is_holiday,holiday_name,is_weekend,is_fr
 2019-10-29,2019,10,29,44,2,fall,False,,False,False,False
 2019-10-30,2019,10,30,44,3,fall,False,,False,False,False
 2019-10-31,2019,10,31,44,4,fall,False,,False,False,False
-2019-11-01,2019,11,1,44,5,fall,False,,False,False,False
+2019-11-01,2019,11,1,44,5,fall,True,Allerheiligen,False,True,True
 2019-11-02,2019,11,2,44,6,fall,False,,True,True,False
 2019-11-03,2019,11,3,44,7,fall,False,,True,True,True
 2019-11-04,2019,11,4,45,1,fall,False,,False,False,False
@@ -7609,7 +7609,7 @@ date,year,month,day,week,weekday,season,is_holiday,holiday_name,is_weekend,is_fr
 2020-10-29,2020,10,29,44,4,fall,False,,False,False,False
 2020-10-30,2020,10,30,44,5,fall,False,,False,False,False
 2020-10-31,2020,10,31,44,6,fall,False,,True,True,False
-2020-11-01,2020,11,1,44,7,fall,False,,True,True,True
+2020-11-01,2020,11,1,44,7,fall,True,Allerheiligen,True,True,True
 2020-11-02,2020,11,2,45,1,fall,False,,False,False,False
 2020-11-03,2020,11,3,45,2,fall,False,,False,False,False
 2020-11-04,2020,11,4,45,3,fall,False,,False,False,False
@@ -7974,7 +7974,7 @@ date,year,month,day,week,weekday,season,is_holiday,holiday_name,is_weekend,is_fr
 2021-10-29,2021,10,29,43,5,fall,False,,False,False,False
 2021-10-30,2021,10,30,43,6,fall,False,,True,True,False
 2021-10-31,2021,10,31,43,7,fall,False,,True,True,True
-2021-11-01,2021,11,1,44,1,fall,False,,False,False,False
+2021-11-01,2021,11,1,44,1,fall,True,Allerheiligen,False,True,True
 2021-11-02,2021,11,2,44,2,fall,False,,False,False,False
 2021-11-03,2021,11,3,44,3,fall,False,,False,False,False
 2021-11-04,2021,11,4,44,4,fall,False,,False,False,False
@@ -8339,7 +8339,7 @@ date,year,month,day,week,weekday,season,is_holiday,holiday_name,is_weekend,is_fr
 2022-10-29,2022,10,29,43,6,fall,False,,True,True,False
 2022-10-30,2022,10,30,43,7,fall,False,,True,True,True
 2022-10-31,2022,10,31,44,1,fall,False,,False,False,False
-2022-11-01,2022,11,1,44,2,fall,False,,False,False,False
+2022-11-01,2022,11,1,44,2,fall,True,Allerheiligen,False,True,True
 2022-11-02,2022,11,2,44,3,fall,False,,False,False,False
 2022-11-03,2022,11,3,44,4,fall,False,,False,False,False
 2022-11-04,2022,11,4,44,5,fall,False,,False,False,False
@@ -8704,7 +8704,7 @@ date,year,month,day,week,weekday,season,is_holiday,holiday_name,is_weekend,is_fr
 2023-10-29,2023,10,29,43,7,fall,False,,True,True,True
 2023-10-30,2023,10,30,44,1,fall,False,,False,False,False
 2023-10-31,2023,10,31,44,2,fall,False,,False,False,False
-2023-11-01,2023,11,1,44,3,fall,False,,False,False,False
+2023-11-01,2023,11,1,44,3,fall,True,Allerheiligen,False,True,True
 2023-11-02,2023,11,2,44,4,fall,False,,False,False,False
 2023-11-03,2023,11,3,44,5,fall,False,,False,False,False
 2023-11-04,2023,11,4,44,6,fall,False,,True,True,False
@@ -9070,7 +9070,7 @@ date,year,month,day,week,weekday,season,is_holiday,holiday_name,is_weekend,is_fr
 2024-10-29,2024,10,29,44,2,fall,False,,False,False,False
 2024-10-30,2024,10,30,44,3,fall,False,,False,False,False
 2024-10-31,2024,10,31,44,4,fall,False,,False,False,False
-2024-11-01,2024,11,1,44,5,fall,False,,False,False,False
+2024-11-01,2024,11,1,44,5,fall,True,Allerheiligen,False,True,True
 2024-11-02,2024,11,2,44,6,fall,False,,True,True,False
 2024-11-03,2024,11,3,44,7,fall,False,,True,True,True
 2024-11-04,2024,11,4,45,1,fall,False,,False,False,False
@@ -9435,7 +9435,7 @@ date,year,month,day,week,weekday,season,is_holiday,holiday_name,is_weekend,is_fr
 2025-10-29,2025,10,29,44,3,fall,False,,False,False,False
 2025-10-30,2025,10,30,44,4,fall,False,,False,False,False
 2025-10-31,2025,10,31,44,5,fall,False,,False,False,False
-2025-11-01,2025,11,1,44,6,fall,False,,True,True,False
+2025-11-01,2025,11,1,44,6,fall,True,Allerheiligen,True,True,True
 2025-11-02,2025,11,2,44,7,fall,False,,True,True,True
 2025-11-03,2025,11,3,45,1,fall,False,,False,False,False
 2025-11-04,2025,11,4,45,2,fall,False,,False,False,False
@@ -9800,7 +9800,7 @@ date,year,month,day,week,weekday,season,is_holiday,holiday_name,is_weekend,is_fr
 2026-10-29,2026,10,29,44,4,fall,False,,False,False,False
 2026-10-30,2026,10,30,44,5,fall,False,,False,False,False
 2026-10-31,2026,10,31,44,6,fall,False,,True,True,False
-2026-11-01,2026,11,1,44,7,fall,False,,True,True,True
+2026-11-01,2026,11,1,44,7,fall,True,Allerheiligen,True,True,True
 2026-11-02,2026,11,2,45,1,fall,False,,False,False,False
 2026-11-03,2026,11,3,45,2,fall,False,,False,False,False
 2026-11-04,2026,11,4,45,3,fall,False,,False,False,False
@@ -10165,7 +10165,7 @@ date,year,month,day,week,weekday,season,is_holiday,holiday_name,is_weekend,is_fr
 2027-10-29,2027,10,29,43,5,fall,False,,False,False,False
 2027-10-30,2027,10,30,43,6,fall,False,,True,True,False
 2027-10-31,2027,10,31,43,7,fall,False,,True,True,True
-2027-11-01,2027,11,1,44,1,fall,False,,False,False,False
+2027-11-01,2027,11,1,44,1,fall,True,Allerheiligen,False,True,True
 2027-11-02,2027,11,2,44,2,fall,False,,False,False,False
 2027-11-03,2027,11,3,44,3,fall,False,,False,False,False
 2027-11-04,2027,11,4,44,4,fall,False,,False,False,False
@@ -10531,7 +10531,7 @@ date,year,month,day,week,weekday,season,is_holiday,holiday_name,is_weekend,is_fr
 2028-10-29,2028,10,29,43,7,fall,False,,True,True,True
 2028-10-30,2028,10,30,44,1,fall,False,,False,False,False
 2028-10-31,2028,10,31,44,2,fall,False,,False,False,False
-2028-11-01,2028,11,1,44,3,fall,False,,False,False,False
+2028-11-01,2028,11,1,44,3,fall,True,Allerheiligen,False,True,True
 2028-11-02,2028,11,2,44,4,fall,False,,False,False,False
 2028-11-03,2028,11,3,44,5,fall,False,,False,False,False
 2028-11-04,2028,11,4,44,6,fall,False,,True,True,False
@@ -10896,7 +10896,7 @@ date,year,month,day,week,weekday,season,is_holiday,holiday_name,is_weekend,is_fr
 2029-10-29,2029,10,29,44,1,fall,False,,False,False,False
 2029-10-30,2029,10,30,44,2,fall,False,,False,False,False
 2029-10-31,2029,10,31,44,3,fall,False,,False,False,False
-2029-11-01,2029,11,1,44,4,fall,False,,False,False,False
+2029-11-01,2029,11,1,44,4,fall,True,Allerheiligen,False,True,True
 2029-11-02,2029,11,2,44,5,fall,False,,False,False,False
 2029-11-03,2029,11,3,44,6,fall,False,,True,True,False
 2029-11-04,2029,11,4,44,7,fall,False,,True,True,True

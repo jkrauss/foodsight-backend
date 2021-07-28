@@ -7,22 +7,24 @@ from jose import JWTError, jwt
 from passlib.context import CryptContext
 from pydantic import BaseModel
 
-# to get a string like this run:
+import dotenv
+import os
+import toml
+
+#TODO: Allow user to change expiration time for tokens in UI between 1 day and 6 months
+
+# to get a __SECRET_KEY run:
 # openssl rand -hex 32
-__SECRET_KEY = "b50724c395759587fb6870acee3ef22af83c945e4f98bd1d842df73166f3e4c2"
-__ALGORITHM = "HS256"
+# load env vars
+dotenv.load_dotenv('.env')
+__SECRET_KEY = os.environ.get('SECRET_KEY')
+__ALGORITHM = os.environ.get('ALGORITHM')
 ACCESS_TOKEN_EXPIRE_MINUTES = 60*18
 
-
-__users_db = {
-    "johndoe": {
-        "username": "johndoe",
-        "full_name": "John Doe",
-        "email": "johndoe@example.com",
-        "hashed_password": "$2b$12$EixZaYVK1fsbw1ZfbX3OXePaWxn96p36WQoeG6Lruj3vjPGga31lW",
-        "disabled": False,
-    }
-}
+# load customer specific config
+config = toml.load('customer.toml')
+__users_db = config['users']
+#print(__users_db)
 
 # used to be handed to the client for authenticated requests
 class Token(BaseModel):
@@ -60,9 +62,10 @@ def __get_password_hash(password):
 
 # retrieve a user's hashed password from db (could retrieve more)
 def __get_user(db, username: str):
-    if username in db:
-        user_dict = db[username]
-        return UserInDB(**user_dict)
+    result = [e for e in db if e['username']==username]
+    if len(result) > 0:
+        #print(result)
+        return UserInDB(**result[0])
 
 # * check if password is correct. If true return users hashed password
 def authenticate_user(username: str, password: str):

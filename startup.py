@@ -42,7 +42,8 @@ def _import_pipeline(pipeline):
     """import all steps/modules of the folder/package 'pipeline' in alphabetical order"""
     flist = list()
     for filepath in glob.iglob(f'{pipeline}/*.py'):
-        flist.append(filepath)
+        if filepath != f'{pipeline}/util.py':
+            flist.append(filepath)
 
     # this sorts the original list in place - handy for a sequential pipeline
     flist.sort()

@@ -18,7 +18,9 @@ import pandas as pd
 import holidays
 import os
 
-
+import util
+# load customer specific config
+config = util.load_config()
 
 # %%
 ### SCRIPT CELL - DON'T RUN IN NOTEBOOK
@@ -29,7 +31,8 @@ def run() :
     os.chdir(os.path.dirname(os.path.abspath(__file__)))
 
 
-    # %%
+# %%
+
     # start with the dates from 2000 - 2030
     start_date = dt.datetime(2000, 1, 1, 0, 0, 0)
     day_delta = dt.timedelta(days=1)
@@ -84,9 +87,7 @@ def run() :
     # TODO: Add coutry-wide corona-incidence
     # TODO: Expand / duplicate HE and RP
 
-    he_holidays = holidays.CountryHoliday('DE', prov='HE', years=date_dim.year.unique())
-    rp_holidays = holidays.CountryHoliday('DE', prov='HE', years=date_dim.year.unique())
-    hdays = he_holidays
+    hdays = holidays.CountryHoliday(config['base']['country'], prov=config['base']['state'], years=date_dim.year.unique())
 
     def holiday_name(d, h):
         """

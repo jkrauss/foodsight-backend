@@ -19,10 +19,11 @@ import numpy as np
 import sys, os
 import pathlib
 
-import dotenv
-import toml
 import importlib
 
+import util
+# load customer specific config
+config = util.load_config()
 
 
 # %%
@@ -34,22 +35,9 @@ def run() :
     os.chdir(os.path.dirname(os.path.abspath(__file__)))
 
 
-    # %%
-    p = pathlib.Path.cwd()
-    while not (p.parts[-1]=='pipeline' or p.parts[-1]==''):
-        p = p.parent
-    if p.parts[-1]== '':
-        raise Exception("Can't load config for register sales - are we in the pipeline?")
-    else:
-        p = p.parent
-    # p is now the path that contains config load env
+# %%
 
-    # load env vars
-    dotenv.load_dotenv(p/'.env')
     CUSTOMER_TOKEN = os.environ.get('CUSTOMER_TOKEN')
-
-    # load customer specific config
-    config = toml.load(p/'customer.toml')
 
     # load the register-plugin of the customer
     plug = importlib.import_module(config['base']['register_plugin'])

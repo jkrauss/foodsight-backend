@@ -1,12 +1,15 @@
 
 # TODO: implement authentication and authorization, build respective login / logout widgets into frontend
-# DONE: setup account at ready2order , fill data and build integration, setup plugin-system for custom data-sources
 # TODO: same for lightspeed
 # TODO: build button and service that sends the selected order amounts to server and delivers a nice pdf
 # TODO: build out header and footer
-# TODO: move all API-tokens into .env-file : https://hackersandslackers.com/simplify-your-python-projects-configuration/
 # TODO: implement forgot password flow
+
 
 # later (maybe)
 # admin interface for user management
 # article master data management
+
+
+# DONE: move all API-tokens into .env-file : https://hackersandslackers.com/simplify-your-python-projects-configuration/
+# DONE: setup account at ready2order , fill data and build integration, setup plugin-system for custom data-sources
