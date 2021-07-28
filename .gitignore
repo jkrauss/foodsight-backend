@@ -12,3 +12,4 @@ customer.toml
 .env
 looki.xlsx
 *looki*
+pipeline_graveyard/

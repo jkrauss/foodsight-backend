@@ -6,7 +6,7 @@
 #       extension: .py
 #       format_name: percent
 #       format_version: '1.3'
-#       jupytext_version: 1.11.3
+#       jupytext_version: 1.11.4
 #   kernelspec:
 #     display_name: 'Python 3.7.9 64-bit (''.venv'': venv)'
 #     name: python3
@@ -54,7 +54,7 @@ def run() :
     weather = weather.iloc[0:-1]
 
     for f in flist[1:]:
-        #remove last line because it's duplicated in thhe first line of next file
+        #remove last line because it's duplicated in the first line of next file
         df = pd.read_csv(f)
         df = df.iloc[0:-1]
         weather = pd.concat([weather, df])
@@ -90,7 +90,7 @@ def run() :
 
 # %%
 
-    # allow for max 2 hours overlap or gap
+    # allow for max 1 hour overlap or gap
     assert pd.to_datetime(fc['Date time']).min() - dt.timedelta(hours=3) < pd.to_datetime(weather['Date time']).max(), 'forecast should start exactly where history ends'
     assert  pd.to_datetime(weather['Date time']).max() + dt.timedelta(hours=3) > pd.to_datetime(fc['Date time']).min(), 'forecast should start exactly where history ends'
     weather = pd.concat([weather, fc])

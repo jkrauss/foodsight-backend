@@ -1,6 +1,6 @@
 
 # TODO: implement authentication and authorization, build respective login / logout widgets into frontend
-# TODO: setup account at ready2order , fill data and build integration, setup plugin-system for custom data-sources
+# DONE: setup account at ready2order , fill data and build integration, setup plugin-system for custom data-sources
 # TODO: same for lightspeed
 # TODO: build button and service that sends the selected order amounts to server and delivers a nice pdf
 # TODO: build out header and footer
@@ -9,4 +9,4 @@
 
 # later (maybe)
 # admin interface for user management
-- article master data management
+# article master data management

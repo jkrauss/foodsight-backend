@@ -1,7 +1,7 @@
 
 import importlib
 import glob
-import os
+import sys, os
 import schedule
 from schedule import every, repeat
 import time
@@ -9,6 +9,12 @@ import uvicorn
 import datetime as dt
 
 import multiprocessing as mp
+
+
+# required so that plugins can be loaded 
+HERE = os.path.dirname(os.path.abspath(__file__))
+sys.path.append(HERE+'/pipeline')
+
 
 # TODO: Deployments are sloow.. write deployment script that client/npm run build, del .venv, deploy, rebuild .venv 
 # TODO: Build something that restarts the pipeline when it fails
@@ -57,7 +63,7 @@ def run_pipeline(pipeline_steps):
         for step in pipeline_steps:
             step.run()
     except Exception as e:
-        print(f'pipeline run failed at {dt.datetime.now()}, exception below..')
+        print(f'pipeline run failed in step {str(step)} at {dt.datetime.now()}, exception below..')
         print(e)
     else:
         print(f'pipeline completed successfully at {dt.datetime.now()}')

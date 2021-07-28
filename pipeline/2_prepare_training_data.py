@@ -6,7 +6,7 @@
 #       extension: .py
 #       format_name: percent
 #       format_version: '1.3'
-#       jupytext_version: 1.11.3
+#       jupytext_version: 1.11.4
 #   kernelspec:
 #     display_name: 'Python 3.7.9 64-bit (''.venv'': venv)'
 #     name: python3
@@ -115,12 +115,12 @@ def run() :
     # therefore the 3rd set 'prod' contains all data
 
     # calculate train, test, prod timespans and cutoff-date
-    timespan = (sales.date.max() - sales.date.min()).days
+    timespan = (pred_cutoff - sales.date.min()).days
     train_span = int(timespan*0.75)
     test_span = timespan - train_span
     cutoff_date = start+dt.timedelta(days=train_span)
 
-    timespan, train_span, test_span, start, end, cutoff_date
+    timespan, train_span, test_span, start, pred_cutoff, cutoff_date
 
     # %%
     # cut data into respective dicts train_data and test_data
@@ -139,12 +139,12 @@ def run() :
     # assert we have sufficient data in each set and time-cuts worked out correctly
     for el in train_data:
         #print(el, len(train_data[el]), train_data[el].date.max())
-        assert len(train_data[el]) > 10, 'train data of {} should have at least 10 examples'.format(el, cutoff_date)
+        assert len(train_data[el]) >= 10, 'train data of {} should have at least 10 examples'.format(el, cutoff_date)
         assert train_data[el].date.max() <= cutoff_date, 'train data of {} should not contain dates after cutoff_date {}'.format(el, cutoff_date)
 
     for el in test_data:
         #print(el, len(test_data[el]), test_data[el].date.min())
-        assert len(test_data[el]) > 10, 'test data of {} should have at least 10 examples'.format(el, cutoff_date)
+        assert len(test_data[el]) >= 10, 'test data of {} should have at least 10 examples'.format(el, cutoff_date)
         assert test_data[el].date.min() > cutoff_date, 'test data of {} should not contain dates before/at cutoff_date {}'.format(el, cutoff_date)
 
 

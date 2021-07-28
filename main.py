@@ -18,7 +18,6 @@ from main_auth import *
 
 app = FastAPI()
 
-"""
 origins = [
     "http://localhost",
     "http://localhost:8000",
@@ -28,11 +27,12 @@ origins = [
     "http://127.0.0.1:5000",
     "https://foodsight.azurewebsites.net/",
 ]
-"""
 
-origins = [
-    "*"
-]
+
+# to deactivate CORS completely...
+#origins = [
+#    "*"
+#]
 
 app.add_middleware(
     CORSMiddleware,
@@ -108,9 +108,9 @@ async def read_users_me(current_user: User = Depends(get_current_active_user)):
     return current_user
 
 # secured API-method that returns some random data if token is valid
-@app.get("/users/me/items/")
-async def read_own_items(current_user: User = Depends(get_current_active_user)):
-    return [{"item_id": "Foo", "owner": current_user.username}]
+# @app.get("/users/me/items/")
+# async def read_own_items(current_user: User = Depends(get_current_active_user)):
+#     return [{"item_id": "Foo", "owner": current_user.username}]
 
 
 # Place After All Other Routes

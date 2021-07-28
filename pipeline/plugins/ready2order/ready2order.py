@@ -5,6 +5,7 @@ import requests
 import toml
 import pathlib
 import time
+import datetime as dt
 
 company_url = "https://api.ready2order.com/v1/company"
 invoice_url = "https://api.ready2order.com/v1/document/invoice"
@@ -38,7 +39,10 @@ def load_sales(token, store=1, from_date_str=None, to_date_str=None):
     headers = {
         'Authorization' : token
     }
-
+    
+    # need to increment dateTo by one day because ready2order-api excludes the to-date
+    to_date_str = str(dt.datetime.strptime(to_date_str,'%Y-%m-%d').date()+dt.timedelta(days=1))
+    
     invoice_querystring['dateFrom'] = from_date_str
     invoice_querystring['dateTo'] = to_date_str
 
