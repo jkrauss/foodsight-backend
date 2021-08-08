@@ -22,6 +22,9 @@ import pandas as pd
 
 import os
 
+import util
+config = util.load_config()
+
 
 # %%
 ### SCRIPT CELL - DON'T RUN IN NOTEBOOK
@@ -43,9 +46,8 @@ def run() :
         ,"contentType":"csv"
         ,"shortColumnNames":"0"
         }
-
     headers = {
-        'x-rapidapi-key': "0775822d7dmshcc59ba9c3899f48p1c5f41jsn6c9e54ea8866",
+        'x-rapidapi-key': os.environ.get('RAPID_API_KEY'),
         'x-rapidapi-host': "visual-crossing-weather.p.rapidapi.com"
         }
 

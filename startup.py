@@ -90,6 +90,8 @@ def start_schedule(pipeline_steps):
 
 if __name__ == '__main__':
 
+    os.environ["CONFIG_DIR"] = os.getcwd()
+
     # import all steps/modules of the folder/package in alphabetical order
     pipeline_steps = _import_pipeline('pipeline')
 

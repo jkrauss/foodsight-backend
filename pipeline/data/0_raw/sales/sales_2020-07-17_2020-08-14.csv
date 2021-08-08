@@ -1,1 +1,1 @@
-index,store,product,sales,date,price,AGE60,EDUC,ETHNIC,INCOME,HHLARGE,WORKWOM,HVAL150,SSTRDIST,SSTRVOL,CPDIST5,CPWVOL5
+level_0,index,store,product,sales,date,invoice_total,invoice_totalTip,invoice_address_city,invoice_deleted_at,customerCategory_id,tableArea_id,address.company,address.city,item_product_discountable,item_product_pricePerUnit,item_retour,item_expirationDate,item_price,item_lineDiscountGross,item_invoiceDiscountGross,item_discountable,paymentMethod_id_x,productgroup_name,user_name,table_name

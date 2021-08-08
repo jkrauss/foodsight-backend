@@ -118,7 +118,11 @@ def run() :
                     if is_num[c]: # mean of last 3
                         row.append(grp.get_group((s, p))[-3:][c].mean())
                     else: # most frequent value of last 3
-                        row.append(grp.get_group((s, p))[-3:][c].mode()[0])
+                        mode_list = grp.get_group((s, p))[-3:][c].mode()
+                        if len(mode_list) > 0:
+                            row.append(mode_list[0])
+                        else:
+                            row.append(None)
                 data.append(row)
 
     future = pd.DataFrame(data=data, columns=['store', 'product', 'sales', 'date']+infer_columns)
@@ -140,3 +144,5 @@ def run() :
 if __name__ == '__main__':
     # run this step
     run()
+
+# %%

@@ -107,7 +107,7 @@ def run() :
     # train a model for evaluation
     test_model = cb.CatBoostRegressor(**params)
     test_model.fit(train_pool, eval_set=test_pool
-    , plot=True
+    #, plot=True
     )
 
     # %%

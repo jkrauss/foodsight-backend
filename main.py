@@ -21,6 +21,7 @@ import toml
 app = FastAPI()
 
 config = toml.load('customer.toml')
+print(config)
 origins = config['base']['origins']
 
 
@@ -71,10 +72,16 @@ def get_forecast(store:int, days:int=1, current_user: User = Depends(get_current
     result = found[forecasts.date.isin(dates[:days])][['date', 'product', 'sales_prediction']].reset_index(drop=True).reset_index()
     result.columns=['id', 'date', 'product', 'forecast']
 
-    result.forecast = result.forecast.apply(round)
 
-    result['order_range'] = ''
+    # TODO: do a proper calculation of order-range instead of this 
+    result['order_from'] = (result.forecast*0.8).apply(round).apply(str)
+    result['order_to'] = (result.forecast*1.2).apply(round).apply(str)
+    result['order_range'] = result.order_from + ' - ' + result.order_to
+    result = result.drop(['order_from', 'order_to'], axis=1)
+
+    result.forecast = result.forecast.apply(round)
     result['order_qty'] = result.forecast
+
     result['comment'] = ''
     result.to_json(orient='records')
     return result.to_dict(orient='records') #FileResponse('client/public/tableData.json')
@@ -88,7 +95,7 @@ async def login_for_access_token(form_data: OAuth2PasswordRequestForm = Depends(
     if not user:
         raise HTTPException(
             status_code=status.HTTP_401_UNAUTHORIZED,
-            detail="Incorrect username or password",
+            detail="Falscher Benutzername oder Passwort",
             headers={"WWW-Authenticate": "Bearer"},
         )
     access_token_expires = timedelta(minutes=ACCESS_TOKEN_EXPIRE_MINUTES)

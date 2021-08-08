@@ -1,25 +1,30 @@
 import pathlib
-
+import os
 import dotenv
 import toml
 
-def load_config():
-    p = pathlib.Path.cwd()
-
-    if p.parts[-1]=='foodsight':
-        pass
-    elif p.parent.parts[-1]=='foodsight':
-        p = p.parent
-    else:
-        while not (p.parts[-1]=='pipeline'):
-            p = p.parent
-        if p.parts[-1]== '/':
-            raise Exception("Can't load config in util.load_config - are we in the pipeline?")
-        # p is now the path that contains config load env
-
+def __load_with_path(p):
+    config = toml.load(os.path.join(p, 'customer.toml'))
     # load env vars
-    dotenv.load_dotenv(p/'.env')
+    dotenv.load_dotenv(os.path.join(p, '.env'))
+    return config
 
-    # load customer specific config
-    config = toml.load(p/'customer.toml')
+def load_config():
+
+    if os.environ['CONFIG_DIR']:
+        config = __load_with_path(os.environ['CONFIG_DIR'])
+    else:
+        p = pathlib.Path.cwd()
+        if p.parts[-1]=='foodsight':
+            pass
+        elif p.parent.parts[-1]=='foodsight':
+            p = p.parent
+        else:
+            while not (p.parts[-1]=='pipeline'):
+                p = p.parent
+            if p.parts[-1]== '/':
+                raise Exception("Can't load config in util.load_config - are we in the pipeline?")
+            # p is now the path that contains config load env
+        config = __load_with_path(p)
+
     return config
