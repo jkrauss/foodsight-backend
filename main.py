@@ -21,8 +21,8 @@ import toml
 app = FastAPI()
 
 config = toml.load('customer.toml')
-print(config)
-origins = config['base']['origins']
+
+origins = ["*"]
 
 
 # to deactivate CORS completely...
@@ -38,12 +38,16 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
+
 @app.get('/')
 def home():
     return FileResponse('client/public/index.html')
 
+
 @app.get('/api/forecast/')
 def get_forecast(store:int, days:int=1, current_user: User = Depends(get_current_active_user)):
+
+
 #def get_forecast(store:int, days:int=1):
 
     try:
@@ -87,7 +91,6 @@ def get_forecast(store:int, days:int=1, current_user: User = Depends(get_current
     return result.to_dict(orient='records') #FileResponse('client/public/tableData.json')
 
 
-
 # actual API method that delivers tokens on successful login
 @app.post("/token", response_model=Token)
 async def login_for_access_token(form_data: OAuth2PasswordRequestForm = Depends()):
@@ -104,15 +107,19 @@ async def login_for_access_token(form_data: OAuth2PasswordRequestForm = Depends(
     )
     return {"access_token": access_token, "token_type": "bearer"}
 
-# secured API-method that returns user data if token is valid
-@app.get("/users/me/", response_model=User)
-async def read_users_me(current_user: User = Depends(get_current_active_user)):
-    return current_user
 
-# secured API-method that returns some random data if token is valid
-# @app.get("/users/me/items/")
-# async def read_own_items(current_user: User = Depends(get_current_active_user)):
-#     return [{"item_id": "Foo", "owner": current_user.username}]
+# secured API-method that returns user data if token is valid
+@app.get("/api/usersettings/")
+def get_usersettings(current_user: User = Depends(get_current_active_user)):
+
+    user_settings = dict([u for u in config['users'] if u['username']==current_user.username][0])
+
+    del user_settings['hashed_password']
+    del user_settings['disabled']
+
+    settings = {**config['base'], **user_settings}
+
+    return settings
 
 
 # Place After All Other Routes
