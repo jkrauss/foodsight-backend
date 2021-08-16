@@ -19,7 +19,7 @@ import toml
 dotenv.load_dotenv('.env')
 
 # load customer specific config
-config = toml.load('customer.toml')
+config = toml.load('pipeline/data/customer.toml')
 
 __SECRET_KEY = os.environ.get('SECRET_KEY')
 __ALGORITHM = os.environ.get('ALGORITHM')

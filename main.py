@@ -22,7 +22,7 @@ import toml
 
 app = FastAPI()
 
-config = toml.load('customer.toml')
+config = toml.load('pipeline/data/customer.toml')
 
 origins = ["*"]
 
@@ -157,7 +157,7 @@ def put_usersettings(user_settings: UserSettings, current_user: User = Depends(g
                 config['users'][ix][k] = v
 
     # write to file
-    with open("customer.toml", "w") as f:
+    with open("pipeline/data/customer.toml", "w") as f:
         toml.dump(config, f)
 
 class ProblemReport(BaseModel):

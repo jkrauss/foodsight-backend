@@ -4,7 +4,7 @@ import dotenv
 import toml
 
 def __load_with_path(p):
-    config = toml.load(os.path.join(p, 'customer.toml'))
+    config = toml.load(os.path.join(p, '/pipeline/data/customer.toml'))
     # load env vars
     dotenv.load_dotenv(os.path.join(p, '.env'))
     return config
