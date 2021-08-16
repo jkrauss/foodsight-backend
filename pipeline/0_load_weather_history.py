@@ -20,6 +20,8 @@ import pandas as pd
 import os
 import glob
 
+import util
+config = util.load_config()
 
 # %%
 ### SCRIPT CELL - DON'T RUN IN NOTEBOOK
@@ -27,7 +29,7 @@ import glob
 
 def run() :
     # change working directory to where this file lives
-    os.chdir(os.path.dirname(os.path.abspath(__file__)))
+    os.chdir(config['base']['pipeline_path'])
 
 
 

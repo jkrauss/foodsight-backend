@@ -1,37 +1,40 @@
 from fastapi import FastAPI
-from fastapi import status
+from fastapi import status, Depends, HTTPException
 from fastapi.responses import FileResponse, JSONResponse
 from fastapi.staticfiles import StaticFiles
 from fastapi.middleware.cors import CORSMiddleware
+from fastapi.security import OAuth2PasswordBearer, OAuth2PasswordRequestForm
 
 from typing import Optional
+from pydantic import BaseModel
 
 import pandas as pd
-
-from main_auth import *
-
 import toml
 
+import importlib
+import glob
+import sys, os
+import schedule
+from schedule import every, repeat
+import time
+import uvicorn
+import datetime as dt
 
-# TODO: UI: Select how many days of forecast to pull
-# TODO: UI & API: Button to generate and deliver pdf of completed order
-# TODO: Write unit tests that ensure authentication and authorization do work
-# TODO: Does implementing client_id and client_secret help security?
+import multiprocessing as mp
 
-# preload forecasts
+from main_auth import get_current_active_user, authenticate_user, create_access_token, User, Token, ACCESS_TOKEN_EXPIRE_MINUTES
+
+#######################
+### UVICORN SECTION ###
+#######################
 
 app = FastAPI()
-
 config = toml.load('pipeline/data/customer.toml')
-
 origins = ["*"]
-
-
 # to deactivate CORS completely...
 #origins = [
 #    "*"
 #]
-
 app.add_middleware(
     CORSMiddleware,
     allow_origins=origins,
@@ -87,8 +90,7 @@ def get_forecast(store:int, current_user: User = Depends(get_current_active_user
 
     result = pd.merge(pd.merge(tomorrow, day_after, left_on='product', right_on='product')
         , seven_days, left_on='product', right_on='product')
-
-
+    
     result.to_json(orient='records')
     return result.to_dict(orient='records') #FileResponse('client/public/tableData.json')
 
@@ -103,7 +105,7 @@ async def login_for_access_token(form_data: OAuth2PasswordRequestForm = Depends(
             detail="Falscher Benutzername oder Passwort",
             headers={"WWW-Authenticate": "Bearer"},
         )
-    access_token_expires = timedelta(minutes=ACCESS_TOKEN_EXPIRE_MINUTES)
+    access_token_expires = dt.timedelta(minutes=ACCESS_TOKEN_EXPIRE_MINUTES)
     access_token, expire_dt = create_access_token(
         data={"sub": user.username}, expires_delta=access_token_expires
     )
@@ -167,7 +169,93 @@ class ProblemReport(BaseModel):
 
 @app.post("/api/problem")
 def post_problem(problem_report: ProblemReport):
+    # TODO: implement!
     return True
+
 
 # Place After All Other Routes
 app.mount('/', StaticFiles(directory="client/public/"), name="static")
+
+
+########################
+### PIPELINE SECTION ###
+########################
+
+# required so that plugins can be loaded 
+HERE = os.path.dirname(os.path.abspath(__file__))
+sys.path.append(HERE+'/pipeline')
+
+def _import(pipeline, step):
+    """Import the given plugin file from a package"""
+    return importlib.import_module(f"{pipeline}.{step}")
+
+#@repeat(every(6*60).minutes, 'pipeline') # 4 times a day - every 6 hours
+    #print(f"pipeline run started at {dt.datetime.now()}")
+    
+def _import_pipeline(pipeline):
+
+    cwd = os.getcwd()
+
+    """import all steps/modules of the folder/package 'pipeline' in alphabetical order"""
+    flist = list()
+    for filepath in glob.iglob(f'{pipeline}/*.py'):
+        if filepath != f'{pipeline}/util.py':
+            flist.append(filepath)
+
+    # this sorts the original list in place - handy for a sequential pipeline
+    flist.sort()
+
+    pipeline_steps = list()
+    steps = [f[:-3] for f in flist if f[0] != "_"]
+    for step in steps:
+        pipeline_steps.append(_import(*step.split('/')))
+
+    os.chdir(cwd)
+    
+    return pipeline_steps
+
+def run_pipeline(pipeline_steps):
+    print(f'starting pipeline run at {dt.datetime.now()}')
+    for step in pipeline_steps:
+        step.run()
+    try:
+        # run whole pipeline or break, but without breaking the process
+        for step in pipeline_steps:
+            step.run()
+    except Exception as e:
+        print(f'pipeline run failed in step {str(step)} at {dt.datetime.now()}, exception below..')
+        print(e)
+    else:
+        print(f'pipeline completed successfully at {dt.datetime.now()}')
+
+
+# not required in main.py was used in startup.py
+def start_uvi():
+    print(os.getcwd())
+    #os.system('uvicorn main:app')
+    uvicorn.run("main:app", host="0.0.0.0", port=8000, log_level="info")
+
+def start_schedule(pipeline_steps):
+
+    schedule.every().day.at('03:00').do(run_pipeline, pipeline_steps)
+    #schedule.every().day.at('09:00').do(run_pipeline, pipeline_steps)
+    schedule.every().day.at('15:00').do(run_pipeline, pipeline_steps)
+    #schedule.every().day.at('21:00').do(run_pipeline, pipeline_steps)    
+
+    #schedule.every(10).minutes.do(run_pipeline, pipeline_steps)
+    run_pipeline(pipeline_steps)
+
+    while True:
+        schedule.run_pending()
+        time.sleep(10)
+
+os.environ["CONFIG_DIR"] = os.getcwd()
+
+# import all steps/modules of the folder/package in alphabetical order
+pipeline_steps = _import_pipeline('pipeline')
+
+#p1 = mp.Process(target=start_uvi, name='uvicorn')
+p2 = mp.Process(target=start_schedule, args=(pipeline_steps,), name='pipeline')
+
+#p1.start()
+p2.start()

@@ -28,7 +28,7 @@ config = util.load_config()
 
 def run() :
     # change working directory to where this file lives
-    os.chdir(os.path.dirname(os.path.abspath(__file__)))
+    os.chdir(config['base']['pipeline_path'])
 
 
 # %%
