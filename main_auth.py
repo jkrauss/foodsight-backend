@@ -32,6 +32,7 @@ __users_db = config['users']
 class Token(BaseModel):
     access_token: str
     token_type: str
+    expires: str
 
 # used to extract username from token we received from the client
 class TokenData(BaseModel):
@@ -87,7 +88,7 @@ def create_access_token(data: dict, expires_delta: Optional[timedelta] = None):
         expire = datetime.utcnow() + timedelta(minutes=15)
     to_encode.update({"exp": expire})
     encoded_jwt = jwt.encode(to_encode, __SECRET_KEY, algorithm=__ALGORITHM)
-    return encoded_jwt
+    return encoded_jwt, expire
 
 # validate a token received from client and if successful return users hashed password
 async def __get_current_user(token: str = Depends(__oauth2_scheme)):
