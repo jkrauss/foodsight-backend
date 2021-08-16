@@ -91,8 +91,8 @@ def run() :
 # %%
 
     # allow for max 1 hour overlap or gap
-    assert pd.to_datetime(fc['Date time']).min() - dt.timedelta(hours=3) < pd.to_datetime(weather['Date time']).max(), 'forecast should start exactly where history ends'
-    assert  pd.to_datetime(weather['Date time']).max() + dt.timedelta(hours=3) > pd.to_datetime(fc['Date time']).min(), 'forecast should start exactly where history ends'
+    assert pd.to_datetime(fc['Date time']).min() - dt.timedelta(hours=4) < pd.to_datetime(weather['Date time']).max(), 'forecast should start exactly where history ends' # change to 3
+    assert  pd.to_datetime(weather['Date time']).max() + dt.timedelta(hours=4) > pd.to_datetime(fc['Date time']).min(), 'forecast should start exactly where history ends' # change to 3
     weather = pd.concat([weather, fc])
 
 

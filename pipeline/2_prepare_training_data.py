@@ -84,8 +84,14 @@ def run() :
     # %%
     prod_data.keys()
 
+    # %%
+    # prod_data['sales'].date.max(), prod_data['days'].date.max(), prod_data['weather'].date.max()
+
 # %% [markdown]
 # # cut train, test and prod datasets
+
+    # %%
+    # pd.to_datetime((prod_data['sales'][prod_data['sales'].sales.isna()].date)).min()
 
     # %%
     # First separate the prediction-set from the data for training
@@ -225,6 +231,9 @@ def run() :
 
     # %%
     type(prod_features), type(prod_feature_defs)
+
+    # %%
+    # predict_features
 
     # %%
     # Write datasets and feature definitions to 2_pre_train folder

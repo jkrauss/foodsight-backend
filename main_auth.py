@@ -17,12 +17,14 @@ import toml
 # openssl rand -hex 32
 # load env vars
 dotenv.load_dotenv('.env')
-__SECRET_KEY = os.environ.get('SECRET_KEY')
-__ALGORITHM = os.environ.get('ALGORITHM')
-ACCESS_TOKEN_EXPIRE_MINUTES = 2 #60*18
 
 # load customer specific config
 config = toml.load('customer.toml')
+
+__SECRET_KEY = os.environ.get('SECRET_KEY')
+__ALGORITHM = os.environ.get('ALGORITHM')
+ACCESS_TOKEN_EXPIRE_MINUTES = config['base']['login_valid_minutes'] #60*18
+
 __users_db = config['users']
 #print(__users_db)
 
@@ -50,7 +52,7 @@ class UserInDB(User):
 __pwd_context = CryptContext(schemes=["bcrypt"], deprecated="auto")
 
 # we use the OAuth2 "Password with Bearer"-flow
-__oauth2_scheme = OAuth2PasswordBearer(tokenUrl="token")
+__oauth2_scheme = OAuth2PasswordBearer(tokenUrl="api/token")
 
 # does the plaintext-password match the hashed version on file?
 def __verify_password(plain_password, hashed_password):
