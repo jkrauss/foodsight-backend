@@ -1,4 +1,5 @@
 from datetime import datetime, timedelta
+import pytz
 from typing import Optional
 
 from fastapi import Depends, FastAPI, HTTPException, status
@@ -82,13 +83,16 @@ def authenticate_user(username: str, password: str):
 # * relatively generic method to generate a jwt-token from a dict
 def create_access_token(data: dict, expires_delta: Optional[timedelta] = None):
     to_encode = data.copy()
+    tz = pytz.timezone('Europe/Berlin')
     if expires_delta:
         expire = datetime.utcnow() + expires_delta
+        exp_local = datetime.now(tz) + expires_delta
     else:
         expire = datetime.utcnow() + timedelta(minutes=15)
+        exp_local = datetime.now(tz) + timedelta(minutes=15)
     to_encode.update({"exp": expire})
     encoded_jwt = jwt.encode(to_encode, __SECRET_KEY, algorithm=__ALGORITHM)
-    return encoded_jwt, expire
+    return encoded_jwt, exp_local
 
 # validate a token received from client and if successful return users hashed password
 async def __get_current_user(token: str = Depends(__oauth2_scheme)):
