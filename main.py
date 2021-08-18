@@ -19,6 +19,8 @@ from schedule import every, repeat
 import time
 import uvicorn
 import datetime as dt
+import pathlib
+import base64
 
 import multiprocessing as mp
 
@@ -169,8 +171,22 @@ class ProblemReport(BaseModel):
 
 @app.post("/api/problem")
 def post_problem(problem_report: ProblemReport):
-    # TODO: implement!
-    return True
+    try:
+        dir_str = f"pipeline/data/problem_reports/report_{str(dt.datetime.now())}"
+        dir = pathlib.Path(dir_str)
+        dir.mkdir(parents=False, exist_ok=False)
+
+        screen_path = dir / "screenshot.png"
+        message_path = dir / "message.txt"
+
+        screen = base64.b64decode(problem_report.screenshot.split(',')[1])
+        screen_path.write_bytes(screen)
+        message_path.write_text(problem_report.problem_text)
+
+        return True
+    except:
+        print("Error saving problem_report:", sys.exc_info()[0])
+        return False
 
 
 # Place After All Other Routes
