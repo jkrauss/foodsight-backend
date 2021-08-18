@@ -243,7 +243,7 @@ def start_schedule(pipeline_steps):
     #schedule.every().day.at('21:00').do(run_pipeline, pipeline_steps)    
 
     #schedule.every(10).minutes.do(run_pipeline, pipeline_steps)
-    run_pipeline(pipeline_steps)
+    # run_pipeline(pipeline_steps)
 
     while True:
         schedule.run_pending()
