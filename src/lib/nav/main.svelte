@@ -25,13 +25,16 @@
 		}
 		// after every login or logout set the main content to show the table
 		// "https://raw.githubusercontent.com/hperrin/svelte-material-ui/master/site/static/logo.png"
-		$mainContent = "table";
+		$mainContent = "intro";
 	}
 	function settings() {
 		$mainContent = "settings";
 	}
+	function intro() {
+		$mainContent = "intro";
+	}
 	function reportProblem() {
-		$modal.title = "Problem Melden";
+		$modal.title = "Idee oder Problem melden";
 		$modal.component = ReportProblem;
 	}
 </script>
@@ -43,30 +46,24 @@
 		<Row>
 			<Section
 				on:click={() => ($mainContent = "table")}
-				class="cursor-pointer"
 			>
 				<Wrapper>
 					<Icon
 						component={Img}
 						style="height: 48px; width: 48px;"
 						src="logo.png"
+						class="cursor-pointer p-2"
 					/>
-					<Title>foodsight</Title>
-					<Tooltip>Hauptseite</Tooltip>
+					<Title class="cursor-pointer p-2">foodsight</Title>
+					<Tooltip>Planung</Tooltip>
 				</Wrapper>
 			</Section>
 			<Section align="end">
 				<Wrapper>
-					<IconButton class="material-icons" on:click={reportProblem}>
-						report_problem
-					</IconButton>
-					<Tooltip>Report Problem</Tooltip>
+					<div class="sm:flex hidden">
+						{$userSettings?.username || "DEMO"}
+					</div>
 				</Wrapper>
-
-				<div class="sm:flex hidden">
-					{$userSettings?.username || "DEMO"}
-				</div>
-
 				<Wrapper>
 					<IconButton class="material-icons" on:click={auth}
 						>{#if $user && Object.keys($user).length}logout{:else}login{/if}
@@ -74,6 +71,12 @@
 					<Tooltip
 						>{#if $user && Object.keys($user).length}Logout{:else}Login{/if}</Tooltip
 					>
+				</Wrapper>
+				<Wrapper>
+					<IconButton class="material-icons" on:click={reportProblem}>
+						mail
+					</IconButton>
+					<Tooltip>Idee oder Problem</Tooltip>
 				</Wrapper>
 				<!-- wrapper to keep menu in place -->
 				<div class="relative">
@@ -84,19 +87,25 @@
 						>menu
 					</IconButton>
 					<Menu bind:menuToggle>
-						<li
-							on:click={() => {
-								$mainContent = "";
-							}}
-							class="cursor-pointer p-2"
-						>
-							Vorhersage
-						</li>
 						<li on:click={auth} class="cursor-pointer p-2">
 							{#if $user && Object.keys($user).length}Logout{:else}Login{/if}
 						</li>
+						<li on:click={intro} class="cursor-pointer p-2">
+							Los gehts
+						</li>
+						<li
+							on:click={() => {
+								$mainContent = "table";
+							}}
+							class="cursor-pointer p-2"
+						>
+							Planung
+						</li>
 						<li on:click={settings} class="cursor-pointer p-2">
 							Einstellungen
+						</li>
+						<li on:click={reportProblem} class="cursor-pointer p-2">
+							Idee/Problem
 						</li>
 					</Menu>
 				</div>
