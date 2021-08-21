@@ -192,15 +192,44 @@ def post_problem(problem_report: ProblemReport):
 class OrderData(BaseModel):
     data: list
     option: str
+    order_option: str
 
 
 @app.post("/api/order")
 def post_order(order_data: OrderData):
     df = pd.DataFrame.from_records(data=order_data.data)
+
+    df.rename(mapper={
+            'id': 'ID',
+            'product': "Produkt",
+            'tomorrow_order_qty': 'Bestellung Morgen',
+            'day_after_order_qty': 'Bestellung Übermorgen',
+            'next7_order_qty': 'Bestellung nächste 7 Tage',
+        }, axis=1, inplace=True, errors='raise')
+
+    if order_data.order_option == 'tomorrow':
+        df = df.drop(['day_after_order_range'
+            , 'Bestellung Übermorgen'
+            , 'next7_order_range'
+            , 'Bestellung nächste 7 Tage'
+            , 'tomorrow_order_range'], axis=1)
+    elif order_data.order_option == 'day_after_tomorrow':
+        df = df.drop(['tomorrow_order_range'
+            , 'Bestellung Morgen'
+            , 'next7_order_range'
+            , 'Bestellung nächste 7 Tage'
+            , 'day_after_order_range'], axis=1)
+    elif order_data.order_option == 'next_seven_days':
+        df = df.drop(['day_after_order_range'
+            , 'Bestellung Übermorgen'
+            , 'tomorrow_order_range'
+            , 'Bestellung Morgen'
+            , 'next7_order_range'], axis=1)
+
     if order_data.option == 'xlsx':
         f = "pipeline/data/Foodsight_Bestellung.xlsx"
         mt = "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
-        df.to_excel(f)
+        df.to_excel(f, index=False)
         return FileResponse(path=f, media_type=mt, filename="Foodsight_Bestellung.xlsx")
     else:
         return df.to_csv(index=False)
