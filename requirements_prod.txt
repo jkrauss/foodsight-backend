@@ -24,3 +24,5 @@ passlib[bcrypt]
 
 python-dotenv
 toml
+
+openpyxl

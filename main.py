@@ -13,7 +13,7 @@ import toml
 
 import importlib
 import glob
-import sys, os
+import sys, os, io
 import schedule
 from schedule import every, repeat
 import time
@@ -187,6 +187,23 @@ def post_problem(problem_report: ProblemReport):
     except:
         print("Error saving problem_report:", sys.exc_info()[0])
         return False
+
+
+class OrderData(BaseModel):
+    data: list
+    option: str
+
+
+@app.post("/api/order")
+def post_order(order_data: OrderData):
+    df = pd.DataFrame.from_records(data=order_data.data)
+    if order_data.option == 'xlsx':
+        f = "pipeline/data/Foodsight_Bestellung.xlsx"
+        mt = "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
+        df.to_excel(f)
+        return FileResponse(path=f, media_type=mt, filename="Foodsight_Bestellung.xlsx")
+    else:
+        return df.to_csv(index=False)
 
 
 # Place After All Other Routes
