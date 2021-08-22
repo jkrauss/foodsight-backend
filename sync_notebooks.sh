@@ -1,2 +1,3 @@
-# jupytext --set-formats ipynb,py:percent ./0_load_register_sales.ipynb
+
+# python -m pair_pipeline
 jupytext --sync pipeline/*.ipynb

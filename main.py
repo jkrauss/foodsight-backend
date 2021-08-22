@@ -60,41 +60,8 @@ def get_forecast(store:int, current_user: User = Depends(get_current_active_user
     if len(found)==0:
         return status.HTTP_422_UNPROCESSABLE_ENTITY , {f'store with id {store} is not known.'}
 
-    dates = forecasts.date.unique()
-    dates.sort()
-    print("dates in forecast: ", dates)
-
-    # filter and format a bit
-    result = found[forecasts.date.isin(dates[:7])][['date', 'product', 'sales_prediction']].reset_index(drop=True).reset_index()
-    result.columns=['id', 'date', 'product', 'forecast']
-
-    # TODO: do a proper calculation of order-range instead of this 
-    result['order_from'] = (result.forecast*0.8).apply(round)#.apply(str)
-    result['order_to'] = (result.forecast*1.2).apply(round)#.apply(str)
-
-    result.forecast = result.forecast.apply(round)
-
-    # build 3 frames: tomorrow, day_after, seven_days
-    tomorrow = result[result.date==dates[0]][['product', 'forecast', 'order_from', 'order_to']]
-    day_after = result[result.date==dates[1]][['product', 'forecast', 'order_from', 'order_to']]
-    seven_days = result[['product', 'forecast', 'order_from', 'order_to']].groupby('product').sum().reset_index()
-
-    tomorrow['tomorrow_order_range'] = tomorrow.order_from.apply(str) + ' - ' + tomorrow.order_to.apply(str)
-    day_after['day_after_order_range'] = day_after.order_from.apply(str) + ' - ' + day_after.order_to.apply(str)
-    seven_days['next7_order_range'] = seven_days.order_from.apply(str) + ' - ' + seven_days.order_to.apply(str)
-
-    tomorrow = tomorrow[['product', 'forecast', 'tomorrow_order_range']]
-    tomorrow.columns = ['product', 'tomorrow_order_qty', 'tomorrow_order_range']
-    day_after = day_after[['product', 'forecast', 'day_after_order_range']]
-    day_after.columns = ['product', 'day_after_order_qty', 'day_after_order_range']
-    seven_days = seven_days[['product', 'forecast', 'next7_order_range']]
-    seven_days.columns = ['product', 'next7_order_qty', 'next7_order_range']
-
-    result = pd.merge(pd.merge(tomorrow, day_after, left_on='product', right_on='product')
-        , seven_days, left_on='product', right_on='product')
-    
-    result.to_json(orient='records')
-    return result.to_dict(orient='records') #FileResponse('client/public/tableData.json')
+    found = found.drop('store', axis=1)
+    return found.to_dict(orient='records') #FileResponse('client/public/tableData.json')
 
 
 # actual API method that delivers tokens on successful login

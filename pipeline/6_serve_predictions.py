@@ -1,7 +1,7 @@
 # ---
 # jupyter:
 #   jupytext:
-#     formats: ipynb,py:percent
+#     formats: py:percent,ipynb
 #     text_representation:
 #       extension: .py
 #       format_name: percent
@@ -53,14 +53,12 @@ import pandas as pd
 import catboost as cb
 import os
 
-#TODO: Generate order_range
-
-import util
-config = util.load_config()
 
 # %%
 ### SCRIPT CELL - DON'T RUN IN NOTEBOOK
 
+import util
+config = util.load_config()
 
 def run() :
     # change working directory to where this file lives
@@ -89,7 +87,67 @@ def run() :
     X_predict['sales_prediction'] = predictions
 
     # %%
-    X_predict[['index', 'store', 'product', 'date', 'sales_prediction']].to_csv('data/6_predict/predictions.csv')
+    # TODO: introduce and handle product_number as id correctly through the pipeline
+    result = X_predict[['store', 'date', 'product', 'sales_prediction']]
+
+    # ensure we only return numbers for next seven days and filter/format a bit
+    dates = result.date.unique()
+    dates.sort()
+
+    result = result[result.date.isin(dates[:7])].reset_index(drop=True).reset_index()
+    # ATTENTION! Is dependent on the order of the filter above result = X_predict[[...
+    result.columns=['id', 'store', 'date', 'product', 'forecast']
+
+
+    # %%
+    # TODO: do a proper calculation of order-range instead of this 
+    result['order_from'] = (result.forecast*0.85)
+    result['order_to'] = (result.forecast*1.15)
+
+    # %%
+    # build 3 frames: tomorrow, day_after, seven_days
+    tomorrow = result[result.date==dates[0]][['id', 'store', 'product', 'forecast', 'order_from', 'order_to']]
+    day_after = result[result.date==dates[1]][['id', 'store', 'product', 'forecast', 'order_from', 'order_to']]
+    seven_days = result[['store', 'product', 'forecast', 'order_from', 'order_to']].groupby(['store', 'product']).sum().reset_index()
+    
+    # needs to be changed as soon as we have proper product-numbers!
+    seven_days.reset_index(inplace=True)
+    seven_days.columns = ['id', 'store', 'product', 'forecast', 'order_from', 'order_to']
+    
+    # needs to be changed as soon as we have proper product-numbers!
+    day_after.reset_index(inplace=True, drop=True)
+    day_after.reset_index(inplace=True)
+    day_after = day_after[['index', 'store', 'product', 'forecast', 'order_from', 'order_to']]
+    day_after.columns = ['id', 'store', 'product', 'forecast', 'order_from', 'order_to']
+
+    # %%
+    # create ..._order_range text-fields
+    tomorrow['tomorrow_order_range'] = tomorrow.order_from.apply(round).apply(str) + ' - ' + tomorrow.order_to.apply(round).apply(str)
+    day_after['day_after_order_range'] = day_after.order_from.apply(round).apply(str) + ' - ' + day_after.order_to.apply(round).apply(str)
+    seven_days['next7_order_range'] = seven_days.order_from.apply(round).apply(str) + ' - ' + seven_days.order_to.apply(round).apply(str)
+
+
+    # %%
+    # prepare for merge / rename cols to target-names
+    for df in [tomorrow, day_after, seven_days]:
+        df.forecast = df.forecast.apply(round)
+    tomorrow = tomorrow[['id', 'store', 'product', 'forecast', 'tomorrow_order_range']]
+    tomorrow.columns = ['id', 'store', 'product', 'tomorrow_order_qty', 'tomorrow_order_range']
+    day_after = day_after[['id', 'store', 'product', 'forecast', 'day_after_order_range']]
+    day_after.columns = ['id', 'store', 'product', 'day_after_order_qty', 'day_after_order_range']
+    seven_days = seven_days[['id', 'store', 'product', 'forecast', 'next7_order_range']]
+    seven_days.columns = ['id', 'store', 'product', 'next7_order_qty', 'next7_order_range']
+
+    tomorrow
+
+    # %%
+    keys = ['id', 'store', 'product']
+    result = pd.merge(pd.merge(tomorrow, day_after, left_on=keys, right_on=keys)
+        , seven_days, left_on=keys, right_on=keys)
+    result
+
+    # %%
+    result.to_csv('data/6_predict/predictions.csv', index=False)
 
 # %%
 

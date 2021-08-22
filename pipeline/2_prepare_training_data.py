@@ -1,7 +1,7 @@
 # ---
 # jupyter:
 #   jupytext:
-#     formats: ipynb,py:percent
+#     formats: py:percent,ipynb
 #     text_representation:
 #       extension: .py
 #       format_name: percent
@@ -23,12 +23,12 @@ import datetime as dt
 import pickle
 import os
 
-import util
-config = util.load_config()
 
 # %%
 ### SCRIPT CELL - DON'T RUN IN NOTEBOOK
 
+import util
+config = util.load_config()
 
 def run() :
     # change working directory to where this file lives
