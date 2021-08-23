@@ -24,6 +24,9 @@ import base64
 
 import multiprocessing as mp
 
+import requests
+import json
+
 from main_auth import get_current_active_user, authenticate_user, create_access_token, User, Token, ACCESS_TOKEN_EXPIRE_MINUTES
 
 #######################
@@ -139,7 +142,8 @@ class ProblemReport(BaseModel):
 @app.post("/api/problem")
 def post_problem(problem_report: ProblemReport):
     try:
-        dir_str = f"pipeline/data/problem_reports/report_{str(dt.datetime.now())}"
+        now = dt.datetime.now().strftime("%Y_%m_%d_%H_%M_%S")
+        dir_str = f"pipeline/data/problem_reports/report_{now}"
         dir = pathlib.Path(dir_str)
         dir.mkdir(parents=False, exist_ok=False)
 
@@ -149,6 +153,36 @@ def post_problem(problem_report: ProblemReport):
         screen = base64.b64decode(problem_report.screenshot.split(',')[1])
         screen_path.write_bytes(screen)
         message_path.write_text(problem_report.problem_text)
+
+        slack_url = "https://hooks.slack.com/services/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"
+        img_url = f"https://foodsight.ml4all.com/api/problems/report_{now}/screenshot.png"
+
+        payload = {
+            "blocks": [
+                {
+                    "type": "section",
+                    "text": {
+                        "type": "mrkdwn",
+                        "text": problem_report.problem_text
+                    }
+                },
+            {
+                "type": "image",
+                "title": {
+                    "type": "plain_text",
+                    "text": "Please enjoy this photo of a kitten"
+                },
+                "block_id": "image4",
+                "image_url": img_url,
+                "alt_text": "An incredibly cute kitten."
+                }
+            ]
+        }
+
+        r = requests.post(url=slack_url, data=json.dumps(payload))
+        print(r.status_code, r.reason)
+        print(r.text[:300])
+        print(json.dumps(payload))
 
         return True
     except:
@@ -203,6 +237,8 @@ def post_order(order_data: OrderData):
 
 
 # Place After All Other Routes
+
+app.mount("/api/problems", StaticFiles(directory="pipeline/data/problem_reports"), name="problems")
 app.mount('/', StaticFiles(directory="client/public/"), name="static")
 
 
