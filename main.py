@@ -136,7 +136,7 @@ def put_usersettings(user_settings: UserSettings, current_user: User = Depends(g
 
 class ProblemReport(BaseModel):
     problem_text: str
-    screenshot: str
+    screenshot: Optional[str] = None
 
 
 @app.post("/api/problem")
@@ -150,36 +150,42 @@ def post_problem(problem_report: ProblemReport):
         screen_path = dir / "screenshot.png"
         message_path = dir / "message.txt"
 
-        screen = base64.b64decode(problem_report.screenshot.split(',')[1])
-        screen_path.write_bytes(screen)
+        if problem_report.screenshot:
+            screen = base64.b64decode(problem_report.screenshot.split(',')[1])
+            screen_path.write_bytes(screen)
+        
         message_path.write_text(problem_report.problem_text)
 
         slack_url = "https://hooks.slack.com/services/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"
         img_url = f"https://foodsight.ml4all.com/api/problems/report_{now}/screenshot.png"
 
-        payload = {
-            "blocks": [
-                {
-                    "type": "section",
-                    "text": {
-                        "type": "mrkdwn",
-                        "text": problem_report.problem_text
-                    }
-                },
+        blocks = [
             {
-                "type": "image",
-                "title": {
-                    "type": "plain_text",
-                    "text": "Please enjoy this photo of a kitten"
-                },
-                "block_id": "image4",
-                "image_url": img_url,
-                "alt_text": "An incredibly cute kitten."
-                }
-            ]
-        }
+                "type": "section",
+                "text": {
+                    "type": "mrkdwn",
+                    "text": problem_report.problem_text
+                    }
+            }
+        ]
+        if problem_report.screenshot:
+            blocks.append(
+                 {
+                    "type": "image",
+                    "title": {
+                        "type": "plain_text",
+                        "text": "User screenshot:"
+                    },
+                    "block_id": "image4",
+                    "image_url": img_url,
+                    "alt_text": "screenshot taken from a foodsight user"
+                }               
+            )
 
-        r = requests.post(url=slack_url, data=json.dumps(payload))
+        payload = json.dumps({"blocks": blocks})
+
+        r = requests.post(url=slack_url, data=payload)
+        print("posted problem-report to slack, result... ")
         print(r.status_code, r.reason)
         print(r.text[:300])
         print(json.dumps(payload))
