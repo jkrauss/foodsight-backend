@@ -25,6 +25,7 @@ config = toml.load('pipeline/data/customer.toml')
 __SECRET_KEY = os.environ.get('SECRET_KEY')
 __ALGORITHM = os.environ.get('ALGORITHM')
 ACCESS_TOKEN_EXPIRE_MINUTES = config['base']['login_valid_minutes'] #60*18
+SLACK_URL = "https://hooks.slack.com/services/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"
 
 __users_db = config['users']
 #print(__users_db)
