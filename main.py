@@ -27,7 +27,9 @@ import multiprocessing as mp
 import requests
 import json
 
-from main_auth import get_current_active_user, authenticate_user, create_access_token, User, Token, ACCESS_TOKEN_EXPIRE_MINUTES, SLACK_URL
+from main_auth import get_current_active_user, authenticate_user
+from main_auth import create_access_token, get_password_hash
+from main_auth import User, Token, ACCESS_TOKEN_EXPIRE_MINUTES, SLACK_URL
 
 #######################
 ### UVICORN SECTION ###
@@ -208,9 +210,9 @@ class SignupData(BaseModel):
 
 @app.post("/api/signup")
 def post_signup(signup_data: SignupData):
-        hash = "Thisbecomesthehashedpassword"
+    hash = get_password_hash(signup_data.password)
 
-        slack_text = f"""
+    slack_text = f"""
     
     *** WOHOO! WIR HABEN EINE NEUE ANMELDUNG! ***
 
@@ -223,23 +225,23 @@ def post_signup(signup_data: SignupData):
     agree: {signup_data.agree}
         """
 
-        blocks = [
-            {
-                "type": "section",
-                "text": {
-                    "type": "mrkdwn",
-                    "text": slack_text
-                    }
-            }
-        ]
+    blocks = [
+        {
+            "type": "section",
+            "text": {
+                "type": "mrkdwn",
+                "text": slack_text
+                }
+        }
+    ]
 
-        payload = json.dumps({"blocks": blocks})
+    payload = json.dumps({"blocks": blocks})
 
-        r = requests.post(url=SLACK_URL, data=payload)
-        print("posted new signup to slack, result... ")
-        print(r.status_code, r.reason)
-        print(r.text[:300])
-        #print(json.dumps(payload))
+    r = requests.post(url=SLACK_URL, data=payload)
+    print("posted new signup to slack, result... ")
+    print(r.status_code, r.reason)
+    print(r.text[:300])
+    #print(json.dumps(payload))
 
 
 

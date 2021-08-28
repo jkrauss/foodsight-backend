@@ -62,7 +62,7 @@ def __verify_password(plain_password, hashed_password):
     return __pwd_context.verify(plain_password, hashed_password)
 
 # hashes a password
-def __get_password_hash(password):
+def get_password_hash(password):
     return __pwd_context.hash(password)
 
 # retrieve a user's hashed password from db (could retrieve more)
