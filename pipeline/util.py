@@ -8,6 +8,7 @@ def __load_with_path(p):
     # load env vars
     dotenv.load_dotenv(os.path.join(p, '.env'))
     
+    # This is the only place where the path to the pipeline is set!
     config['base']['pipeline_path'] = os.path.join(p, 'pipeline')
     return config
 
