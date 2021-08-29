@@ -87,6 +87,7 @@ def get_usersettings(current_user: User = Depends(get_current_active_user)):
     del user_settings['hashed_password']
     del user_settings['disabled']
     settings = {**config['base'], **user_settings}
+    settings['stores'] = config['stores']
 
     return settings
 
@@ -98,6 +99,7 @@ class UserSettings(BaseModel):
     rows_per_page: Optional[int] = None
     login_valid_minutes: Optional[int] = None
     store_name: Optional[str] = None
+    store: Optional[int] = None
 
 
 @app.put("/api/usersettings/")
@@ -112,10 +114,22 @@ def put_usersettings(user_settings: UserSettings, current_user: User = Depends(g
     # no user found
     if ix == -1:
         return JSONResponse(status_code=422, content={"message": f"No configuration found for user {current_user.username}"})
-    
+
     # consider only values that are whitelisted for editing
     # TODO: What if usersettings is empty?
     edit = {k: v for k,v in vars(user_settings).items() if k in config['base']['editable_properties']}
+
+    # does the update contain a store?
+    # do we have this store in our settings?
+    # set base-level store-related fields to the fields of the found store
+    if edit['store'] is not None:
+        for store_settings in config['stores']:
+            if edit['store'] == store_settings['store']:
+                config['base']['store'] = store_settings['store']
+                config['base']['state'] = store_settings['state']
+                config['base']['city'] = store_settings['city']
+                config['base']['store_name'] = store_settings['store_name']
+        del edit['store']
 
     for k, v in edit.items():
         if v is not None:
@@ -127,6 +141,8 @@ def put_usersettings(user_settings: UserSettings, current_user: User = Depends(g
     # write to file
     with open("pipeline/data/customer.toml", "w") as f:
         toml.dump(config, f)
+
+    return get_usersettings(current_user)
 
 class ProblemReport(BaseModel):
     problem_text: str
