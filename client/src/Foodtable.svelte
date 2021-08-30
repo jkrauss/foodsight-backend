@@ -54,9 +54,10 @@
 	// intitial variable declaration
 
 	let data = writable(
-			localStorage.getItem("orderDataCache")
-				? JSON.parse(localStorage.getItem("orderDataCache"))
-				: []
+			//localStorage.getItem("orderDataCache")
+			//	? JSON.parse(localStorage.getItem("orderDataCache"))
+			//	: 
+				[]
 		), //raw json data from source
 		keys = writable([]), //all data keys in json objects in data
 		blacklist = [], // colum blacklist
@@ -101,21 +102,23 @@
 		}; // a bit less horrible styling ;)
 
 	//saving data in localstorage with current user so if the user changes the data can get fetched if user is the same the same data will be used could be done with date to check isf the date changes.
-	beforeUpdate(() => {
-		localStorage.setItem("orderDataCache", JSON.stringify($data));
-		localStorage.setItem("orderCacheUser", JSON.stringify($user));
-	});
+	//beforeUpdate(() => {
+	//	localStorage.setItem("orderDataCache", JSON.stringify($data));
+	//	localStorage.setItem("orderCacheUser", JSON.stringify($user));
+	//});
 
 	// geting data from backend / .json file
 	async function getData() {
 		if (typeof window === "undefined") return;
 		//dont ask why it works it works
+		/*
 		if (
 			JSON.stringify(
 				JSON.parse(localStorage.getItem("orderCacheUser"))
 			) === JSON.stringify($user)
 		)
 			return;
+		*/
 		//determine where to get data - local demo or remote with token
 		let dataUrl;
 
