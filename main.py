@@ -45,7 +45,7 @@ app.add_middleware(
 
 @app.get('/')
 def home():
-    return FileResponse('client/public/index.html')
+    return FileResponse('client/dist/index.html')
 
 
 @app.get('/api/forecast/')
@@ -302,4 +302,4 @@ def post_order(order_data: OrderData):
 # Place After All Other Routes
 
 app.mount("/api/problems", StaticFiles(directory="pipeline/data/problem_reports"), name="problems")
-app.mount('/', StaticFiles(directory="client/public/"), name="static")
+app.mount('/', StaticFiles(directory="client/dist/"), name="static")
