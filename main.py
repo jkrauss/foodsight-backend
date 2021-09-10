@@ -1,4 +1,4 @@
-from fastapi import FastAPI
+from fastapi import FastAPI, File, UploadFile
 from fastapi import status, Depends, HTTPException
 from fastapi.responses import FileResponse, JSONResponse
 from fastapi.staticfiles import StaticFiles
@@ -10,6 +10,7 @@ from pydantic import BaseModel
 
 import pandas as pd
 import toml
+import aiofiles
 
 import sys
 import datetime as dt
@@ -22,10 +23,6 @@ import json
 from main_auth import get_current_active_user, authenticate_user
 from main_auth import create_access_token, get_password_hash
 from main_auth import User, Token, ACCESS_TOKEN_EXPIRE_MINUTES, SLACK_URL
-
-#######################
-### UVICORN SECTION ###
-#######################
 
 app = FastAPI()
 config = toml.load('pipeline/data/customer.toml')
@@ -252,12 +249,10 @@ def post_signup(signup_data: SignupData):
     #print(json.dumps(payload))
 
 
-
 class OrderData(BaseModel):
     data: list
     option: str
     order_option: str
-
 
 @app.post("/api/order")
 def post_order(order_data: OrderData):
@@ -299,7 +294,14 @@ def post_order(order_data: OrderData):
         return df.to_csv(index=False)
 
 
-# Place After All Other Routes
+@app.post("/api/sales_upload")
+async def post_sales_upload(file: UploadFile = File(...), current_user: User = Depends(get_current_active_user)):
+    async with aiofiles.open("pipeline/data/0_raw/manual/manual_import.xlsx", 'wb') as out_file:
+        while content := await file.read(1024):  # async read chunk
+            await out_file.write(content)  # async write chunk
+    return {"filename": file.filename}
+
+# Place After All Other Routes 
 
 app.mount("/api/problems", StaticFiles(directory="pipeline/data/problem_reports"), name="problems")
 app.mount('/', StaticFiles(directory="client/dist/"), name="static")
