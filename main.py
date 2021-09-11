@@ -42,8 +42,11 @@ app.add_middleware(
 
 @app.get('/')
 @app.get('/signup')
+@app.get('/signup/')
 @app.get('/planning')
+@app.get('/planning/')
 @app.get('/settings')
+@app.get('/settings/')
 def home():
     return FileResponse('client/dist/__app.html')
 
