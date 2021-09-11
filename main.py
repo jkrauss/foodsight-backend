@@ -1,5 +1,5 @@
 from fastapi import FastAPI, File, UploadFile
-from fastapi import status, Depends, HTTPException
+from fastapi import status, Depends, HTTPException, Request
 from fastapi.responses import FileResponse, JSONResponse
 from fastapi.staticfiles import StaticFiles
 from fastapi.middleware.cors import CORSMiddleware
@@ -41,8 +41,11 @@ app.add_middleware(
 
 
 @app.get('/')
+@app.get('/signup')
+@app.get('/planning')
+@app.get('/settings')
 def home():
-    return FileResponse('client/dist/index.html')
+    return FileResponse('client/dist/__app.html')
 
 
 @app.get('/api/forecast/')
@@ -301,7 +304,7 @@ async def post_sales_upload(file: UploadFile = File(...), current_user: User = D
             await out_file.write(content)  # async write chunk
     return {"filename": file.filename}
 
-# Place After All Other Routes 
 
+# Place After All Other Routes 
 app.mount("/api/problems", StaticFiles(directory="pipeline/data/problem_reports"), name="problems")
 app.mount('/', StaticFiles(directory="client/dist/"), name="static")
