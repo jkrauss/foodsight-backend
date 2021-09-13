@@ -9,7 +9,6 @@ from typing import Optional
 from pydantic import BaseModel
 
 import pandas as pd
-import toml
 import aiofiles
 
 import sys
@@ -22,10 +21,11 @@ import json
 
 from main_auth import get_current_active_user, authenticate_user
 from main_auth import create_access_token, get_password_hash
-from main_auth import User, Token, ACCESS_TOKEN_EXPIRE_MINUTES, SLACK_URL
+from main_auth import Token, SLACK_URL
+
+import main_db as db
 
 app = FastAPI()
-config = toml.load('pipeline/data/customer.toml')
 origins = ["*"]
 # to deactivate CORS completely...
 #origins = [
@@ -41,20 +41,14 @@ app.add_middleware(
 
 
 @app.get('/')
-@app.get('/signup')
-@app.get('/signup/')
-@app.get('/planning')
-@app.get('/planning/')
-@app.get('/settings')
-@app.get('/settings/')
 def home():
     return FileResponse('client/dist/__app.html')
 
 
 @app.get('/api/forecast/')
-def get_forecast(store:int, current_user: User = Depends(get_current_active_user)):
+def get_forecast(store:int, current_user: db.User = Depends(get_current_active_user)):
     
-    forecasts = pd.read_csv('pipeline/data/6_predict/predictions.csv')
+    forecasts = db.read_forecast(current_user.username)
     # store must be in forecasts
     found = forecasts[forecasts.store==store]
     if len(found)==0:
@@ -74,7 +68,8 @@ async def login_for_access_token(form_data: OAuth2PasswordRequestForm = Depends(
             detail="Falscher Benutzername oder Passwort",
             headers={"WWW-Authenticate": "Bearer"},
         )
-    access_token_expires = dt.timedelta(minutes=ACCESS_TOKEN_EXPIRE_MINUTES)
+    mins = db.read_user_settings(user.username)['login_valid_minutes']
+    access_token_expires = dt.timedelta(minutes=mins)
     access_token, expire_dt = create_access_token(
         data={"sub": user.username}, expires_delta=access_token_expires
     )
@@ -83,68 +78,18 @@ async def login_for_access_token(form_data: OAuth2PasswordRequestForm = Depends(
 
 # secured API-method that returns user data if token is valid
 @app.get("/api/usersettings/")
-def get_usersettings(current_user: User = Depends(get_current_active_user)):
+def get_usersettings(current_user: db.User = Depends(get_current_active_user)):
 
-    user_settings = dict([u for u in config['users'] if u['username']==current_user.username][0])
-
-    del user_settings['hashed_password']
-    del user_settings['disabled']
-    settings = {**config['base'], **user_settings}
-    settings['stores'] = config['stores']
+    settings = db.read_user_settings(current_user.username)
+    if len(settings)==0:
+        return JSONResponse(status_code=422, content={"message": f"No configuration found for user {current_user.username}"})
 
     return settings
 
 
-class UserSettings(BaseModel):
-    tomorrow: Optional[bool] = None
-    day_after_tomorrow: Optional[bool] = None
-    next_seven_days: Optional[bool] = None
-    rows_per_page: Optional[int] = None
-    login_valid_minutes: Optional[int] = None
-    store_name: Optional[str] = None
-    store: Optional[int] = None
-
-
 @app.put("/api/usersettings/")
-def put_usersettings(user_settings: UserSettings, current_user: User = Depends(get_current_active_user)):
-
-    # determine index of current user's settings in config['users'] :> ix
-    ix = -1
-    n = len(config['users'])
-    for i in range(n):
-        if config['users'][i]['username'] == current_user.username:
-            ix = i
-    # no user found
-    if ix == -1:
-        return JSONResponse(status_code=422, content={"message": f"No configuration found for user {current_user.username}"})
-
-    # consider only values that are whitelisted for editing
-    # TODO: What if usersettings is empty?
-    edit = {k: v for k,v in vars(user_settings).items() if k in config['base']['editable_properties']}
-
-    # does the update contain a store?
-    # do we have this store in our settings?
-    # set base-level store-related fields to the fields of the found store
-    if edit['store'] is not None:
-        for store_settings in config['stores']:
-            if edit['store'] == store_settings['store']:
-                config['base']['store'] = store_settings['store']
-                config['base']['state'] = store_settings['state']
-                config['base']['city'] = store_settings['city']
-                config['base']['store_name'] = store_settings['store_name']
-        del edit['store']
-
-    for k, v in edit.items():
-        if v is not None:
-            if k in config['base']:
-                config['base'][k] = v
-            else:
-                config['users'][ix][k] = v
-
-    # write to file
-    with open("pipeline/data/customer.toml", "w") as f:
-        toml.dump(config, f)
-
+def put_usersettings(user_settings: db.UserSettings, current_user: db.User = Depends(get_current_active_user)):
+    db.update_user_settings(current_user.username, user_settings)
     return get_usersettings(current_user)
 
 class ProblemReport(BaseModel):
@@ -209,22 +154,15 @@ def post_problem(problem_report: ProblemReport):
         return False
 
 
-class SignupData(BaseModel):
-    name: Optional[str]
-    email: str
-    phone: str
-    password: str
-    location: Optional[str]
-    register_type: Optional[str]
-    agree: bool
-
-
 @app.post("/api/signup")
-def post_signup(signup_data: SignupData):
+def post_signup(signup_data: db.SignupData):
     hash = get_password_hash(signup_data.password)
+    signup_data.password = hash
+
+    db.create_signup(signup_data)
 
     slack_text = f"""
-    
+
     *** WOHOO! WIR HABEN EINE NEUE ANMELDUNG! ***
 
     name: {signup_data.name}
@@ -252,7 +190,6 @@ def post_signup(signup_data: SignupData):
     print("posted new signup to slack, result... ")
     print(r.status_code, r.reason)
     print(r.text[:300])
-    #print(json.dumps(payload))
 
 
 class OrderData(BaseModel):
@@ -301,7 +238,7 @@ def post_order(order_data: OrderData):
 
 
 @app.post("/api/sales_upload")
-async def post_sales_upload(file: UploadFile = File(...), current_user: User = Depends(get_current_active_user)):
+async def post_sales_upload(file: UploadFile = File(...), current_user: db.User = Depends(get_current_active_user)):
     async with aiofiles.open("pipeline/data/0_raw/manual/manual_import.xlsx", 'wb') as out_file:
         while content := await file.read(1024):  # async read chunk
             await out_file.write(content)  # async write chunk
