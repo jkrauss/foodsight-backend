@@ -25,11 +25,6 @@ __SECRET_KEY = os.environ.get('SECRET_KEY')
 __ALGORITHM = os.environ.get('ALGORITHM')
 SLACK_URL = "https://hooks.slack.com/services/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"
 
-__users_db = db.read_users()
-def refresh_users():
-    global __users_db
-    __users_db = db.read_users()
-
 
 # used to be handed to the client for authenticated requests
 class Token(BaseModel):
@@ -69,7 +64,7 @@ def __get_user(db, username: str):
 
 # * check if password is correct. If true return users hashed password
 def authenticate_user(username: str, password: str):
-    user = __get_user(__users_db, username)
+    user = __get_user(db.read_users(), username)
     if not user:
         return False
     if not __verify_password(password, user.hashed_password):
@@ -105,7 +100,7 @@ async def __get_current_user(token: str = Depends(__oauth2_scheme)):
         token_data = TokenData(username=username)
     except JWTError:
         raise credentials_exception
-    user = __get_user(__users_db, username=token_data.username)
+    user = __get_user(db.read_users(), username=token_data.username)
     if user is None:
         raise credentials_exception
     return user

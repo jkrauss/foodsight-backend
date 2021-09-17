@@ -19,7 +19,7 @@ import base64
 import requests
 import json
 
-from main_auth import get_current_active_user, authenticate_user, refresh_users
+from main_auth import get_current_active_user, authenticate_user
 from main_auth import create_access_token, get_password_hash
 from main_auth import Token, SLACK_URL
 
@@ -160,7 +160,6 @@ def post_signup(signup_data: db.SignupData, background_tasks: BackgroundTasks):
     signup_data.password = hash
 
     db.create_signup(signup_data)
-    refresh_users()
 
     slack_text = f"""
 
