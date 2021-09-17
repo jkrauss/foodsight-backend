@@ -6,9 +6,9 @@
 #       extension: .py
 #       format_name: percent
 #       format_version: '1.3'
-#       jupytext_version: 1.11.4
+#       jupytext_version: 1.12.0
 #   kernelspec:
-#     display_name: 'Python 3.7.9 64-bit (''.venv'': venv)'
+#     display_name: 'Python 3.8.10 64-bit (''.venv'': venv)'
 #     name: python3
 # ---
 
@@ -21,15 +21,25 @@ import glob
 import numpy as np
 import os
 
-
+config = {'base': 
+    {'register_plugin': 'plugins.manual.manual'
+    , 'register_plugin_name': 'manueller Import'
+    , 'country': 'DE'
+    , 'state': 'HE'
+    , 'city': 'Wiesbaden'
+    , 'customer_id': 0
+    , 'pipeline_path': '/Users/jonni/dev/foodsight-backend/pipeline'
+    }}
 
 
 # %%
 ### SCRIPT CELL - DON'T RUN IN NOTEBOOK
-import util
-config = util.load_config()
+# import util
+# config = util.load_config()
 
-def run() :
+def run(config_in) :
+    global config
+    config = config_in
     # change working directory to where this file lives
     os.chdir(config['base']['pipeline_path'])
 
@@ -42,7 +52,7 @@ def run() :
     # read weather history
     # list all files that are to be concatenated
     flist = list()
-    for filepath in glob.iglob('data/0_raw/weather/*.csv'):
+    for filepath in glob.iglob(f'data/customer/{config["base"]["customer_id"]}/0_raw/weather/*.csv'):
         flist.append(filepath)
 
     # this sorts the original list in place
@@ -64,7 +74,7 @@ def run() :
 
     # %%
     # read forecast
-    fc = pd.read_csv('data/0_raw/weather_forecast/forecast.csv')
+    fc = pd.read_csv(f'data/customer/{config["base"]["customer_id"]}/0_raw/weather_forecast/forecast.csv')
     fc['Minimum Temperature'] = fc['Temperature']
     fc['Maximum Temperature'] = fc['Temperature']
 
@@ -93,8 +103,8 @@ def run() :
 # %%
 
     # allow for max 1 hour overlap or gap
-    # assert pd.to_datetime(fc['Date time']).min() - dt.timedelta(hours=4) < pd.to_datetime(weather['Date time']).max(), 'forecast should start exactly where history ends' # change to 3
-    # assert  pd.to_datetime(weather['Date time']).max() + dt.timedelta(hours=4) > pd.to_datetime(fc['Date time']).min(), 'forecast should start exactly where history ends' # change to 3
+    assert pd.to_datetime(fc['Date time']).min() - dt.timedelta(hours=4) < pd.to_datetime(weather['Date time']).max(), 'forecast should start exactly where history ends' # change to 3
+    assert  pd.to_datetime(weather['Date time']).max() + dt.timedelta(hours=4) > pd.to_datetime(fc['Date time']).min(), 'forecast should start exactly where history ends' # change to 3
     weather = pd.concat([weather, fc])
 
 
@@ -151,13 +161,13 @@ def run() :
 
     # %%
     # now we have cleaned weather history, write it to file
-    weather.reset_index().reset_index().to_csv('data/1_trans/weather.csv', index=False)
+    weather.reset_index().reset_index().to_csv(f'data/customer/{config["base"]["customer_id"]}/1_trans/weather.csv', index=False)
 
 # %%
 
 # %%
 ### SCRIPT CELL - DON'T RUN IN NOTEBOOK
 
-if __name__ == '__main__':
+# if __name__ == '__main__':
     # run this step
-    run()
+#     run()

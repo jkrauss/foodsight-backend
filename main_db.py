@@ -3,6 +3,9 @@ import pandas as pd
 from pydantic import BaseModel
 from typing import Optional
 
+import pathlib
+import shutil
+
 import main_auth as auth
 
 # Naming convention: create_..., read_..., update_..., delete_...
@@ -30,9 +33,22 @@ class SignupData(BaseModel):
     register_type: Optional[str]
     agree: bool
 
-def read_forecast(username:str):
-    # TODO: implement folder per customer
-    forecast = pd.read_csv('pipeline/data/6_predict/predictions.csv')
+
+def _get_customer_id_from_username(username:str):
+    with sql.connect(__db) as conn:
+        cur = conn.cursor()
+        cur.execute(f"""
+        select customer_id 
+        from user u
+        where u.username= '{username}'
+        """)
+        customer_id = cur.fetchall()[0][0]
+        return customer_id
+
+
+def read_forecast(username: str):
+    customer_id = _get_customer_id_from_username(username)
+    forecast = pd.read_csv(f'pipeline/data/customer/{customer_id}/6_predict/predictions.csv')
     return forecast
 
 
@@ -155,8 +171,8 @@ def create_signup(signup_data: SignupData):
 
             # create new customer
             statement = f"""
-            INSERT INTO customer (register_id, login_valid_minutes, data_folder)
-            VALUES ({register_id}, 129600, NULL)
+            INSERT INTO customer (register_id, login_valid_minutes)
+            VALUES ({register_id}, 129600)
             """
             cur.execute(statement)
             customer_id = cur.lastrowid
@@ -181,10 +197,27 @@ def create_signup(signup_data: SignupData):
             """
             cur.execute(statement)
 
+            create_pipeline(customer_id)
+
             # required so that the user can login directly
             auth.refresh_users()
 
             return f'signup, customer and user with email {signup_data.email} created'
+
+
+def create_pipeline(customer_id: int):
+    """creates a new folder for the customer-data and fills with template-data """
+    base_path = pathlib.Path(f'./pipeline/data/customer/')
+    cust_path = base_path/str(customer_id)
+
+    source_path = base_path/'0'
+    shutil.copytree(source_path, cust_path)
+
+
+def run_pipeline(username: str):
+    customer_id = _get_customer_id_from_username(username)    
+    from startup_pipeline import run_pipeline
+    run_pipeline(customer_id=customer_id)
 
 
 def init_db(delete=False):
@@ -216,7 +249,6 @@ def init_db(delete=False):
                 "id"	INTEGER,
                 "register_id"	integer,
                 "login_valid_minutes"	integer,
-                "data_folder"	text,
                 PRIMARY KEY("id" AUTOINCREMENT)
             );"""
             )

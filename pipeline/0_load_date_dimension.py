@@ -6,9 +6,9 @@
 #       extension: .py
 #       format_name: percent
 #       format_version: '1.3'
-#       jupytext_version: 1.11.4
+#       jupytext_version: 1.12.0
 #   kernelspec:
-#     display_name: 'Python 3.7.9 64-bit (''.venv'': venv)'
+#     display_name: 'Python 3.8.10 64-bit (''.venv'': venv)'
 #     name: python3
 # ---
 
@@ -18,15 +18,27 @@ import pandas as pd
 import holidays
 import os
 
+config = {'base': 
+    {'register_plugin': 'plugins.manual.manual'
+    , 'register_plugin_name': 'manueller Import'
+    , 'country': 'DE'
+    , 'state': 'HE'
+    , 'city': 'Wiesbaden'
+    , 'customer_id': 0
+    , 'pipeline_path': '/Users/jonni/dev/foodsight-backend/pipeline'
+    }}
+
 
 # %%
 ### SCRIPT CELL - DON'T RUN IN NOTEBOOK
 
-import util
+# import util
 # load customer specific config
-config = util.load_config()
+# config = util.load_config()
 
-def run() :
+def run(config_in) :
+    global config
+    config = config_in
     # change working directory to where this file lives
     os.chdir(config['base']['pipeline_path'])
 
@@ -113,18 +125,18 @@ def run() :
     # %%
     # date_dim.to_csv('pipeline/data/0_raw/date_dimension.csv', index=False)
     os.system('pwd')
-    date_dim.to_csv('data/0_raw/date_dimension.csv', index=False)
+    date_dim.to_csv(f'data/customer/{config["base"]["customer_id"]}/0_raw/date_dimension.csv', index=False)
 
     # %%
     # no more transformation required, therefore write also to /1_trans/
     #date_dim.to_csv('pipeline/data/1_trans/date_dimension.csv', index=False)
-    date_dim.to_csv('data/1_trans/date_dimension.csv', index=False)
+    date_dim.to_csv(f'data/customer/{config["base"]["customer_id"]}/1_trans/date_dimension.csv', index=False)
 
 # %%
 
 # %%
 ### SCRIPT CELL - DON'T RUN IN NOTEBOOK
 
-if __name__ == '__main__':
+# if __name__ == '__main__':
     # run this step
-    run()
+#     run()

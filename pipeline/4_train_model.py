@@ -6,9 +6,9 @@
 #       extension: .py
 #       format_name: percent
 #       format_version: '1.3'
-#       jupytext_version: 1.11.4
+#       jupytext_version: 1.12.0
 #   kernelspec:
-#     display_name: 'Python 3.7.9 64-bit (''.venv'': venv)'
+#     display_name: 'Python 3.8.10 64-bit (''.venv'': venv)'
 #     name: python3
 # ---
 
@@ -18,14 +18,26 @@ import pandas as pd
 import catboost as cb
 import os
 
+config = {'base': 
+    {'register_plugin': 'plugins.manual.manual'
+    , 'register_plugin_name': 'manueller Import'
+    , 'country': 'DE'
+    , 'state': 'HE'
+    , 'city': 'Wiesbaden'
+    , 'customer_id': 0
+    , 'pipeline_path': '/Users/jonni/dev/foodsight-backend/pipeline'
+    }}
+
 
 # %%
 ### SCRIPT CELL - DON'T RUN IN NOTEBOOK
 
-import util
-config = util.load_config()
+# import util
+# config = util.load_config()
 
-def run() :
+def run(config_in) :
+    global config
+    config = config_in
     # change working directory to where this file lives
     os.chdir(config['base']['pipeline_path'])
 
@@ -33,15 +45,15 @@ def run() :
 
     # %%
     # read data and convert date to datetime
-    train = pd.read_csv('data/2_pre_train/train_features.csv')
+    train = pd.read_csv(f'data/customer/{config["base"]["customer_id"]}/2_pre_train/train_features.csv')
     train.date = pd.to_datetime(train.date)
-    test = pd.read_csv('data/2_pre_train/test_features.csv')
+    test = pd.read_csv(f'data/customer/{config["base"]["customer_id"]}/2_pre_train/test_features.csv')
     test.date = pd.to_datetime(test.date)
 
-    prod = pd.read_csv('data/2_pre_train/prod_features.csv')
+    prod = pd.read_csv(f'data/customer/{config["base"]["customer_id"]}/2_pre_train/prod_features.csv')
     prod.date = pd.to_datetime(prod.date)
 
-    predict = pd.read_csv('data/2_pre_train/predict_features.csv')
+    predict = pd.read_csv(f'data/customer/{config["base"]["customer_id"]}/2_pre_train/predict_features.csv')
     predict.date = pd.to_datetime(predict.date)
 
     # %%
@@ -86,9 +98,9 @@ def run() :
     # write out predict_set for later prediction
     X_predict = predict.drop('sales', axis=1)
     #predict_pool = cb.Pool(X_predict, cat_features = cat_feats) # can't be pickled, maybe cython-problem... whatever
-    with open('data/4_train/X_predict.pkl', 'wb') as pf:
+    with open(f'data/customer/{config["base"]["customer_id"]}/4_train/X_predict.pkl', 'wb') as pf:
         pickle.dump(X_predict, pf)
-    with open('data/4_train/cat_features.pkl', 'wb') as pf:
+    with open(f'data/customer/{config["base"]["customer_id"]}/4_train/cat_features.pkl', 'wb') as pf:
         pickle.dump(cat_feats, pf)
 
     # a couple parameters for catboost
@@ -119,7 +131,7 @@ def run() :
 
     # %%
     # save test-model for later inspection
-    test_model.save_model('data/4_train/test_model.cbm', format='cbm', pool=train_pool)
+    test_model.save_model(f'data/customer/{config["base"]["customer_id"]}/4_train/test_model.cbm', format='cbm', pool=train_pool)
 
     # %%
     # train a model for production
@@ -135,13 +147,13 @@ def run() :
 
     # %%
     # save prod-model for production
-    prod_model.save_model('data/4_train/prod_model.cbm', format='cbm', pool=prod_pool)
+    prod_model.save_model(f'data/customer/{config["base"]["customer_id"]}/4_train/prod_model.cbm', format='cbm', pool=prod_pool)
 
 # %%
 
 # %%
 ### SCRIPT CELL - DON'T RUN IN NOTEBOOK
 
-if __name__ == '__main__':
+# if __name__ == '__main__':
     # run this step
-    run()
+#     run()

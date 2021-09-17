@@ -1,4 +1,4 @@
-from fastapi import FastAPI, File, UploadFile
+from fastapi import FastAPI, File, UploadFile, BackgroundTasks
 from fastapi import status, Depends, HTTPException, Request
 from fastapi.responses import FileResponse, JSONResponse
 from fastapi.staticfiles import StaticFiles
@@ -19,7 +19,7 @@ import base64
 import requests
 import json
 
-from main_auth import get_current_active_user, authenticate_user
+from main_auth import get_current_active_user, authenticate_user, refresh_users
 from main_auth import create_access_token, get_password_hash
 from main_auth import Token, SLACK_URL
 
@@ -155,11 +155,12 @@ def post_problem(problem_report: ProblemReport):
 
 
 @app.post("/api/signup")
-def post_signup(signup_data: db.SignupData):
+def post_signup(signup_data: db.SignupData, background_tasks: BackgroundTasks):
     hash = get_password_hash(signup_data.password)
     signup_data.password = hash
 
     db.create_signup(signup_data)
+    refresh_users()
 
     slack_text = f"""
 
@@ -242,6 +243,8 @@ async def post_sales_upload(file: UploadFile = File(...), current_user: db.User 
     async with aiofiles.open("pipeline/data/0_raw/manual/manual_import.xlsx", 'wb') as out_file:
         while content := await file.read(1024):  # async read chunk
             await out_file.write(content)  # async write chunk
+    # TODO: HIER WEITER!!
+    background_tasks.add_task(db.run_pipeline, signup_data.email)
     return {"filename": file.filename}
 
 

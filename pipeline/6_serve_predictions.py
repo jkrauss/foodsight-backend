@@ -6,9 +6,9 @@
 #       extension: .py
 #       format_name: percent
 #       format_version: '1.3'
-#       jupytext_version: 1.11.4
+#       jupytext_version: 1.12.0
 #   kernelspec:
-#     display_name: 'Python 3.7.9 64-bit (''.venv'': venv)'
+#     display_name: 'Python 3.8.10 64-bit (''.venv'': venv)'
 #     name: python3
 # ---
 
@@ -53,14 +53,26 @@ import pandas as pd
 import catboost as cb
 import os
 
+config = {'base': 
+    {'register_plugin': 'plugins.manual.manual'
+    , 'register_plugin_name': 'manueller Import'
+    , 'country': 'DE'
+    , 'state': 'HE'
+    , 'city': 'Wiesbaden'
+    , 'customer_id': 0
+    , 'pipeline_path': '/Users/jonni/dev/foodsight-backend/pipeline'
+    }}
+
 
 # %%
 ### SCRIPT CELL - DON'T RUN IN NOTEBOOK
 
-import util
-config = util.load_config()
+# import util
+# config = util.load_config()
 
-def run() :
+def run(config_in) :
+    global config
+    config = config_in
     # change working directory to where this file lives
     os.chdir(config['base']['pipeline_path'])
 
@@ -69,12 +81,12 @@ def run() :
     # %%
     # load the production model
     model = cb.CatBoostRegressor()
-    model.load_model('data/4_train/prod_model.cbm', format='cbm')
+    model.load_model(f'data/customer/{config["base"]["customer_id"]}/4_train/prod_model.cbm', format='cbm')
 
     # load prepared prediction-data
-    with open('data/4_train/X_predict.pkl', 'rb') as pf:
+    with open(f'data/customer/{config["base"]["customer_id"]}/4_train/X_predict.pkl', 'rb') as pf:
         X_predict = pickle.load(pf)
-    with open('data/4_train/cat_features.pkl', 'rb') as pf:
+    with open(f'data/customer/{config["base"]["customer_id"]}/4_train/cat_features.pkl', 'rb') as pf:
         cat_features = pickle.load(pf)
 
     # %%
@@ -147,13 +159,13 @@ def run() :
     result
 
     # %%
-    result.to_csv('data/6_predict/predictions.csv', index=False)
+    result.to_csv(f'data/customer/{config["base"]["customer_id"]}/6_predict/predictions.csv', index=False)
 
 # %%
 
 # %%
 ### SCRIPT CELL - DON'T RUN IN NOTEBOOK
 
-if __name__ == '__main__':
+# if __name__ == '__main__':
     # run this step
-    run()
+#     run()

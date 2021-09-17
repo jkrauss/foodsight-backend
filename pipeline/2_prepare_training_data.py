@@ -6,9 +6,9 @@
 #       extension: .py
 #       format_name: percent
 #       format_version: '1.3'
-#       jupytext_version: 1.11.4
+#       jupytext_version: 1.12.0
 #   kernelspec:
-#     display_name: 'Python 3.7.9 64-bit (''.venv'': venv)'
+#     display_name: 'Python 3.8.10 64-bit (''.venv'': venv)'
 #     name: python3
 # ---
 
@@ -23,14 +23,26 @@ import datetime as dt
 import pickle
 import os
 
+config = {'base': 
+    {'register_plugin': 'plugins.manual.manual'
+    , 'register_plugin_name': 'manueller Import'
+    , 'country': 'DE'
+    , 'state': 'HE'
+    , 'city': 'Wiesbaden'
+    , 'customer_id': 0
+    , 'pipeline_path': '/Users/jonni/dev/foodsight-backend/pipeline'
+    }}
+
 
 # %%
 ### SCRIPT CELL - DON'T RUN IN NOTEBOOK
 
-import util
-config = util.load_config()
+# import util
+# config = util.load_config()
 
-def run() :
+def run(config_in) :
+    global config
+    config = config_in
     # change working directory to where this file lives
     os.chdir(config['base']['pipeline_path'])
 
@@ -43,8 +55,8 @@ def run() :
 # # read data 
 
     # %%
-    salespath = 'data/1_trans/current_sales_history.csv'
-    datepath = 'data/1_trans/date_dimension.csv'
+    salespath = f'data/customer/{config["base"]["customer_id"]}/1_trans/current_sales_history.csv'
+    datepath = f'data/customer/{config["base"]["customer_id"]}/1_trans/date_dimension.csv'
 
     # %%
     # contains our target column 'sales' : initialize our dataset
@@ -59,7 +71,7 @@ def run() :
     # %%
     # list all files that are to be merged
     flist = list()
-    for filepath in glob.iglob('data/1_trans/*.csv'):
+    for filepath in glob.iglob(f'data/customer/{config["base"]["customer_id"]}/1_trans/*.csv'):
         if filepath != salespath and filepath != datepath:
             flist.append(filepath)
             print(filepath)
@@ -245,12 +257,12 @@ def run() :
     #     df = df.reset_index(drop=True)
 
 
-    prod_features.to_csv('data/2_pre_train/prod_features.csv')
-    train_features.to_csv('data/2_pre_train/train_features.csv')
-    test_features.to_csv('data/2_pre_train/test_features.csv')
-    predict_features.to_csv('data/2_pre_train/predict_features.csv')
+    prod_features.to_csv(f'data/customer/{config["base"]["customer_id"]}/2_pre_train/prod_features.csv')
+    train_features.to_csv(f'data/customer/{config["base"]["customer_id"]}/2_pre_train/train_features.csv')
+    test_features.to_csv(f'data/customer/{config["base"]["customer_id"]}/2_pre_train/test_features.csv')
+    predict_features.to_csv(f'data/customer/{config["base"]["customer_id"]}/2_pre_train/predict_features.csv')
 
-    with open('data/2_pre_train/feature_def_list.pkl', 'wb') as f:
+    with open(f'data/customer/{config["base"]["customer_id"]}/2_pre_train/feature_def_list.pkl', 'wb') as f:
         pickle.dump(prod_feature_defs, f)
 
 
@@ -262,6 +274,6 @@ def run() :
 # %%
 ### SCRIPT CELL - DON'T RUN IN NOTEBOOK
 
-if __name__ == '__main__':
+# if __name__ == '__main__':
     # run this step
-    run()
+#     run()

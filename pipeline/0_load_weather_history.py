@@ -6,9 +6,9 @@
 #       extension: .py
 #       format_name: percent
 #       format_version: '1.3'
-#       jupytext_version: 1.11.4
+#       jupytext_version: 1.12.0
 #   kernelspec:
-#     display_name: 'Python 3.7.9 64-bit (''.venv'': venv)'
+#     display_name: 'Python 3.8.10 64-bit (''.venv'': venv)'
 #     name: python3
 # ---
 
@@ -20,13 +20,25 @@ import pandas as pd
 import os
 import glob
 
+config = {'base': 
+    {'register_plugin': 'plugins.manual.manual'
+    , 'register_plugin_name': 'manueller Import'
+    , 'country': 'DE'
+    , 'state': 'HE'
+    , 'city': 'Wiesbaden'
+    , 'customer_id': 0
+    , 'pipeline_path': '/Users/jonni/dev/foodsight-backend/pipeline'
+    }}
+
 
 # %%
 ### SCRIPT CELL - DON'T RUN IN NOTEBOOK
-import util
-config = util.load_config()
+# import util
+# config = util.load_config()
 
-def run() :
+def run(config_in) :
+    global config
+    config = config_in
     # change working directory to where this file lives
     os.chdir(config['base']['pipeline_path'])
 
@@ -53,7 +65,7 @@ def run() :
     # %%
     # determine the last existing weather-file
     flist = list()
-    for filepath in glob.iglob('data/0_raw/weather/*.csv'):
+    for filepath in glob.iglob(f'data/customer/{config["base"]["customer_id"]}/0_raw/weather/*.csv'):
         flist.append(filepath)
 
     # this sorts the original list in place
@@ -101,7 +113,7 @@ def run() :
         response = requests.request("GET", url, headers=headers, params=querystring)
         
         if response:
-            with open("data/0_raw/weather/weather_{}_21d.csv".format(fn_str), "w") as f:
+            with open(f'data/customer/{config["base"]["customer_id"]}/0_raw/weather/weather_{fn_str}_21d.csv', "w") as f:
                 f.write(response.text)
                 f.close()
                 print("weather_{}_21d.csv".format(fn_str))
@@ -115,6 +127,6 @@ def run() :
 # %%
 ### SCRIPT CELL - DON'T RUN IN NOTEBOOK
 
-if __name__ == '__main__':
+# if __name__ == '__main__':
     # run this step
-    run()
+#     run()

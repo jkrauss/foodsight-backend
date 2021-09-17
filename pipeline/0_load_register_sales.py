@@ -6,9 +6,9 @@
 #       extension: .py
 #       format_name: percent
 #       format_version: '1.3'
-#       jupytext_version: 1.11.4
+#       jupytext_version: 1.12.0
 #   kernelspec:
-#     display_name: 'Python 3.7.9 64-bit (''.venv'': venv)'
+#     display_name: 'Python 3.8.10 64-bit (''.venv'': venv)'
 #     name: python3
 # ---
 
@@ -21,16 +21,28 @@ import pathlib
 
 import importlib
 
-import util
+config = {'base': 
+    {'register_plugin': 'plugins.manual.manual'
+    , 'register_plugin_name': 'manueller Import'
+    , 'country': 'DE'
+    , 'state': 'HE'
+    , 'city': 'Wiesbaden'
+    , 'customer_id': 0
+    , 'pipeline_path': '/Users/jonni/dev/foodsight-backend/pipeline'
+    }}
+
+# import util
 # load customer specific config
-config = util.load_config()
+#config = util.load_config()
 
 
 # %%
 ### SCRIPT CELL - DON'T RUN IN NOTEBOOK
 
 
-def run() :
+def run(config_in) :
+    global config
+    config = config_in
     # change working directory to where this file lives
     os.chdir(config['base']['pipeline_path'])
 
@@ -53,7 +65,7 @@ def run() :
         end_date = start_date + dt.timedelta(weeks=4)
         start_str = str(start_date)
         end_str = str(end_date)
-        csv_name = f'data/0_raw/sales/sales_{start_str}_{end_str}.csv'
+        csv_name = f'data/customer/{config["base"]["customer_id"]}/0_raw/sales/sales_{start_str}_{end_str}.csv'
 
         # if historic data exists don't load, but always reload current batch - 3 days grace period for a hanging pipeline
         if not ( end_date + dt.timedelta(days=3) < dt.date.today() and os.path.isfile(csv_name) ):
@@ -68,6 +80,6 @@ def run() :
 # %%
 ### SCRIPT CELL - DON'T RUN IN NOTEBOOK
 
-if __name__ == '__main__':
+# if __name__ == '__main__':
     # run this step
-    run()
+#     run()
