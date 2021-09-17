@@ -15,12 +15,13 @@ const userSettingsInit = writable({});
 const notification = writable({});
 
 const svelteRenderParent = writable();
+let interceptor;
 // user subscribtioin to handle axios interceptor for authentication
 user.subscribe((val) => {
 	localStorage.setItem("user", JSON.stringify(val));
-	if (val && Object.keys(val).length != 0) {
+	if (val && Object.keys(val).length) {
 		//setting axios headers
-		axios.interceptors.request.use(
+		interceptor = axios.interceptors.request.use(
 			(config) => {
 				config.headers.authorization = `Bearer ${val.access_token}`;
 				return config;
@@ -29,6 +30,8 @@ user.subscribe((val) => {
 				return Promise.reject(error);
 			}
 		);
+	} else {
+		axios.interceptors.request.eject(interceptor);
 	}
 });
 
