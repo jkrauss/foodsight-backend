@@ -199,8 +199,6 @@ def create_signup(signup_data: SignupData):
 
             create_pipeline(customer_id)
 
-            # required so that the user can login directly
-            auth.refresh_users()
 
             return f'signup, customer and user with email {signup_data.email} created'
 
