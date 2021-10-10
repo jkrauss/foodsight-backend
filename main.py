@@ -253,4 +253,4 @@ async def post_sales_upload(file: UploadFile = File(...), current_user: db.User 
 
 # Place After All Other Routes 
 app.mount("/api/problems", StaticFiles(directory="pipeline/data/problem_reports"), name="problems")
-app.mount('/', StaticFiles(directory="client/dist/"), name="static")
+#app.mount('/', StaticFiles(directory="client/dist/"), name="static")
