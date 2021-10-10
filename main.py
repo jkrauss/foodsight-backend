@@ -239,11 +239,15 @@ def post_order(order_data: OrderData):
 
 @app.post("/api/sales_upload")
 async def post_sales_upload(file: UploadFile = File(...), current_user: db.User = Depends(get_current_active_user)):
-    async with aiofiles.open("pipeline/data/0_raw/manual/manual_import.xlsx", 'wb') as out_file:
+    
+    customer_id = db._get_customer_id_from_username(current_user.username)
+
+    async with aiofiles.open(f"pipeline/data/customer/{customer_id}/0_raw/manual/manual_import.xlsx", 'wb') as out_file:
         while content := await file.read(1024):  # async read chunk
             await out_file.write(content)  # async write chunk
     # TODO: HIER WEITER!!
-    background_tasks.add_task(db.run_pipeline, signup_data.email)
+    # background_tasks.add_task(db.run_pipeline, signup_data.email)
+    db.run_pipeline(current_user.username)
     return {"filename": file.filename}
 
 
