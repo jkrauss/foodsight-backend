@@ -40,9 +40,9 @@ app.add_middleware(
 )
 
 
-@app.get('/')
-def home():
-    return FileResponse('client/dist/__app.html')
+#@app.get('/')
+#def home():
+#    return FileResponse('client/dist/__app.html')
 
 
 @app.get('/api/forecast/')
