@@ -69,9 +69,6 @@ def run(config_in) :
     days.date = pd.to_datetime(days.date)
 
 
-# %%
-len(sales)
-
     # %%
     # list all files that are to be merged
     flist = list()
@@ -91,7 +88,7 @@ len(sales)
         prod_data[entity_name] = df
 
 
-# %%
+    # %%
 
     # trim time- and other dimensions to the timespan present in sales
     start, end = sales.date.min(), sales.date.max()
@@ -159,8 +156,6 @@ len(sales)
 
     train_data.keys(), test_data.keys()    
 
-# %%
-test_data['days']
 
     # %%
     # assert we have sufficient data in each set and time-cuts worked out correctly
