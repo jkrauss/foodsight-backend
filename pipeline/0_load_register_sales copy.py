@@ -55,28 +55,58 @@ def run(config_in) :
     plug = importlib.import_module(config['base']['register_plugin'])
     #plug = importlib.import_module('pipeline.plugins.ready2order.ready2order')
 
+# %%
+config
+
     # %%
     # import imp
     # imp.reload(plug)
 
-    start_date = dt.date(2018,1,1)
-    str(start_date)
-    while start_date < dt.date.today():
-        # determine 4 weeks batch then increment
-        end_date = start_date + dt.timedelta(weeks=4)
-        start_str = str(start_date)
-        end_str = str(end_date)
-        csv_name = f'data/customer/{config["base"]["customer_id"]}/0_raw/sales/sales_{start_str}_{end_str}.csv'
+    start_date = dt.date(2021,10,7)
+    print(str(start_date))
+    end_date = start_date + dt.timedelta(weeks=4)
+    start_str = str(start_date)
+    end_str = str(end_date)
+    csv_name = f'data/customer/{config["base"]["customer_id"]}/0_raw/sales/sales_{start_str}_{end_str}.csv'
 
-        # if historic data exists don't load, but always reload current batch - 3 days grace period for a hanging pipeline
-        if not ( end_date + dt.timedelta(days=3) < dt.date.today() and os.path.isfile(csv_name) ):
-            print(f'loading {csv_name}...')
-            sales = plug.load_sales(CUSTOMER_TOKEN, from_date_str=start_str, to_date_str=end_str)
-            sales.to_csv(csv_name, index=False)
-        
-        # increment
-        start_date = end_date+dt.timedelta(days=1)
+    not ( end_date + dt.timedelta(days=3) < dt.date.today() and os.path.isfile(csv_name) )
 
+    print(f'loading {csv_name}...')
+    sales = plug.load_sales(CUSTOMER_TOKEN, from_date_str=start_str, to_date_str=end_str)
+
+    # increment
+    #start_date = end_date+dt.timedelta(days=1)
+
+    start_date, end_date, len(sales)
+
+# %%
+sales.date.unique()
+
+# %%
+jsons = sales
+sales = jsons[0]
+sales
+
+# %%
+invoices = pd.json_normalize(sales['invoices'], errors='ignore')
+invoices
+
+# %%
+#items = pd.json_normalize(sales['invoices'], record_path=['items'], errors='ignore')
+invoices.invoice_timestamp
+
+# %%
+
+# %%
+
+# %%
+csv_name
+
+# %%
+# increment
+start_date = end_date+dt.timedelta(days=1)
+
+start_date, end_date
 
 # %%
 ### SCRIPT CELL - DON'T RUN IN NOTEBOOK

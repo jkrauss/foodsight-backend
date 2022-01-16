@@ -20,9 +20,10 @@ import pandas as pd
 import os
 import glob
 
+
 config = {'base': 
-    {'register_plugin': 'plugins.manual.manual'
-    , 'register_plugin_name': 'manueller Import'
+    {'register_plugin': 'plugins.ready2order.ready2order'
+    , 'register_plugin_name': 'ready2order'
     , 'country': 'DE'
     , 'state': 'HE'
     , 'city': 'Wiesbaden'
@@ -130,3 +131,5 @@ def run(config_in) :
 # if __name__ == '__main__':
     # run this step
 #     run()
+
+# %%

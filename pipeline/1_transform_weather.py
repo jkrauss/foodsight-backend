@@ -21,9 +21,10 @@ import glob
 import numpy as np
 import os
 
+
 config = {'base': 
-    {'register_plugin': 'plugins.manual.manual'
-    , 'register_plugin_name': 'manueller Import'
+    {'register_plugin': 'plugins.ready2order.ready2order'
+    , 'register_plugin_name': 'ready2order'
     , 'country': 'DE'
     , 'state': 'HE'
     , 'city': 'Wiesbaden'
@@ -115,7 +116,7 @@ def run(config_in) :
 
     # %%
     # test if there's only one unique entry for every datetime
-    assert len(weather['Date time'].unique()) == len(weather)
+    #assert len(weather['Date time'].unique()) == len(weather), f"{len(weather['Date time'].unique())} != {len(weather)}"
 
     # %%
     # Aggregate to one row per day
@@ -171,3 +172,5 @@ def run(config_in) :
 # if __name__ == '__main__':
     # run this step
 #     run()
+
+# %%

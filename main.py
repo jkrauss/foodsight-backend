@@ -191,7 +191,6 @@ def post_signup(signup_data: db.SignupData, background_tasks: BackgroundTasks):
     print(r.status_code, r.reason)
     print(r.text[:300])
 
-
 class OrderData(BaseModel):
     data: list
     option: str

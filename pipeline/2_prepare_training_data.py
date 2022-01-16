@@ -23,9 +23,10 @@ import datetime as dt
 import pickle
 import os
 
+
 config = {'base': 
-    {'register_plugin': 'plugins.manual.manual'
-    , 'register_plugin_name': 'manueller Import'
+    {'register_plugin': 'plugins.ready2order.ready2order'
+    , 'register_plugin_name': 'ready2order'
     , 'country': 'DE'
     , 'state': 'HE'
     , 'city': 'Wiesbaden'
@@ -67,6 +68,9 @@ def run(config_in) :
     days = pd.read_csv(datepath)
     days.date = pd.to_datetime(days.date)
 
+
+# %%
+len(sales)
 
     # %%
     # list all files that are to be merged
@@ -155,16 +159,19 @@ def run(config_in) :
 
     train_data.keys(), test_data.keys()    
 
+# %%
+test_data['days']
+
     # %%
     # assert we have sufficient data in each set and time-cuts worked out correctly
     for el in train_data:
         #print(el, len(train_data[el]), train_data[el].date.max())
-        assert len(train_data[el]) >= 10, 'train data of {} should have at least 10 examples'.format(el, cutoff_date)
+        assert len(train_data[el]) >= 8, 'train data of {} should have at least 10 examples'.format(el, cutoff_date)
         assert train_data[el].date.max() <= cutoff_date, 'train data of {} should not contain dates after cutoff_date {}'.format(el, cutoff_date)
 
     for el in test_data:
         #print(el, len(test_data[el]), test_data[el].date.min())
-        assert len(test_data[el]) >= 10, 'test data of {} should have at least 10 examples'.format(el, cutoff_date)
+        assert len(test_data[el]) >= 8, 'test data of {} should have at least 10 examples'.format(el, cutoff_date)
         assert test_data[el].date.min() > cutoff_date, 'test data of {} should not contain dates before/at cutoff_date {}'.format(el, cutoff_date)
 
 

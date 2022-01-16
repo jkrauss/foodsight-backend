@@ -25,7 +25,7 @@ invoice_querystring = {
         'dateTo' : '',
         'offset' : 0,
         'limit' : 100, # max number of rows to retrieve, default is 25
-        'query' : 'RG' # type."billType_symbol": "RG" is what I actually want
+#        'query' : 'RG' # type."billType_symbol": "RG" is what I actually want # 2021-01-09 : This doesn't work anymore - including a query for billtype results in 0 results
 }
 
 def load_sales(token, store=1, from_date_str=None, to_date_str=None):
@@ -48,6 +48,7 @@ def load_sales(token, store=1, from_date_str=None, to_date_str=None):
 
     more = True
     return_df = None
+    #jsons = []
     while(more):
         response = requests.request("GET", invoice_url, headers=headers, params=invoice_querystring)
         time.sleep(1) # ensure rate limit of 60 requests per minute
@@ -56,6 +57,10 @@ def load_sales(token, store=1, from_date_str=None, to_date_str=None):
             sales = response.json()
         else:
             sales = {'invoices': []}
+
+        # DEBUG
+        #jsons.append(sales)
+        # DEBUG
 
         n_invoices = len(sales['invoices'])
         if n_invoices==0:
@@ -80,7 +85,7 @@ def load_sales(token, store=1, from_date_str=None, to_date_str=None):
 
             # rename / identify important fields date, sales, product, store
             name_dict = {
-                'item_timestamp' : 'date',
+                'invoice_timestamp' : 'date',
                 'item_qty' : 'sales',
                 'item_product_name' : 'product',
                 'item_id' : 'index'
@@ -104,5 +109,7 @@ def load_sales(token, store=1, from_date_str=None, to_date_str=None):
             #return_df = df
             print(f"{len(return_df)} return rows")
     if len(return_df) > 0:
-        assert len(return_df.index.unique()) == len(return_df), "The number of rows should equal the number of unique indices"
+        #return_df.to_excel('foo.xlsx')
+        assert len(return_df['index'].unique()) == len(return_df), f"The number of rows ({len(return_df)}) should equal the number of unique indices ({len(return_df.index.unique())})"
+    #return jsons
     return return_df
