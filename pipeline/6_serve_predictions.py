@@ -52,20 +52,26 @@ import pickle
 import pandas as pd
 import catboost as cb
 import os
+import duckdb as dd
+import json
+
 
 config = {'base': 
-    {'register_plugin': 'plugins.manual.manual'
-    , 'register_plugin_name': 'manueller Import'
+    {'register_plugin': 'plugins.ready2order.ready2order'
+    , 'register_plugin_name': 'ready2order'
     , 'country': 'DE'
     , 'state': 'HE'
     , 'city': 'Wiesbaden'
     , 'customer_id': 0
     , 'pipeline_path': '/Users/jonni/dev/foodsight-backend/pipeline'
+    , 'returns_current': 250
+    , 'sales_price_cost_share': 0.3
     }}
 
 
 # %%
 ### SCRIPT CELL - DON'T RUN IN NOTEBOOK
+# TODO: introduce and handle product_number as id correctly through the pipeline
 
 # import util
 # config = util.load_config()
@@ -99,69 +105,175 @@ def run(config_in) :
     X_predict['sales_prediction'] = predictions
 
     # %%
-    # TODO: introduce and handle product_number as id correctly through the pipeline
-    result = X_predict[['store', 'date', 'product', 'sales_prediction']]
-
-    # ensure we only return numbers for next seven days and filter/format a bit
-    dates = result.date.unique()
-    dates.sort()
-
-    result = result[result.date.isin(dates[:7])].reset_index(drop=True).reset_index()
-    # ATTENTION! Is dependent on the order of the filter above result = X_predict[[...
-    result.columns=['id', 'store', 'date', 'product', 'forecast']
-
+    predictions_per_store = {}
+    for store in X_predict.store.unique():
+        predictions_per_store[store] = X_predict.loc[X_predict.store==store, ['product', 'date', 'sales_prediction']].pivot(index=['product'], columns='date', values='sales_prediction')
 
     # %%
-    # TODO: do a proper calculation of order-range instead of this 
-    result['order_from'] = (result.forecast*0.85)
-    result['order_to'] = (result.forecast*1.15)
+    prod = pd.read_csv(f'data/customer/{config["base"]["customer_id"]}/2_pre_train/prod_features.csv')
+    prod.date = pd.to_datetime(prod.date)
 
-    # %%
-    # build 3 frames: tomorrow, day_after, seven_days
-    tomorrow = result[result.date==dates[0]][['id', 'store', 'product', 'forecast', 'order_from', 'order_to']]
-    day_after = result[result.date==dates[1]][['id', 'store', 'product', 'forecast', 'order_from', 'order_to']]
-    seven_days = result[['store', 'product', 'forecast', 'order_from', 'order_to']].groupby(['store', 'product']).sum().reset_index()
+    last_seven = prod.sort_values('date', ascending=True).date.unique()[-7:]
+    prod = prod[prod.date.isin(last_seven)]
     
-    # needs to be changed as soon as we have proper product-numbers!
-    seven_days.reset_index(inplace=True)
-    seven_days.columns = ['id', 'store', 'product', 'forecast', 'order_from', 'order_to']
-    
-    # needs to be changed as soon as we have proper product-numbers!
-    day_after.reset_index(inplace=True, drop=True)
-    day_after.reset_index(inplace=True)
-    day_after = day_after[['index', 'store', 'product', 'forecast', 'order_from', 'order_to']]
-    day_after.columns = ['id', 'store', 'product', 'forecast', 'order_from', 'order_to']
+    last_week_per_store = {}
+    for store in prod.store.unique():
+        last_week_per_store[store] = prod.loc[prod.store==store, ['product', 'date', 'sales']].pivot(index=['product'], columns='date', values='sales')
+        last_week_per_store[store] = last_week_per_store[store].fillna(0)
+
+    # TODO:
+    # Learning: The curent implementation does only predict conditional... 
+    # "if there's sales on that date for that product it's going to be XYZ"
+    # This is far off for products that have often 0 sales on a date
+    last_week_per_store[1]
 
     # %%
-    # create ..._order_range text-fields
-    tomorrow['tomorrow_order_range'] = tomorrow.order_from.apply(round).apply(str) + ' - ' + tomorrow.order_to.apply(round).apply(str)
-    day_after['day_after_order_range'] = day_after.order_from.apply(round).apply(str) + ' - ' + day_after.order_to.apply(round).apply(str)
-    seven_days['next7_order_range'] = seven_days.order_from.apply(round).apply(str) + ' - ' + seven_days.order_to.apply(round).apply(str)
+    # TODO: From here onwards I pretty much ignore the fact that there can be more than one store
+
+    diff = last_week_per_store[1].copy(deep=True)
+    diff.columns = predictions_per_store[1].columns# - last_week_per_store[1]
+    diff = predictions_per_store[1] - diff
+
+    diff = diff.dropna() # This means we don't predict products that haven't sold last week!
+    #diff
+
+    # %%
+    # calculate the maximum order quantity as the forecast plus the maximum difference that the forecast had to last weeks actual
+
+    add_this = diff.copy(deep=True)
+    # value_when_true if condition else value_when_false
+    for c in add_this.columns:
+        add_this[c] = add_this[c].apply(lambda x: 0 if x > 0 else x)
+    #max_order = (diff / predictions_per_store[1]).dropna()
+    add_this = add_this.T.min()
+    add_this.name = 'add_this'
+    #add_this
+
+    max_order = pd.merge(predictions_per_store[1], add_this, on='product')
+    for c in max_order.columns:
+        max_order[c] -= max_order.add_this
+
+    max_order = max_order.drop('add_this', axis=1)
+    #max_order
+
+    # %%
+    # calculate the minimum order quantity as the forecast minus the maximum positive difference that the forecast had to last weeks actual
+
+    add_this = diff.copy(deep=True)
+    # value_when_true if condition else value_when_false
+    for c in add_this.columns:
+        add_this[c] = add_this[c].apply(lambda x: 0 if x < 0 else x)
+    #max_order = (diff / predictions_per_store[1]).dropna()
+    add_this = add_this.T.max()
+    add_this.name = 'add_this'
+    #add_this
+
+    min_order = pd.merge(predictions_per_store[1], add_this, on='product')
+    for c in min_order.columns:
+        min_order[c] -= min_order.add_this
+        min_order[c] = min_order[c].apply(lambda x: 0 if x < 0 else x)
+
+    min_order = min_order.drop('add_this', axis=1)
+    #min_order
+
+    # %%
+    step = (max_order - min_order)/4
+    XS = min_order
+    S = XS + step
+    M = S + step
+    L = M + step
+    XL = L + step
+    #XL - max_order
+
+    # %%
+    order_sets = {
+        'XS': XS.round(),
+        'S': S.round(),
+        'M': M.round(),
+        'L': L.round(),
+        'XL': XL.round()
+    }
 
 
     # %%
-    # prepare for merge / rename cols to target-names
-    for df in [tomorrow, day_after, seven_days]:
-        df.forecast = df.forecast.apply(round)
-    tomorrow = tomorrow[['id', 'store', 'product', 'forecast', 'tomorrow_order_range']]
-    tomorrow.columns = ['id', 'store', 'product', 'tomorrow_order_qty', 'tomorrow_order_range']
-    day_after = day_after[['id', 'store', 'product', 'forecast', 'day_after_order_range']]
-    day_after.columns = ['id', 'store', 'product', 'day_after_order_qty', 'day_after_order_range']
-    seven_days = seven_days[['id', 'store', 'product', 'forecast', 'next7_order_range']]
-    seven_days.columns = ['id', 'store', 'product', 'next7_order_qty', 'next7_order_range']
+    for S in order_sets:
+        # above we have asserted that prod only contains last seven days: prod = prod[prod.date.isin(last_seven)]
+        # TODO: FIXME: Here I assume that I will have a field 'item_product_pricePerUnit' - which is only given with ready2order
+        prices = prod.groupby(['product', 'item_product_pricePerUnit']).count()['index'].reset_index()[['product', 'item_product_pricePerUnit']]
 
-    tomorrow
+        act = last_week_per_store[1].copy(deep=True)
+        act.columns = order_sets[S].columns
+        diff = (order_sets[S] - act).T # how much more is the forecast than the act?
+        plus = 0
+        minus = 0
+        for val in diff['Bier']:
+            if val > 0:
+                plus += val
+            else:
+                minus += val
+
+        # calculate weekly revenue from last week actuals
+        act_sum = act.T.sum().reset_index()
+        act_sum.columns = ['product', 'act_sum']
+        act_sum = pd.merge(act_sum, prices[['item_product_pricePerUnit', 'product']], on='product')
+        act_sum['revenue'] = act_sum.item_product_pricePerUnit * act_sum.act_sum
+        weekly_revenue = act_sum.revenue.sum()
+        weekly_revenue
+
+        prices['above'] = 0
+        prices['below'] = 0
+
+        for c in diff.columns:
+            row = diff.T.loc[c,:]
+            prices.loc[prices['product']==c,'above'] = row[row>0].sum()
+            prices.loc[prices['product']==c,'below'] = row[row<0].sum()
+
+        prices.above *= prices.item_product_pricePerUnit
+        prices.below *= prices.item_product_pricePerUnit
+
+        prices.below *= -1.0
+
+        donut_data = prices.sum()[['above', 'below']]#.to_dict()
+
+        # calc given data (for 7 days) for a month
+        donut_data *= 4.333
+        donut_data['returns_current'] = config['base']['returns_current']*30.417
+        donut_data['returns_savings'] = donut_data['returns_current'] - donut_data['above']
+        # rename above to 'returns_remaining
+        donut_data['returns_remaining'] = donut_data['above']
+
+        donut_data['profits_current'] = weekly_revenue*4.333
+        donut_data['profits_lost'] = donut_data['below']#*4.333
+        donut_data['profits_remaining'] = donut_data['profits_current'] - donut_data['profits_lost']
+
+        donut_data.drop(['above', 'below'], axis=0, inplace=True)
+
+        # calculate return delivery fields as cost only
+        donut_data[['returns_current', 'returns_savings', 'returns_remaining']] *= config['base']['sales_price_cost_share']
+        # calculate mohtly profits as profits only
+        donut_data[['profits_current', 'profits_lost', 'profits_remaining']] *= (1- config['base']['sales_price_cost_share'])
+
+        order_sets[S].columns = [str(d)[:10] for d in order_sets[S].columns]
+        return_dict = {
+            'name': S,
+            'donut_data': donut_data.to_dict(),
+            'products': list(order_sets[S].index),
+            'order_quantity': order_sets[S].to_dict()
+        }
+        order_sets[S] = return_dict
 
     # %%
-    keys = ['id', 'store', 'product']
-    result = pd.merge(pd.merge(tomorrow, day_after, left_on=keys, right_on=keys)
-        , seven_days, left_on=keys, right_on=keys)
-    result
-
-    # %%
-    result.to_csv(f'data/customer/{config["base"]["customer_id"]}/6_predict/predictions.csv', index=False)
+    # ['name', 'donut_data', 'products', 'order_quantity']
+    # order_sets['L']['products'] #['donut_data']
 
 # %%
+
+# %%
+order_sets = { 1: order_sets } # store=1
+
+fname = f'data/customer/{config["base"]["customer_id"]}/6_predict/predictions.json'
+with open(fname, 'w') as fp:
+    json.dump(order_sets, fp)
 
 # %%
 ### SCRIPT CELL - DON'T RUN IN NOTEBOOK
