@@ -1,0 +1,297 @@
+invoice_total,invoice_totalTip,invoice_address_city,invoice_deleted_at,date,customerCategory_id,tableArea_id,address.company,address.city,item_product_discountable,item_product_pricePerUnit,product,sales,item_retour,item_expirationDate,item_price,item_lineDiscountGross,item_invoiceDiscountGross,item_discountable,paymentMethod_id_x,productgroup_name,user_name,table_name,index,store
+10.5,0,,,2021-10-23,,cat_177144,,,True,8.0,Dinnerle,1,False,,8.0,,,True,cat_495297,Essen,felix,Checkout,449699764,1
+10.5,0,,,2021-10-23,,cat_177144,,,True,2.5,"Kuchen 2,50€",1,False,,2.5,,,True,cat_495297,Essen,felix,Checkout,449699773,1
+10.6,0,,,2021-10-23,,cat_177144,,,True,2.8,Kaffee Creme,2,False,,2.8,,,True,cat_495297,Warme Getränke,felix,Checkout,449685129,1
+10.6,0,,,2021-10-23,,cat_177144,,,True,2.5,"Kuchen 2,50€",2,False,,2.5,,,True,cat_495297,Essen,felix,Checkout,449685130,1
+2.5,0,,,2021-10-23,,cat_177144,,,True,2.5,"Kuchen 2,50€",1,False,,2.5,,,True,cat_495297,Essen,felix,Checkout,449681586,1
+2.8,0,,,2021-10-23,,cat_177144,,,True,2.8,Cappuccino,1,False,,2.8,,,True,cat_495297,Warme Getränke,felix,Checkout,449659356,1
+8.3,0,,,2021-10-23,,cat_177144,,,True,2.8,Kaffee Creme,1,False,,2.8,,,True,cat_495297,Warme Getränke,felix,Checkout,449614110,1
+8.3,0,,,2021-10-23,,cat_177144,,,True,3.0,Limonade,1,False,,3.0,,,True,cat_495297,Non-Alk Getränke,felix,Checkout,449614115,1
+8.3,0,,,2021-10-23,,cat_177144,,,True,2.5,"Kuchen 2,50€",1,False,,2.5,,,True,cat_495297,Essen,felix,Checkout,449614117,1
+2.0,0,,,2021-10-23,,cat_177144,,,True,2.0,Tee,1,False,,2.0,,,True,cat_495297,Warme Getränke,felix,Checkout,449562283,1
+5.6,0,,,2021-10-23,,cat_177144,,,True,2.8,Kaffee Creme,1,False,,2.8,,,True,cat_495297,Warme Getränke,felix,Checkout,449543081,1
+5.6,0,,,2021-10-23,,cat_177144,,,True,2.8,Cappuccino,1,False,,2.8,,,True,cat_495297,Warme Getränke,felix,Checkout,449543082,1
+4.8,0,,,2021-10-23,,cat_177144,,,True,2.0,Tee,1,False,,2.0,,,True,cat_495297,Warme Getränke,felix,Checkout,449507004,1
+4.8,0,,,2021-10-23,,cat_177144,,,True,2.8,Cappuccino,1,False,,2.8,,,True,cat_495297,Warme Getränke,felix,Checkout,449507006,1
+2.8,0,,,2021-10-23,,cat_177144,,,True,2.8,Cappuccino,1,False,,2.8,,,True,cat_495300,Warme Getränke,felix,Checkout,449499590,1
+5.8,0,,,2021-10-23,,cat_177144,,,True,2.8,Cappuccino,1,False,,2.8,,,True,cat_495297,Warme Getränke,felix,Checkout,449497521,1
+5.8,0,,,2021-10-23,,cat_177144,,,True,3.0,Limonade,1,False,,3.0,,,True,cat_495297,Non-Alk Getränke,felix,Checkout,449497523,1
+22.0,0,,,2021-10-22,,cat_177144,,,True,3.0,Limonade,2,False,,3.0,,,True,cat_495297,Non-Alk Getränke,felix,Checkout,449081356,1
+22.0,0,,,2021-10-22,,cat_177144,,,True,8.0,Dinnerle,2,False,,8.0,,,True,cat_495297,Essen,felix,Checkout,449081357,1
+10.5,0,,,2021-10-22,,cat_177144,,,True,2.5,"Kuchen 2,50€",1,False,,2.5,,,True,cat_495297,Essen,felix,Checkout,449080332,1
+10.5,0,,,2021-10-22,,cat_177144,,,True,8.0,Dinnerle,1,False,,8.0,,,True,cat_495297,Essen,felix,Checkout,449080333,1
+10.8,0,,,2021-10-22,,cat_177144,,,True,2.8,Kaffee Creme,1,False,,2.8,,,True,cat_495297,Warme Getränke,felix,Checkout,449015937,1
+10.8,0,,,2021-10-22,,cat_177144,,,True,2.5,"Kuchen 2,50€",2,False,,2.5,,,True,cat_495297,Essen,felix,Checkout,449015938,1
+10.8,0,,,2021-10-22,,cat_177144,,,True,3.0,Limonade,1,False,,3.0,,,True,cat_495297,Non-Alk Getränke,felix,Checkout,449015939,1
+5.8,0,,,2021-10-22,,cat_177144,,,True,3.0,"Kuchen 3,00€",1,False,,3.0,,,True,cat_495297,Essen,felix,Checkout,448960092,1
+5.8,0,,,2021-10-22,,cat_177144,,,True,2.8,Kaffee Creme,1,False,,2.8,,,True,cat_495297,Warme Getränke,felix,Checkout,448960093,1
+7.3,0,,,2021-10-22,,cat_177144,,,True,2.8,Cappuccino,1,False,,2.8,,,True,cat_495297,Warme Getränke,felix,Checkout,448940344,1
+7.3,0,,,2021-10-22,,cat_177144,,,True,2.0,Tee,1,False,,2.0,,,True,cat_495297,Warme Getränke,felix,Checkout,448940345,1
+7.3,0,,,2021-10-22,,cat_177144,,,True,2.5,"Kuchen 2,50€",1,False,,2.5,,,True,cat_495297,Essen,felix,Checkout,448940346,1
+5.3,0,,,2021-10-22,,cat_177144,,,True,2.8,Cappuccino,1,False,,2.8,,,True,cat_495297,Warme Getränke,felix,Checkout,448925166,1
+5.3,0,,,2021-10-22,,cat_177144,,,True,2.5,"Kuchen 2,50€",1,False,,2.5,,,True,cat_495297,Essen,felix,Checkout,448925170,1
+2.5,0,,,2021-10-22,,cat_177144,,,True,2.5,"Kuchen 2,50€",1,False,,2.5,,,True,cat_495297,Essen,felix,Checkout,448922924,1
+27.2,0,,,2021-10-22,,cat_177144,,,True,8.0,Dinnerle,2,False,,8.0,,,True,cat_495297,Essen,felix,Checkout,448914099,1
+27.2,0,,,2021-10-22,,cat_177144,,,True,2.8,Kaffee Creme,2,False,,2.8,,,True,cat_495297,Warme Getränke,felix,Checkout,448914100,1
+27.2,0,,,2021-10-22,,cat_177144,,,True,2.8,Cappuccino,2,False,,2.8,,,True,cat_495297,Warme Getränke,felix,Checkout,448914101,1
+10.8,0,,,2021-10-22,,cat_177144,,,True,8.0,Dinnerle,1,False,,8.0,,,True,cat_495297,Essen,felix,Checkout,448883754,1
+10.8,0,,,2021-10-22,,cat_177144,,,True,2.8,Kaffee Creme,1,False,,2.8,,,True,cat_495297,Warme Getränke,felix,Checkout,448883755,1
+13.8,0,,,2021-10-21,,cat_177144,,,True,8.0,Dinnerle,1,False,,8.0,,,True,cat_495300,Essen,felix,Checkout,448589466,1
+13.8,0,,,2021-10-21,,cat_177144,,,True,3.0,Bier,1,False,,3.0,,,True,cat_495300,Alk Getränke,felix,Checkout,448589467,1
+13.8,0,,,2021-10-21,,cat_177144,,,True,2.8,Kaffee Creme,1,False,,2.8,,,True,cat_495300,Warme Getränke,felix,Checkout,448589469,1
+8.0,0,,,2021-10-21,,cat_177144,,,True,3.0,Dessert,1,False,,3.0,,,True,cat_495297,Essen,felix,Checkout,448589184,1
+8.0,0,,,2021-10-21,,cat_177144,,,True,3.0,Limonade,1,False,,3.0,,,True,cat_495297,Non-Alk Getränke,felix,Checkout,448589185,1
+8.0,0,,,2021-10-21,,cat_177144,,,True,2.0,Wasser,1,False,,2.0,,,True,cat_495297,Non-Alk Getränke,felix,Checkout,448589186,1
+13.0,0,,,2021-10-21,,cat_177144,,,True,2.0,Espresso,1,False,,2.0,,,True,cat_495297,Warme Getränke,felix,Checkout,448588938,1
+13.0,0,,,2021-10-21,,cat_177144,,,True,8.0,Dinnerle,1,False,,8.0,,,True,cat_495297,Essen,felix,Checkout,448588940,1
+13.0,0,,,2021-10-21,,cat_177144,,,True,3.0,"Kuchen 3,00€",1,False,,3.0,,,True,cat_495297,Essen,felix,Checkout,448588941,1
+3.0,0,,,2021-10-21,,cat_177144,,,True,3.0,Limonade,1,False,,3.0,,,True,cat_495297,Non-Alk Getränke,felix,Checkout,448428687,1
+14.0,0,,,2021-10-21,,cat_177144,,,True,2.8,Kaffee Creme,5,False,,2.8,,,True,cat_495299,Warme Getränke,felix,Checkout,448392027,1
+8.0,0,,,2021-10-21,,cat_177144,,,True,8.0,Dinnerle,1,False,,8.0,,,True,cat_495297,Essen,felix,Checkout,448368364,1
+19.5,0,,,2021-10-20,,cat_177144,,,True,8.0,Dinnerle,1,False,,8.0,,,True,cat_495299,Essen,felix,Checkout,448181670,1
+19.5,0,,,2021-10-20,,cat_177144,,,True,3.5,Weinschorle,1,False,,3.5,,,True,cat_495299,Alk Getränke,felix,Checkout,448181671,1
+19.5,0,,,2021-10-20,,cat_177144,,,True,3.0,Bier,1,False,,3.0,,,True,cat_495299,Alk Getränke,felix,Checkout,448181672,1
+19.5,0,,,2021-10-20,,cat_177144,,,True,3.0,Limonade,1,False,,3.0,,,True,cat_495299,Non-Alk Getränke,felix,Checkout,448181673,1
+19.5,0,,,2021-10-20,,cat_177144,,,True,2.0,Wasser,1,False,,2.0,,,True,cat_495299,Non-Alk Getränke,felix,Checkout,448181674,1
+4.5,0,,,2021-10-20,,cat_177144,,,True,2.0,Tee,1,False,,2.0,,,True,cat_495297,Warme Getränke,felix,Checkout,448170071,1
+4.5,0,,,2021-10-20,,cat_177144,,,True,2.5,"Kuchen 2,50€",1,False,,2.5,,,True,cat_495297,Essen,felix,Checkout,448170072,1
+2.8,0,,,2021-10-20,,cat_177144,,,True,2.8,Cappuccino,1,False,,2.8,,,True,cat_495297,Warme Getränke,felix,Checkout,448157651,1
+2.0,0,,,2021-10-20,,cat_177144,,,True,2.0,Tee,1,False,,2.0,,,True,cat_495300,Warme Getränke,felix,Checkout,448139341,1
+3.0,0,,,2021-10-20,,cat_177144,,,True,3.0,Limonade,1,False,,3.0,,,True,cat_495300,Non-Alk Getränke,felix,Checkout,448138073,1
+8.3,0,,,2021-10-20,,cat_177144,,,True,2.8,Cappuccino,1,False,,2.8,,,True,cat_495297,Warme Getränke,felix,Checkout,448127191,1
+8.3,0,,,2021-10-20,,cat_177144,,,True,3.0,Limonade,1,False,,3.0,,,True,cat_495297,Non-Alk Getränke,felix,Checkout,448127192,1
+8.3,0,,,2021-10-20,,cat_177144,,,True,2.5,"Kuchen 2,50€",1,False,,2.5,,,True,cat_495297,Essen,felix,Checkout,448127193,1
+23.3,0,,,2021-10-20,,cat_177144,,,True,8.0,Dinnerle,2,False,,8.0,,,True,cat_495297,Essen,felix,Checkout,448019605,1
+23.3,0,,,2021-10-20,,cat_177144,,,True,2.5,"Kuchen 2,50€",1,False,,2.5,,,True,cat_495297,Essen,felix,Checkout,448019607,1
+23.3,0,,,2021-10-20,,cat_177144,,,True,2.0,Wasser,1,False,,2.0,,,True,cat_495297,Non-Alk Getränke,felix,Checkout,448019608,1
+23.3,0,,,2021-10-20,,cat_177144,,,True,2.8,Kaffee Creme,1,False,,2.8,,,True,cat_495297,Warme Getränke,felix,Checkout,448019610,1
+10.5,0,,,2021-10-20,,cat_177144,,,True,8.0,Dinnerle,1,False,,8.0,,,True,cat_495297,Essen,felix,Checkout,448016515,1
+10.5,0,,,2021-10-20,,cat_177144,,,True,2.5,"Kuchen 2,50€",1,False,,2.5,,,True,cat_495297,Essen,felix,Checkout,448016516,1
+3.0,0,,,2021-10-20,,cat_177144,,,True,3.0,Limonade,1,False,,3.0,,,True,cat_495297,Non-Alk Getränke,felix,Checkout,448002551,1
+6.3,0,,,2021-10-20,,cat_177144,,,True,2.8,Cappuccino,1,False,,2.8,,,True,cat_495297,Warme Getränke,felix,Checkout,448001926,1
+6.3,0,,,2021-10-20,,cat_177144,,,True,3.5,Torte,1,False,,3.5,,,True,cat_495297,Essen,felix,Checkout,448001927,1
+11.0,0,,,2021-10-20,,cat_177144,,,True,8.0,Dinnerle,1,False,,8.0,,,True,cat_495297,Essen,felix,Checkout,447987617,1
+11.0,0,,,2021-10-20,,cat_177144,,,True,3.0,"Kuchen 3,00€",1,False,,3.0,,,True,cat_495297,Essen,felix,Checkout,447987618,1
+2.8,0,,,2021-10-20,,cat_177144,,,True,2.8,Cappuccino,1,False,,2.8,,,True,cat_495297,Warme Getränke,felix,Checkout,447941536,1
+16.6,0,,,2021-10-19,,cat_177144,,,True,2.8,Kaffee Creme,1,False,,2.8,,,True,cat_495300,Warme Getränke,felix,Checkout,447765222,1
+16.6,0,,,2021-10-19,,cat_177144,,,True,2.8,Cappuccino,1,False,,2.8,,,True,cat_495300,Warme Getränke,felix,Checkout,447765223,1
+16.6,0,,,2021-10-19,,cat_177144,,,True,8.0,Dinnerle,1,False,,8.0,,,True,cat_495300,Essen,felix,Checkout,447765224,1
+16.6,0,,,2021-10-19,,cat_177144,,,True,3.0,"Kuchen 3,00€",1,False,,3.0,,,True,cat_495300,Essen,felix,Checkout,447765225,1
+7.0,0,,,2021-10-19,,cat_177144,,,True,3.5,Weinschorle,1,False,,3.5,,,True,cat_495297,Alk Getränke,felix,Checkout,447765039,1
+7.0,0,,,2021-10-19,,cat_177144,,,True,3.5,Torte,1,False,,3.5,,,True,cat_495297,Essen,felix,Checkout,447765041,1
+5.0,0,,,2021-10-19,,cat_177144,,,True,2.0,Wasser,1,False,,2.0,,,True,cat_495297,Non-Alk Getränke,felix,Checkout,447764848,1
+5.0,0,,,2021-10-19,,cat_177144,,,True,3.0,Limonade,1,False,,3.0,,,True,cat_495297,Non-Alk Getränke,felix,Checkout,447764849,1
+11.0,0,,,2021-10-19,,cat_177144,,,True,8.0,Dinnerle,1,False,,8.0,,,True,cat_495297,Essen,felix,Checkout,447763322,1
+11.0,0,,,2021-10-19,,cat_177144,,,True,3.0,"Kuchen 3,00€",1,False,,3.0,,,True,cat_495297,Essen,felix,Checkout,447763323,1
+5.6,0,,,2021-10-19,,cat_177144,,,True,2.8,Kaffee Creme,1,False,,2.8,,,True,cat_495297,Warme Getränke,felix,Checkout,447763200,1
+5.6,0,,,2021-10-19,,cat_177144,,,True,2.8,Cappuccino,1,False,,2.8,,,True,cat_495297,Warme Getränke,felix,Checkout,447763201,1
+8.0,0,,,2021-10-19,,cat_177144,,,True,8.0,Dinnerle,1,False,,8.0,,,True,cat_495297,Essen,felix,Checkout,447598322,1
+11.0,0,,,2021-10-19,,cat_177144,,,True,8.0,Dinnerle,1,False,,8.0,,,True,cat_495297,Essen,felix,Checkout,447598194,1
+11.0,0,,,2021-10-19,,cat_177144,,,True,3.0,Limonade,1,False,,3.0,,,True,cat_495297,Non-Alk Getränke,felix,Checkout,447598195,1
+19.6,0,,,2021-10-18,,cat_177144,,,True,2.8,Cappuccino,1,False,,2.8,,,True,cat_495300,Warme Getränke,felix,Checkout,447399179,1
+19.6,0,,,2021-10-18,,cat_177144,,,True,2.8,Kaffee Creme,1,False,,2.8,,,True,cat_495300,Warme Getränke,felix,Checkout,447399181,1
+19.6,0,,,2021-10-18,,cat_177144,,,True,8.0,Dinnerle,1,False,,8.0,,,True,cat_495300,Essen,felix,Checkout,447399182,1
+19.6,0,,,2021-10-18,,cat_177144,,,True,3.0,"Kuchen 3,00€",1,False,,3.0,,,True,cat_495300,Essen,felix,Checkout,447399183,1
+19.6,0,,,2021-10-18,,cat_177144,,,True,3.0,Bier,1,False,,3.0,,,True,cat_495300,Alk Getränke,felix,Checkout,447399184,1
+6.0,0,,,2021-10-18,,cat_177144,,,True,2.5,"Kuchen 2,50€",1,False,,2.5,,,True,cat_495297,Essen,felix,Checkout,447397633,1
+6.0,0,,,2021-10-18,,cat_177144,,,True,3.5,Torte,1,False,,3.5,,,True,cat_495297,Essen,felix,Checkout,447397634,1
+4.8,0,,,2021-10-18,,cat_177144,,,True,2.8,Cappuccino,1,False,,2.8,,,True,cat_495297,Warme Getränke,felix,Checkout,447270189,1
+4.8,0,,,2021-10-18,,cat_177144,,,True,2.0,Tee,1,False,,2.0,,,True,cat_495297,Warme Getränke,felix,Checkout,447270190,1
+5.8,0,,,2021-10-18,,cat_177144,,,True,2.8,Cappuccino,1,False,,2.8,,,True,cat_495297,Warme Getränke,felix,Checkout,447253076,1
+5.8,0,,,2021-10-18,,cat_177144,,,True,3.0,Limonade,1,False,,3.0,,,True,cat_495297,Non-Alk Getränke,felix,Checkout,447253077,1
+10.0,0,,,2021-10-18,,cat_177144,,,True,2.0,Tee,1,False,,2.0,,,True,cat_495297,Warme Getränke,felix,Checkout,447219298,1
+10.0,0,,,2021-10-18,,cat_177144,,,True,8.0,Dinnerle,1,False,,8.0,,,True,cat_495297,Essen,felix,Checkout,447219299,1
+10.6,0,,,2021-10-17,,cat_177144,,,True,2.8,Cappuccino,2,False,,2.8,,,True,cat_495297,Warme Getränke,felix,Checkout,447018742,1
+10.6,0,,,2021-10-17,,cat_177144,,,True,2.5,"Kuchen 2,50€",2,False,,2.5,,,True,cat_495297,Essen,felix,Checkout,447018743,1
+7.8,0,,,2021-10-17,,cat_177144,,,True,2.0,Espresso,1,False,,2.0,,,True,cat_495297,Warme Getränke,felix,Checkout,447005915,1
+7.8,0,,,2021-10-17,,cat_177144,,,True,2.8,Kaffee Creme,1,False,,2.8,,,True,cat_495297,Warme Getränke,felix,Checkout,447005917,1
+7.8,0,,,2021-10-17,,cat_177144,,,True,3.0,Limonade,1,False,,3.0,,,True,cat_495297,Non-Alk Getränke,felix,Checkout,447005918,1
+3.0,0,,,2021-10-17,,cat_177144,,,True,3.0,Limonade,1,False,,3.0,,,True,cat_495297,Non-Alk Getränke,felix,Checkout,447001199,1
+8.3,0,,,2021-10-17,,cat_177144,,,True,2.8,Cappuccino,1,False,,2.8,,,True,cat_495297,Warme Getränke,felix,Checkout,446979236,1
+8.3,0,,,2021-10-17,,cat_177144,,,True,3.0,Milchkaffee,1,False,,3.0,,,True,cat_495297,Warme Getränke,felix,Checkout,446979237,1
+8.3,0,,,2021-10-17,,cat_177144,,,True,2.5,"Kuchen 2,50€",1,False,,2.5,,,True,cat_495297,Essen,felix,Checkout,446979238,1
+21.8,0,,,2021-10-17,,cat_177144,,,True,3.0,Limonade,1,False,,3.0,,,True,cat_495297,Non-Alk Getränke,felix,Checkout,446968650,1
+21.8,0,,,2021-10-17,,cat_177144,,,True,8.0,Dinnerle,2,False,,8.0,,,True,cat_495297,Essen,felix,Checkout,446968651,1
+21.8,0,,,2021-10-17,,cat_177144,,,True,2.8,Kaffee Creme,1,False,,2.8,,,True,cat_495297,Warme Getränke,felix,Checkout,446968652,1
+5.6,0,,,2021-10-17,,cat_177144,,,True,2.8,Kaffee Creme,2,False,,2.8,,,True,cat_495297,Warme Getränke,felix,Checkout,446908137,1
+5.6,0,,,2021-10-17,,cat_177144,,,True,2.8,Cappuccino,1,False,,2.8,,,True,cat_495297,Warme Getränke,felix,Checkout,446868436,1
+5.6,0,,,2021-10-17,,cat_177144,,,True,2.8,Kaffee Creme,1,False,,2.8,,,True,cat_495297,Warme Getränke,felix,Checkout,446868437,1
+6.0,0,,,2021-10-16,,cat_177144,,,True,3.0,Limonade,2,False,,3.0,,,True,cat_495297,Non-Alk Getränke,felix,Checkout,446467234,1
+3.0,0,,,2021-10-16,,cat_177144,,,True,3.0,Dessert,1,False,,3.0,,,True,cat_495297,Essen,felix,Checkout,446464048,1
+18.5,0,,,2021-10-16,,cat_177144,,,True,8.0,Dinnerle,2,False,,8.0,,,True,cat_495297,Essen,felix,Checkout,446434041,1
+18.5,0,,,2021-10-16,,cat_177144,,,True,2.5,"Kuchen 2,50€",1,False,,2.5,,,True,cat_495297,Essen,felix,Checkout,446434042,1
+9.0,0,,,2021-10-16,,cat_177144,,,True,3.0,Limonade,3,False,,3.0,,,True,cat_495297,Non-Alk Getränke,felix,Checkout,446375911,1
+2.8,0,,,2021-10-16,,cat_177144,,,True,2.8,Kaffee Creme,1,False,,2.8,,,True,cat_495297,Warme Getränke,felix,Checkout,446370448,1
+11.1,0,,,2021-10-16,,cat_177144,,,True,2.8,Kaffee Creme,2,False,,2.8,,,True,cat_495297,Warme Getränke,felix,Checkout,446359841,1
+11.1,0,,,2021-10-16,,cat_177144,,,True,2.5,"Kuchen 2,50€",1,False,,2.5,,,True,cat_495297,Essen,felix,Checkout,446359842,1
+11.1,0,,,2021-10-16,,cat_177144,,,True,3.0,Dessert,1,False,,3.0,,,True,cat_495297,Essen,felix,Checkout,446359843,1
+14.0,0,,,2021-10-16,,cat_177144,,,True,8.0,Dinnerle,1,False,,8.0,,,True,cat_495297,Essen,felix,Checkout,446330530,1
+14.0,0,,,2021-10-16,,cat_177144,,,True,3.0,Bier,2,False,,3.0,,,True,cat_495297,Alk Getränke,felix,Checkout,446330531,1
+3.0,0,,,2021-10-16,,cat_177144,,,True,3.0,Milchkaffee,1,False,,3.0,,,True,cat_495297,Warme Getränke,felix,Checkout,446328515,1
+2.8,0,,,2021-10-16,,cat_177144,,,True,2.8,Kaffee Creme,1,False,,2.8,,,True,cat_495297,Warme Getränke,felix,Checkout,446323976,1
+10.8,0,,,2021-10-16,,cat_177144,,,True,2.8,Cappuccino,1,False,,2.8,,,True,cat_495297,Warme Getränke,felix,Checkout,446322483,1
+10.8,0,,,2021-10-16,,cat_177144,,,True,8.0,Dinnerle,1,False,,8.0,,,True,cat_495297,Essen,felix,Checkout,446322484,1
+8.5,0,,,2021-10-16,,cat_177144,,,True,2.5,"Kuchen 2,50€",1,False,,2.5,,,True,cat_495297,Essen,felix,Checkout,446282743,1
+8.5,0,,,2021-10-16,,cat_177144,,,True,3.0,Limonade,2,False,,3.0,,,True,cat_495297,Non-Alk Getränke,felix,Checkout,446282744,1
+2.8,0,,,2021-10-16,,cat_177144,,,True,2.8,Cappuccino,1,False,,2.8,,,True,cat_495297,Warme Getränke,felix,Checkout,446270779,1
+8.3,0,,,2021-10-16,,cat_177144,,,True,2.8,Kaffee Creme,1,False,,2.8,,,True,cat_495297,Warme Getränke,felix,Checkout,446255955,1
+8.3,0,,,2021-10-16,,cat_177144,,,True,3.0,Limonade,1,False,,3.0,,,True,cat_495297,Non-Alk Getränke,felix,Checkout,446255956,1
+8.3,0,,,2021-10-16,,cat_177144,,,True,2.5,"Kuchen 2,50€",1,False,,2.5,,,True,cat_495297,Essen,felix,Checkout,446255957,1
+5.8,0,,,2021-10-16,,cat_177144,,,True,2.8,Cappuccino,1,False,,2.8,,,True,cat_495297,Warme Getränke,felix,Checkout,446235724,1
+5.8,0,,,2021-10-16,,cat_177144,,,True,3.0,Milchkaffee,1,False,,3.0,,,True,cat_495297,Warme Getränke,felix,Checkout,446235726,1
+11.0,0,,,2021-10-16,,cat_177144,,,True,3.0,Limonade,1,False,,3.0,,,True,cat_495297,Non-Alk Getränke,felix,Checkout,446232194,1
+11.0,0,,,2021-10-16,,cat_177144,,,True,8.0,Dinnerle,1,False,,8.0,,,True,cat_495297,Essen,felix,Checkout,446232195,1
+5.5,0,,,2021-10-16,,cat_177144,,,True,3.0,Limonade,1,False,,3.0,,,True,cat_495297,Non-Alk Getränke,felix,Checkout,446219824,1
+5.5,0,,,2021-10-16,,cat_177144,,,True,2.5,"Kuchen 2,50€",1,False,,2.5,,,True,cat_495297,Essen,felix,Checkout,446219825,1
+8.1,0,,,2021-10-16,,cat_177144,,,True,2.8,Cappuccino,2,False,,2.8,,,True,cat_495297,Warme Getränke,felix,Checkout,446191008,1
+8.1,0,,,2021-10-16,,cat_177144,,,True,2.5,"Kuchen 2,50€",1,False,,2.5,,,True,cat_495297,Essen,felix,Checkout,446191010,1
+9.0,0,,,2021-10-16,,cat_177144,,,True,3.0,Milchkaffee,1,False,,3.0,,,True,cat_495297,Warme Getränke,felix,Checkout,446160528,1
+9.0,0,,,2021-10-16,,cat_177144,,,True,3.0,Limonade,1,False,,3.0,,,True,cat_495297,Non-Alk Getränke,felix,Checkout,446160529,1
+9.0,0,,,2021-10-16,,cat_177144,,,True,3.0,Dessert,1,False,,3.0,,,True,cat_495297,Essen,felix,Checkout,446160530,1
+2.8,0,,,2021-10-16,,cat_177144,,,True,2.8,Kaffee Creme,1,False,,2.8,,,True,cat_495297,Warme Getränke,felix,Checkout,446089799,1
+11.0,0,,,2021-10-15,,cat_177144,,,True,8.0,Dinnerle,1,False,,8.0,,,True,cat_495297,Essen,felix,Checkout,445812098,1
+11.0,0,,,2021-10-15,,cat_177144,,,True,3.0,Bier,1,False,,3.0,,,True,cat_495297,Alk Getränke,felix,Checkout,445812099,1
+7.0,0,,,2021-10-15,,cat_177144,,,True,3.0,Limonade,1,False,,3.0,,,True,cat_495300,Non-Alk Getränke,felix,Checkout,445786843,1
+7.0,0,,,2021-10-15,,cat_177144,,,True,2.0,Tee,2,False,,2.0,,,True,cat_495300,Warme Getränke,felix,Checkout,445786844,1
+11.0,0,,,2021-10-15,,cat_177144,,,True,8.0,Dinnerle,1,False,,8.0,,,True,cat_495297,Essen,felix,Checkout,445786652,1
+11.0,0,,,2021-10-15,,cat_177144,,,True,3.0,Bier,1,False,,3.0,,,True,cat_495297,Alk Getränke,felix,Checkout,445786653,1
+2.5,0,,,2021-10-15,,cat_177144,,,True,2.5,"Kuchen 2,50€",1,False,,2.5,,,True,cat_495297,Essen,felix,Checkout,445728461,1
+10.0,0,,,2021-10-15,,cat_177144,,,True,8.0,Dinnerle,1,False,,8.0,,,True,cat_495300,Essen,felix,Checkout,445660601,1
+10.0,0,,,2021-10-15,,cat_177144,,,True,2.0,Tee,1,False,,2.0,,,True,cat_495300,Warme Getränke,felix,Checkout,445660603,1
+3.0,0,,,2021-10-15,,cat_177144,,,True,3.0,Bier,1,False,,3.0,,,True,cat_495297,Alk Getränke,felix,Checkout,445620045,1
+2.8,0,,,2021-10-15,,cat_177144,,,True,2.8,Cappuccino,1,False,,2.8,,,True,cat_495297,Warme Getränke,felix,Checkout,445613198,1
+3.0,0,,,2021-10-15,,cat_177144,,,True,3.0,Milchkaffee,1,False,,3.0,,,True,cat_495297,Warme Getränke,felix,Checkout,445604315,1
+4.0,0,,,2021-10-15,,cat_177144,,,True,2.0,Espresso,2,False,,2.0,,,True,cat_495299,Warme Getränke,felix,Checkout,445597340,1
+8.0,0,,,2021-10-15,,cat_177144,,,True,8.0,Dinnerle,1,False,,8.0,,,True,cat_495297,Essen,felix,Checkout,445597029,1
+11.0,0,,,2021-10-15,,cat_177144,,,True,8.0,Dinnerle,1,False,,8.0,,,True,cat_495297,Essen,felix,Checkout,445570330,1
+11.0,0,,,2021-10-15,,cat_177144,,,True,3.0,Limonade,1,False,,3.0,,,True,cat_495297,Non-Alk Getränke,felix,Checkout,445570331,1
+3.0,0,,,2021-10-15,,cat_177144,,,True,3.0,Milchkaffee,1,False,,3.0,,,True,cat_495297,Warme Getränke,felix,Checkout,445527904,1
+6.0,0,,,2021-10-15,,cat_177144,,,True,3.0,Milchkaffee,2,False,,3.0,,,True,cat_495297,Warme Getränke,felix,Checkout,445519325,1
+6.0,0,,,2021-10-15,,cat_177144,,,True,3.0,"Kuchen 3,00€",2,False,,3.0,,,True,cat_495297,Essen,felix,Checkout,445518838,1
+5.8,0,,,2021-10-14,,cat_177144,,,True,3.0,Milchkaffee,1,False,,3.0,,,True,cat_495297,Warme Getränke,felix,Checkout,445269527,1
+5.8,0,,,2021-10-14,,cat_177144,,,True,2.8,Kaffee Creme,1,False,,2.8,,,True,cat_495297,Warme Getränke,felix,Checkout,445269528,1
+8.0,0,,,2021-10-14,,cat_177144,,,True,8.0,Dinnerle,1,False,,8.0,,,True,cat_495297,Essen,felix,Checkout,445071606,1
+6.0,0,,,2021-10-14,,cat_177144,,,True,3.0,Limonade,2,False,,3.0,,,True,cat_495297,Non-Alk Getränke,felix,Checkout,445071044,1
+2.8,0,,,2021-10-14,,cat_177144,,,True,2.8,Kaffee Creme,1,False,,2.8,,,True,cat_495297,Warme Getränke,felix,Checkout,445063716,1
+2.0,0,,,2021-10-14,,cat_177144,,,True,2.0,Espresso,1,False,,2.0,,,True,cat_495297,Warme Getränke,felix,Checkout,445063277,1
+2.0,0,,,2021-10-14,,cat_177144,,,True,2.0,Espresso,1,False,,2.0,,,True,cat_495297,Warme Getränke,felix,Checkout,444989221,1
+3.0,0,,,2021-10-13,,cat_177144,,,True,3.0,Bier,1,False,,3.0,,,True,cat_495297,Alk Getränke,felix,Checkout,444821208,1
+3.0,0,,,2021-10-13,,cat_177144,,,True,3.0,Limonade,1,False,,3.0,,,True,cat_495297,Non-Alk Getränke,felix,Checkout,444806653,1
+21.3,0,,,2021-10-13,,cat_177144,,,True,2.5,"Kuchen 2,50€",1,False,,2.5,,,True,cat_495297,Essen,felix,Checkout,444784378,1
+21.3,0,,,2021-10-13,,cat_177144,,,True,8.0,Dinnerle,2,False,,8.0,,,True,cat_495297,Essen,felix,Checkout,444784379,1
+21.3,0,,,2021-10-13,,cat_177144,,,True,2.8,Cappuccino,1,False,,2.8,,,True,cat_495297,Warme Getränke,felix,Checkout,444784380,1
+2.5,0,,,2021-10-13,,cat_177144,,,True,2.5,"Kuchen 2,50€",1,False,,2.5,,,True,cat_495297,Essen,felix,Checkout,444699530,1
+3.0,0,,,2021-10-13,,cat_177144,,,True,3.0,Milchkaffee,1,False,,3.0,,,True,cat_495297,Warme Getränke,felix,Checkout,444655674,1
+3.0,0,,,2021-10-13,,cat_177144,,,True,3.0,Milchkaffee,1,False,,3.0,,,True,cat_495297,Warme Getränke,felix,Checkout,444618991,1
+2.8,0,,,2021-10-13,,cat_177144,,,True,2.8,Cappuccino,1,False,,2.8,,,True,cat_495297,Warme Getränke,felix,Checkout,444618880,1
+2.8,0,,,2021-10-13,,cat_177144,,,True,2.8,Cappuccino,1,False,,2.8,,,True,cat_495297,Warme Getränke,felix,Checkout,444548150,1
+8.0,0,,,2021-10-12,,cat_177144,,,True,8.0,Dinnerle,1,False,,8.0,,,True,cat_495297,Essen,felix,Checkout,444388321,1
+3.0,0,,,2021-10-12,,cat_177144,,,True,3.0,Bier,1,False,,3.0,,,True,cat_495297,Alk Getränke,felix,Checkout,444374395,1
+2.8,0,,,2021-10-12,,cat_177144,,,True,2.8,Kaffee Creme,1,False,,2.8,,,True,cat_495297,Warme Getränke,felix,Checkout,444374341,1
+16.0,0,,,2021-10-12,,cat_177144,,,True,8.0,Dinnerle,2,False,,8.0,,,True,cat_495297,Essen,felix,Checkout,444372539,1
+2.8,0,,,2021-10-12,,cat_177144,,,True,2.8,Cappuccino,1,False,,2.8,,,True,cat_495297,Warme Getränke,felix,Checkout,444356637,1
+2.8,0,,,2021-10-12,,cat_177144,,,True,2.8,Cappuccino,1,False,,2.8,,,True,cat_495297,Warme Getränke,felix,Checkout,444340732,1
+7.6,0,,,2021-10-12,,cat_177144,,,True,2.8,Kaffee Creme,2,False,,2.8,,,True,cat_495297,Warme Getränke,felix,Checkout,444269120,1
+7.6,0,,,2021-10-12,,cat_177144,,,True,2.0,Tee,1,False,,2.0,,,True,cat_495297,Warme Getränke,felix,Checkout,444269121,1
+3.0,0,,,2021-10-12,,cat_177144,,,True,3.0,Milchkaffee,1,False,,3.0,,,True,cat_495297,Warme Getränke,felix,Checkout,444268384,1
+3.0,0,,,2021-10-12,,cat_177144,,,True,3.0,Milchkaffee,1,False,,3.0,,,True,cat_495297,Warme Getränke,felix,Checkout,444268076,1
+3.0,0,,,2021-10-12,,cat_177144,,,True,3.0,Milchkaffee,1,False,,3.0,,,True,cat_495297,Warme Getränke,felix,Checkout,444267588,1
+8.0,0,,,2021-10-12,,cat_177144,,,True,8.0,Dinnerle,1,False,,8.0,,,True,cat_495297,Essen,felix,Checkout,444267262,1
+34.3,0,,,2021-10-11,,cat_177144,,,True,3.0,Limonade,2,False,,3.0,,,True,cat_495300,Non-Alk Getränke,felix,Checkout,444047874,1
+34.3,0,,,2021-10-11,,cat_177144,,,True,3.0,Bier,2,False,,3.0,,,True,cat_495300,Alk Getränke,felix,Checkout,444047875,1
+34.3,0,,,2021-10-11,,cat_177144,,,True,2.8,Kaffee Creme,1,False,,2.8,,,True,cat_495300,Warme Getränke,felix,Checkout,444047876,1
+34.3,0,,,2021-10-11,,cat_177144,,,True,2.0,Espresso,1,False,,2.0,,,True,cat_495300,Warme Getränke,felix,Checkout,444047877,1
+34.3,0,,,2021-10-11,,cat_177144,,,True,3.5,Weinschorle,1,False,,3.5,,,True,cat_495300,Alk Getränke,felix,Checkout,444047878,1
+34.3,0,,,2021-10-11,,cat_177144,,,True,8.0,Dinnerle,1,False,,8.0,,,True,cat_495300,Essen,felix,Checkout,444047879,1
+34.3,0,,,2021-10-11,,cat_177144,,,True,3.0,"Kuchen 3,00€",2,False,,3.0,,,True,cat_495300,Essen,felix,Checkout,444047880,1
+13.0,0,,,2021-10-11,,cat_177144,,,True,8.0,Dinnerle,1,False,,8.0,,,True,cat_495297,Essen,felix,Checkout,444047536,1
+13.0,0,,,2021-10-11,,cat_177144,,,True,3.0,Limonade,1,False,,3.0,,,True,cat_495297,Non-Alk Getränke,felix,Checkout,444047537,1
+13.0,0,,,2021-10-11,,cat_177144,,,True,2.0,Wasser,1,False,,2.0,,,True,cat_495297,Non-Alk Getränke,felix,Checkout,444047538,1
+3.5,0,,,2021-10-11,,cat_177144,,,True,3.5,Weinschorle,1,False,,3.5,,,True,cat_495297,Alk Getränke,felix,Checkout,444047449,1
+3.0,0,,,2021-10-11,,cat_177144,,,True,3.0,Bier,1,False,,3.0,,,True,cat_495297,Alk Getränke,felix,Checkout,444047368,1
+4.0,0,,,2021-10-11,,cat_177144,,,True,2.0,Wasser,2,False,,2.0,,,True,cat_495297,Non-Alk Getränke,felix,Checkout,444047299,1
+16.0,0,,,2021-10-11,,cat_177144,,,True,8.0,Dinnerle,2,False,,8.0,,,True,cat_495297,Essen,felix,Checkout,444047215,1
+6.0,0,,,2021-10-11,,cat_177144,,,True,3.0,Milchkaffee,2,False,,3.0,,,True,cat_495297,Warme Getränke,felix,Checkout,444047153,1
+5.6,0,,,2021-10-11,,cat_177144,,,True,2.8,Cappuccino,2,False,,2.8,,,True,cat_495297,Warme Getränke,felix,Checkout,444047092,1
+3.0,0,,,2021-10-11,,cat_177144,,,True,3.0,Limonade,1,False,,3.0,,,True,cat_495297,Non-Alk Getränke,felix,Checkout,443965262,1
+5.0,0,,,2021-10-11,,cat_177144,,,True,2.5,"Kuchen 2,50€",2,False,,2.5,,,True,cat_495297,Essen,felix,Checkout,443944831,1
+2.5,0,,,2021-10-11,,cat_177144,,,True,2.5,"Kuchen 2,50€",1,False,,2.5,,,True,cat_495297,Süße Speisen,felix,Checkout,443934425,1
+2.0,0,,,2021-10-11,,cat_177144,,,True,2.0,Espresso,1,False,,2.0,,,True,cat_495300,Warme Getränke,felix,Checkout,443929429,1
+2.0,0,,,2021-10-11,,cat_177144,,,True,2.0,Espresso,1,False,,2.0,,,True,cat_495297,Warme Getränke,felix,Checkout,443927057,1
+10.8,0,,,2021-10-11,,cat_177144,,,True,8.0,Dinnerle,1,False,,8.0,,,True,cat_495297,Deftige Speisen,felix,Checkout,443926824,1
+10.8,0,,,2021-10-11,,cat_177144,,,True,2.8,Cappuccino,1,False,,2.8,,,True,cat_495297,Warme Getränke,felix,Checkout,443926826,1
+16.0,0,,,2021-10-10,,cat_177144,,,True,8.0,Dinnerle,1,False,,8.0,,,True,cat_495297,Deftige Speisen,felix,Checkout,443751838,1
+16.0,0,,,2021-10-10,,cat_177144,,,True,3.0,Limonade,2,False,,3.0,,,True,cat_495297,Non-Alk Getränke,felix,Checkout,443751839,1
+16.0,0,,,2021-10-10,,cat_177144,,,True,2.0,Wasser,1,False,,2.0,,,True,cat_495297,Non-Alk Getränke,felix,Checkout,443751840,1
+35.0,0,,,2021-10-10,,cat_177144,,,True,3.5,Dessert,10,False,,3.5,,,True,cat_495299,Süße Speisen,felix,Checkout,443751514,1
+9.0,0,,,2021-10-10,,cat_177144,,,True,3.5,Dessert,2,False,,3.5,,,True,cat_495297,Süße Speisen,felix,Checkout,443751474,1
+9.0,0,,,2021-10-10,,cat_177144,,,True,2.0,Espresso,1,False,,2.0,,,True,cat_495297,Warme Getränke,felix,Checkout,443751475,1
+4.8,0,,,2021-10-10,,cat_177144,,,True,2.8,Kaffee Creme,1,False,,2.8,,,True,cat_495300,Warme Getränke,felix,Checkout,443751404,1
+4.8,0,,,2021-10-10,,cat_177144,,,True,2.0,Espresso,1,False,,2.0,,,True,cat_495300,Warme Getränke,felix,Checkout,443751405,1
+27.0,0,,,2021-10-10,,cat_177144,,,True,3.0,Bier,5,False,,3.0,,,True,cat_495300,Alk Getränke,felix,Checkout,443751356,1
+27.0,0,,,2021-10-10,,cat_177144,,,True,3.0,Limonade,2,False,,3.0,,,True,cat_495300,Non-Alk Getränke,felix,Checkout,443751357,1
+27.0,0,,,2021-10-10,,cat_177144,,,True,2.0,Wasser,3,False,,2.0,,,True,cat_495300,Non-Alk Getränke,felix,Checkout,443751358,1
+12.5,0,,,2021-10-10,,cat_177144,,,True,3.5,Weinschorle,1,False,,3.5,,,True,cat_495297,Alk Getränke,felix,Checkout,443751239,1
+12.5,0,,,2021-10-10,,cat_177144,,,True,3.0,Bier,3,False,,3.0,,,True,cat_495297,Alk Getränke,felix,Checkout,443751240,1
+8.0,0,,,2021-10-10,,cat_177144,,,True,3.0,Limonade,2,False,,3.0,,,True,cat_495297,Non-Alk Getränke,felix,Checkout,443751161,1
+8.0,0,,,2021-10-10,,cat_177144,,,True,2.0,Wasser,1,False,,2.0,,,True,cat_495297,Non-Alk Getränke,felix,Checkout,443751162,1
+17.0,0,,,2021-10-10,,cat_177144,,,True,3.0,Kuchen,3,False,,3.0,,,True,cat_495297,Süße Speisen,felix,Checkout,443750781,1
+17.0,0,,,2021-10-10,,cat_177144,,,True,3.0,Milchkaffee,2,False,,3.0,,,True,cat_495297,Warme Getränke,felix,Checkout,443750783,1
+17.0,0,,,2021-10-10,,cat_177144,,,True,2.0,Tee,1,False,,2.0,,,True,cat_495297,Warme Getränke,felix,Checkout,443750785,1
+8.0,0,,,2021-10-10,,cat_177144,,,True,2.0,Espresso,4,False,,2.0,,,True,cat_495300,Warme Getränke,felix,Checkout,443725593,1
+6.0,0,,,2021-10-10,,cat_177144,,,True,3.0,Bier,2,False,,3.0,,,True,cat_495300,Alk Getränke,felix,Checkout,443725285,1
+8.0,0,,,2021-10-10,,cat_177144,,,True,8.0,Dinnerle,1,False,,8.0,,,True,cat_495297,Deftige Speisen,felix,Checkout,443705209,1
+35.0,0,,,2021-10-10,,cat_177144,,,True,8.0,Dinnerle,4,False,,8.0,,,True,cat_495297,Deftige Speisen,felix,Checkout,443675337,1
+35.0,0,,,2021-10-10,,cat_177144,,,True,3.0,Bier,1,False,,3.0,,,True,cat_495297,Alk Getränke,felix,Checkout,443675338,1
+2.8,0,,,2021-10-10,,cat_177144,,,True,2.8,Kaffee Creme,1,False,,2.8,,,True,cat_495297,Warme Getränke,felix,Checkout,443673415,1
+13.0,0,,,2021-10-10,,cat_177144,,,True,8.0,Dinnerle,1,False,,8.0,,,True,cat_495297,Deftige Speisen,felix,Checkout,443662345,1
+13.0,0,,,2021-10-10,,cat_177144,,,True,3.0,Kuchen,1,False,,3.0,,,True,cat_495297,Süße Speisen,felix,Checkout,443662346,1
+13.0,0,,,2021-10-10,,cat_177144,,,True,2.0,Wasser,1,False,,2.0,,,True,cat_495297,Non-Alk Getränke,felix,Checkout,443662347,1
+2.8,0,,,2021-10-10,,cat_177144,,,True,2.8,Cappuccino,1,False,,2.8,,,True,cat_495297,Warme Getränke,felix,Checkout,443662040,1
+12.0,0,,,2021-10-10,,cat_177144,,,True,3.0,Milchkaffee,2,False,,3.0,,,True,cat_495297,Warme Getränke,felix,Checkout,443656230,1
+12.0,0,,,2021-10-10,,cat_177144,,,True,3.0,Bier,1,False,,3.0,,,True,cat_495297,Alk Getränke,felix,Checkout,443656231,1
+12.0,0,,,2021-10-10,,cat_177144,,,True,3.0,Limonade,1,False,,3.0,,,True,cat_495297,Non-Alk Getränke,felix,Checkout,443656232,1
+5.8,0,,,2021-10-10,,cat_177144,,,True,2.8,Cappuccino,1,False,,2.8,,,True,cat_495297,Warme Getränke,felix,Checkout,443654863,1
+5.8,0,,,2021-10-10,,cat_177144,,,True,3.0,Kuchen,1,False,,3.0,,,True,cat_495297,Süße Speisen,felix,Checkout,443654864,1
+3.0,0,,,2021-10-10,,cat_177144,,,True,3.0,Bier,1,False,,3.0,,,True,cat_495297,Alk Getränke,felix,Checkout,443649552,1
+5.6,0,,,2021-10-10,,cat_177144,,,True,2.8,Cappuccino,1,False,,2.8,,,True,cat_495297,Warme Getränke,felix,Checkout,443633731,1
+5.6,0,,,2021-10-10,,cat_177144,,,True,2.8,Kaffee Creme,1,False,,2.8,,,True,cat_495297,Warme Getränke,felix,Checkout,443633732,1
+8.8,0,,,2021-10-10,,cat_177144,,,True,2.8,Cappuccino,1,False,,2.8,,,True,cat_495297,Warme Getränke,felix,Checkout,443568680,1
+8.8,0,,,2021-10-10,,cat_177144,,,True,3.0,Milchkaffee,1,False,,3.0,,,True,cat_495297,Warme Getränke,felix,Checkout,443568681,1
+8.8,0,,,2021-10-10,,cat_177144,,,True,3.0,Kuchen,1,False,,3.0,,,True,cat_495297,Süße Speisen,felix,Checkout,443568684,1
+33.6,0,,,2021-10-09,,cat_177144,,,True,2.0,Wasser,1,False,,2.0,,,True,cat_495300,Non-Alk Getränke,felix,Checkout,443143093,1
+33.6,0,,,2021-10-09,,cat_177144,,,True,2.8,Kaffee Creme,2,False,,2.8,,,True,cat_495300,Warme Getränke,felix,Checkout,443143094,1
+33.6,0,,,2021-10-09,,cat_177144,,,True,2.0,Espresso,1,False,,2.0,,,True,cat_495300,Warme Getränke,felix,Checkout,443143095,1
+33.6,0,,,2021-10-09,,cat_177144,,,True,8.0,Dinnerle,3,False,,8.0,,,True,cat_495300,Deftige Speisen,felix,Checkout,443143096,1
+5.0,0,,,2021-10-09,,cat_177144,,,True,3.0,Limonade,1,False,,3.0,,,True,cat_495297,Non-Alk Getränke,felix,Checkout,443063446,1
+5.0,0,,,2021-10-09,,cat_177144,,,True,2.0,Espresso,1,False,,2.0,,,True,cat_495297,Warme Getränke,felix,Checkout,443063447,1
+5.8,0,,,2021-10-09,,cat_177144,,,True,3.0,Kuchen,1,False,,3.0,,,True,cat_495297,Süße Speisen,felix,Checkout,442991575,1
+5.8,0,,,2021-10-09,,cat_177144,,,True,2.8,Kaffee Creme,1,False,,2.8,,,True,cat_495297,Warme Getränke,felix,Checkout,442991576,1
+13.8,0,,,2021-10-09,,cat_177144,,,True,8.0,Dinnerle,1,False,,8.0,,,True,cat_495297,Deftige Speisen,felix,Checkout,442986423,1
+13.8,0,,,2021-10-09,,cat_177144,,,True,3.0,Limonade,1,False,,3.0,,,True,cat_495297,Non-Alk Getränke,felix,Checkout,442986424,1
+13.8,0,,,2021-10-09,,cat_177144,,,True,2.8,Kaffee Creme,1,False,,2.8,,,True,cat_495297,Warme Getränke,felix,Checkout,442986426,1
+6.0,0,,,2021-10-09,,cat_177144,,,True,3.0,Kuchen,1,False,,3.0,,,True,cat_495297,Süße Speisen,felix,Checkout,442976828,1
+6.0,0,,,2021-10-09,,cat_177144,,,True,3.0,Limonade,1,False,,3.0,,,True,cat_495297,Non-Alk Getränke,felix,Checkout,442976829,1
+6.0,0,,,2021-10-09,,cat_177144,,,True,3.0,Bier,2,False,,3.0,,,True,cat_495297,Alk Getränke,felix,Checkout,442961411,1
+20.1,0,,,2021-10-09,,cat_177144,,,True,8.0,Dinnerle,1,False,,8.0,,,True,cat_495297,Deftige Speisen,felix,Checkout,442959435,1
+20.1,0,,,2021-10-09,,cat_177144,,,True,3.5,Dessert,1,False,,3.5,,,True,cat_495297,Süße Speisen,felix,Checkout,442959436,1
+20.1,0,,,2021-10-09,,cat_177144,,,True,2.8,Cappuccino,1,False,,2.8,,,True,cat_495297,Warme Getränke,felix,Checkout,442959438,1
+20.1,0,,,2021-10-09,,cat_177144,,,True,2.8,Kaffee Creme,1,False,,2.8,,,True,cat_495297,Warme Getränke,felix,Checkout,442959439,1
+20.1,0,,,2021-10-09,,cat_177144,,,True,3.0,Kuchen,1,False,,3.0,,,True,cat_495297,Süße Speisen,felix,Checkout,442959440,1
+8.0,0,,,2021-10-09,,cat_177144,,,True,8.0,Dinnerle,1,False,,8.0,,,True,cat_495297,Deftige Speisen,felix,Checkout,442949840,1
+5.8,0,,,2021-10-09,,cat_177144,,,True,2.8,Cappuccino,1,False,,2.8,,,True,cat_495297,Warme Getränke,felix,Checkout,442922743,1
+5.8,0,,,2021-10-09,,cat_177144,,,True,3.0,Kuchen,1,False,,3.0,,,True,cat_495297,Süße Speisen,felix,Checkout,442922744,1
+5.8,0,,,2021-10-09,,cat_177144,,,True,2.8,Cappuccino,1,False,,2.8,,,True,cat_495297,Warme Getränke,felix,Checkout,442895974,1
+5.8,0,,,2021-10-09,,cat_177144,,,True,3.0,Limonade,1,False,,3.0,,,True,cat_495297,Non-Alk Getränke,felix,Checkout,442895975,1
+16.0,0,,,2021-10-09,,cat_177144,,,True,8.0,Dinnerle,2,False,,8.0,,,True,cat_495297,Deftige Speisen,felix,Checkout,442849482,1
+2.8,0,,,2021-10-09,,cat_177144,,,True,2.8,Cappuccino,1,False,,2.8,,,True,cat_495297,Warme Getränke,felix,Checkout,442801276,1
+2.8,0,,,2021-10-09,,cat_177144,,,True,2.8,Kaffee Creme,1,False,,2.8,,,True,cat_495297,Warme Getränke,felix,Checkout,442788833,1
+8.0,0,,,2021-10-09,,cat_177144,,,True,8.0,Dinnerle,1,False,,8.0,,,True,cat_495297,Deftige Speisen,felix,Checkout,442787911,1
+9.0,0,,,2021-10-08,,cat_177144,,,True,2.0,Espresso,1,False,,2.0,,,True,cat_495297,Warme Getränke,felix,Checkout,442511034,1
+9.0,0,,,2021-10-08,,cat_177144,,,True,3.5,Weinschorle,2,False,,3.5,,,True,cat_495297,Alk Getränke,felix,Checkout,442511035,1
+9.0,0,,,2021-10-08,,cat_177144,,,True,3.0,Bier,3,False,,3.0,,,True,cat_495297,Alk Getränke,felix,Checkout,442510855,1
+11.0,0,,,2021-10-08,,cat_177144,,,True,8.0,Dinnerle,1,False,,8.0,,,True,cat_495297,Deftige Speisen,felix,Checkout,442510384,1
+11.0,0,,,2021-10-08,,cat_177144,,,True,3.0,Limonade,1,False,,3.0,,,True,cat_495297,Non-Alk Getränke,felix,Checkout,442510385,1
+21.8,0,,,2021-10-08,,cat_177144,,,True,2.8,Kaffee Creme,1,False,,2.8,,,True,cat_495297,Warme Getränke,felix,Checkout,442102484,1
+21.8,0,,,2021-10-08,,cat_177144,,,True,3.0,Limonade,1,False,,3.0,,,True,cat_495297,Non-Alk Getränke,felix,Checkout,442102485,1
+21.8,0,,,2021-10-08,,cat_177144,,,True,8.0,Dinnerle,2,False,,8.0,,,True,cat_495297,Deftige Speisen,felix,Checkout,442102487,1

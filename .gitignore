@@ -11,8 +11,5 @@ customer.toml
 .env
 looki.xlsx
 *looki*
-pipeline_graveyard/
-pipeline/data/
-pipeline/data
 .clever.json
 .DS_Store

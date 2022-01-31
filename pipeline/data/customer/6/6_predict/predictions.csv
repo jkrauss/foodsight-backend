@@ -1,0 +1,8 @@
+id,store,product,tomorrow_order_qty,tomorrow_order_range,day_after_order_qty,day_after_order_range,next7_order_qty,next7_order_range
+0,1,Cola,4,3 - 4,4,3 - 4,25,22 - 29
+1,1,Cola Bacardi,3,2 - 3,3,2 - 3,20,17 - 23
+2,1,Schnitzel,2,2 - 2,2,2 - 2,15,12 - 17
+3,1,Soda Zitrone,3,3 - 4,4,3 - 4,25,21 - 28
+4,1,Spaghetti,3,2 - 3,3,2 - 3,19,16 - 22
+5,1,"Spritzer 0,25l",3,3 - 4,3,3 - 4,23,19 - 26
+6,1,Worschtsalat,2,2 - 3,3,2 - 3,18,15 - 20

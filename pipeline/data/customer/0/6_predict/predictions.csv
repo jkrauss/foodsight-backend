@@ -1,0 +1,20 @@
+id,store,product,tomorrow_order_qty,tomorrow_order_range,day_after_order_qty,day_after_order_range,next7_order_qty,next7_order_range
+0,1,Bier,4,3 - 4,2,2 - 3,18,16 - 21
+1,1,Cappuccino,4,3 - 4,3,2 - 3,20,17 - 23
+2,1,Dessert,3,3 - 3,2,2 - 2,14,12 - 16
+3,1,Dinnerle,4,3 - 4,3,3 - 4,22,19 - 26
+4,1,Dinnerle Brot ohne Belag,2,1 - 2,1,1 - 2,10,8 - 11
+5,1,Espresso,3,2 - 3,2,2 - 3,16,13 - 18
+6,1,Kaffee Creme,3,2 - 3,3,2 - 3,18,15 - 21
+7,1,Kuchen,3,2 - 3,3,2 - 3,18,15 - 20
+8,1,"Kuchen 2,50€",2,2 - 3,2,2 - 3,15,13 - 17
+9,1,"Kuchen 3,00€",3,2 - 3,3,2 - 3,17,14 - 19
+10,1,Latte Macchiato,2,2 - 3,2,2 - 3,15,13 - 17
+11,1,Limonade,3,2 - 3,2,2 - 3,16,14 - 19
+12,1,Milchkaffee,2,2 - 2,2,2 - 2,13,11 - 15
+13,1,Pfand,2,2 - 2,2,2 - 2,12,10 - 14
+14,1,Suppe,2,2 - 2,2,2 - 2,14,12 - 16
+15,1,Tee,2,2 - 3,2,2 - 3,15,13 - 18
+16,1,Torte,2,2 - 3,2,2 - 3,15,12 - 17
+17,1,Wasser,2,2 - 3,2,2 - 2,14,12 - 16
+18,1,Weinschorle,2,2 - 3,2,2 - 3,15,13 - 17
