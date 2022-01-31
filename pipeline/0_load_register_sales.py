@@ -47,7 +47,7 @@ def run(config_in) :
     # change working directory to where this file lives
     os.chdir(config['base']['pipeline_path'])
 
-    # %%
+# %%
     
     CUSTOMER_TOKEN = os.environ.get('CUSTOMER_TOKEN')
 

@@ -27,3 +27,5 @@ catboost
 traitlets
 holidays
 schedule
+
+duckdb

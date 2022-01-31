@@ -88,7 +88,7 @@ def run(config_in) :
         prod_data[entity_name] = df
 
 
-    # %%
+# %%
 
     # trim time- and other dimensions to the timespan present in sales
     start, end = sales.date.min(), sales.date.max()
