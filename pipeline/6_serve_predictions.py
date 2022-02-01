@@ -201,6 +201,23 @@ def run(config_in) :
         # TODO: FIXME: Here I assume that I will have a field 'item_product_pricePerUnit' - which is only given with ready2order
         prices = prod.groupby(['product', 'item_product_pricePerUnit']).count()['index'].reset_index()[['product', 'item_product_pricePerUnit']]
 
+        # generate line-diagram values
+        proposal = pd.merge(order_sets[S], prices, on='product')
+        last_week = pd.merge(last_week_per_store[1], prices, on='product')
+        last_week.columns = proposal.columns
+        cols = list(last_week.columns)
+        cols.remove('item_product_pricePerUnit')
+        cols.remove('product')
+        for c in cols:
+            last_week[c] = last_week[c] * last_week.item_product_pricePerUnit
+            proposal[c] = proposal[c] * proposal.item_product_pricePerUnit
+        last_week = last_week[cols].sum()
+        proposal = proposal[cols].sum()
+        last_week_values = list(last_week.values)
+        proposal_values = list(proposal.values)
+        proposal_values
+
+        # generate donut-data
         act = last_week_per_store[1].copy(deep=True)
         act.columns = order_sets[S].columns
         diff = (order_sets[S] - act).T # how much more is the forecast than the act?
@@ -239,7 +256,7 @@ def run(config_in) :
         donut_data *= 4.333
         donut_data['returns_current'] = config['base']['returns_current']*30.417
         donut_data['returns_savings'] = donut_data['returns_current'] - donut_data['above']
-        # rename above to 'returns_remaining
+        # rename above to 'returns_remaining'
         donut_data['returns_remaining'] = donut_data['above']
 
         donut_data['profits_current'] = weekly_revenue*4.333
@@ -257,8 +274,14 @@ def run(config_in) :
         return_dict = {
             'name': S,
             'donut_data': donut_data.to_dict(),
-            'products': list(order_sets[S].index),
-            'order_quantity': order_sets[S].to_dict()
+            'rows': list(order_sets[S].index),
+            'columns': list(order_sets[S].columns),
+            'order_quantity': order_sets[S].to_dict(),
+            'line_diagram': {
+                'last_week': last_week_values,
+                'proposal': proposal_values,
+                'columns': list(order_sets[S].columns)
+            }
         }
         order_sets[S] = return_dict
 
