@@ -20,9 +20,8 @@ class User(BaseModel):
     disabled: Optional[bool] = None
 
 class UserSettings(BaseModel):
-    tomorrow: Optional[bool] = None
-    day_after_tomorrow: Optional[bool] = None
-    next_seven_days: Optional[bool] = None
+    returns_current: Optional[float] = None
+    sales_price_cost_share: Optional[float] = None
     rows_per_page: Optional[int] = None
     store: Optional[int] = None
 
@@ -65,7 +64,7 @@ def update_user_settings(username:str, user_settings: UserSettings):
     for u in updates:
         if u[0] != 'username':
             statement += f"""
-            {u[0]}={int(u[1])},"""
+            {u[0]}={u[1]},"""
     statement = statement[:-1] #remove last comma
     statement += f"""
     WHERE username='{username}'
@@ -74,7 +73,7 @@ def update_user_settings(username:str, user_settings: UserSettings):
     """
 
     if len(statement.splitlines()) > 4: # there are actually cols to be updated
-        #print(statement)
+        print(statement)
         with sql.connect(__db) as conn:
             cur = conn.cursor()
             cur.execute(statement)
@@ -86,9 +85,8 @@ def read_user_settings(username:str):
         result = pd.read_sql(f"""
             select u.username
 			, u.rows_per_page
-			, u.tomorrow
-			, u.day_after_tomorrow
-			, u.next_seven_days
+			, u.returns_current
+			, u.sales_price_cost_share
 			, r.register_plugin
 			, r.register_plugin_name
 			, s.country
