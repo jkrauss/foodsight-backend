@@ -56,11 +56,11 @@ def get_password_hash(password):
     return __pwd_context.hash(password)
 
 # retrieve a user's hashed password from db (could retrieve more)
-def __get_user(db, username: str):
-    result = [e for e in db if e['username']==username]
-    if len(result) > 0:
-        #print(result)
-        return UserInDB(**result[0])
+def __get_user(db, username: str): # bug: db appears as a string
+    user = db.get(username)
+    if user is not None:
+        user['username'] = username
+        return UserInDB(**user)
 
 # * check if password is correct. If true return users hashed password
 def authenticate_user(username: str, password: str):
