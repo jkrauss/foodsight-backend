@@ -164,6 +164,12 @@ def read_user_settings(username:str):
         result.pop("register")
         result.pop("signup_id")
         result.pop("hashed_password")
+        stores = []
+        for s in result['stores']:
+            store = result['stores'][s]
+            store['id'] = s
+            stores.append(store)
+        result['stores'] = stores
         if result["disabled"]:
             result = {}
         return result
