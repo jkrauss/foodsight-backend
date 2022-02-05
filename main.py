@@ -100,7 +100,7 @@ class ProblemReport(BaseModel):
 
 
 @app.post("/api/problem")
-def post_problem(problem_report: ProblemReport):
+def post_problem(problem_report: ProblemReport, current_user: db.User = Depends(get_current_active_user)):
     try:
         now = dt.datetime.now().strftime("%Y_%m_%d_%H_%M_%S")
         dir_str = f"pipeline/data/problem_reports/report_{now}"
@@ -194,43 +194,23 @@ def post_signup(signup_data: db.SignupData, background_tasks: BackgroundTasks):
     print(r.text[:300])
 
 class OrderData(BaseModel):
-    data: list
+    name: Optional[str]
+    donut_data: Optional[dict]
+    rows: Optional[list]
+    columns: Optional[list]
+    line_diagram: Optional[dict]
+    order_quantity: dict
     option: str
-    order_option: str
 
 @app.post("/api/order")
-def post_order(order_data: OrderData):
-    df = pd.DataFrame.from_records(data=order_data.data)
+def post_order(order_data: OrderData, current_user: db.User = Depends(get_current_active_user)):
 
-    df.rename(mapper={
-            'id': 'ID',
-            'product': "Produkt",
-            'tomorrow_order_qty': 'Bestellung Morgen',
-            'day_after_order_qty': 'Bestellung Übermorgen',
-            'next7_order_qty': 'Bestellung nächste 7 Tage',
-        }, axis=1, inplace=True, errors='raise')
-
-    if order_data.order_option == 'tomorrow':
-        df = df.drop(['day_after_order_range'
-            , 'Bestellung Übermorgen'
-            , 'next7_order_range'
-            , 'Bestellung nächste 7 Tage'
-            , 'tomorrow_order_range'], axis=1)
-    elif order_data.order_option == 'day_after_tomorrow':
-        df = df.drop(['tomorrow_order_range'
-            , 'Bestellung Morgen'
-            , 'next7_order_range'
-            , 'Bestellung nächste 7 Tage'
-            , 'day_after_order_range'], axis=1)
-    elif order_data.order_option == 'next_seven_days':
-        df = df.drop(['day_after_order_range'
-            , 'Bestellung Übermorgen'
-            , 'tomorrow_order_range'
-            , 'Bestellung Morgen'
-            , 'next7_order_range'], axis=1)
+    df = pd.DataFrame(order_data.order_quantity).reset_index()
+    # rename index to product
+    df.rename(columns={'index': 'product'}, inplace=True)
 
     if order_data.option == 'xlsx':
-        f = "pipeline/data/Foodsight_Bestellung.xlsx"
+        f = "./Foodsight_Bestellung.xlsx"
         mt = "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
         df.to_excel(f, index=False)
         return FileResponse(path=f, media_type=mt, filename="Foodsight_Bestellung.xlsx")
