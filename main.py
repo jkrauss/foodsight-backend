@@ -63,7 +63,7 @@ def get_forecast(store:int, current_user: db.User = Depends(get_current_active_u
 # actual API method that delivers tokens on successful login
 @app.post("/api/token", response_model=Token)
 async def login_for_access_token(form_data: OAuth2PasswordRequestForm = Depends()):
-    user = authenticate_user(form_data.username, form_data.password)
+    user = authenticate_user(form_data.username.lower(), form_data.password)
     if not user:
         raise HTTPException(
             status_code=status.HTTP_401_UNAUTHORIZED,
@@ -160,6 +160,7 @@ def post_problem(problem_report: ProblemReport):
 def post_signup(signup_data: db.SignupData, background_tasks: BackgroundTasks):
     hash = get_password_hash(signup_data.password)
     signup_data.password = hash
+    signup_data.email = signup_data.email.lower()
 
     db.create_signup(signup_data)
 
