@@ -191,7 +191,7 @@ def create_signup(signup_data: SignupData):
         signup_id = str(max([int(k) for k in config["signups"].keys()]) + 1)
         config["signups"][signup_id] = {
             "name": signup_data.name,
-            "email": signup_data.email,
+            "email": signup_data.email.lower(),
             "phone": signup_data.phone,
             "password": signup_data.password,
             "location": signup_data.location,
