@@ -50,8 +50,8 @@ def _get_customer_id_from_username(username:str):
 
 def read_forecast(username: str):
     customer_id = _get_customer_id_from_username(username)
-    # forecast = pd.read_csv(f'pipeline/data/customer/{customer_id}/6_predict/predictions.csv')
-    forecast = json.load(open(f'pipeline/data/customer/{customer_id}/6_predict/predictions.json'))
+    forecast = pd.read_csv(f'pipeline/data/customer/{customer_id}/6_predict/predictions.csv')
+    # forecast = json.load(open(f'pipeline/data/customer/{customer_id}/6_predict/predictions.json'))
     return forecast
 
 
