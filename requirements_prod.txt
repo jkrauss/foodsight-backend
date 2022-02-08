@@ -24,3 +24,5 @@ openpyxl
 boto3
 
 pytest
+
+cachetools

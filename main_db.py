@@ -15,6 +15,8 @@ import botocore.exceptions
 import os
 import dotenv
 
+from cachetools import cached, TTLCache
+
 dotenv.load_dotenv()
 # Naming convention: create_..., read_..., update_..., delete_...
 
@@ -123,9 +125,25 @@ class SignupData(BaseModel):
     agree: bool
 
 
-def read_forecast(username: str):
+def read_forecast(username: str, recalculate=False):
+    """
+    Read the forecast for a user
+    :param username: The username of the user
+    :param recalculate: If True, recalculate the forecast
+    :return: The forecast
+    """
+    if recalculate:
+        # TODO: implement!
+        return read_cached_forecast(username)
+    else:
+        return read_cached_forecast(username)
+
+
+@cached(cache=TTLCache(maxsize=10, ttl=600)) # 600 ~ 10 min
+def read_cached_forecast(username: str):
     with SpaceDict('./config.json') as config:
         customer_id = config["users"][username]["customer_id"]
+
     with SpaceDict('./forecast.json') as forecast:
         return forecast[customer_id]
 

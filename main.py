@@ -25,6 +25,11 @@ from main_auth import Token, SLACK_URL
 
 import main_db as db
 
+# warm up the cache
+users = db.read_users()
+for u in users:
+    db.read_cached_forecast(u)#
+
 app = FastAPI()
 origins = ["*"]
 # to deactivate CORS completely...
@@ -46,7 +51,7 @@ app.add_middleware(
 
 
 @app.get('/api/forecast/')
-def get_forecast(store:int, current_user: db.User = Depends(get_current_active_user)):
+def get_forecast(store:int, recalculate=False, current_user: db.User = Depends(get_current_active_user)):
     
     forecasts = db.read_forecast(current_user.username) # now a dict
     # store must be in forecasts
