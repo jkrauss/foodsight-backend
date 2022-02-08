@@ -1,7 +1,0 @@
-
-[base]
-register_plugin = "plugins.ready2order.ready2order"
-register_plugin_name = "ready2order"
-country = "DE"
-state = "HE"
-city = "Wiesbaden"

@@ -1,3 +1,0 @@
-
-- In main.py und main_auth.py wird config geladen, dass muss pro user dynamisiert werden
-- am Besten mittels einer sqlite-Datenbank, die zu einem Username die config ausspuckt

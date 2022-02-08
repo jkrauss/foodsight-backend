@@ -146,7 +146,6 @@ def update_user_settings(username:str, user_settings: UserSettings):
         return True
 
 
-
 def read_user_settings(username:str):
     """
     Read the user settings for a user
@@ -231,21 +230,4 @@ def create_signup(signup_data: SignupData):
         config["users"][signup_data.email] = user
 
         return f'signup, customer and user with email {signup_data.email} created'
-
-
-# def create_pipeline(customer_id: int):
-#     """creates a new folder for the customer-data and fills with template-data """
-#     base_path = pathlib.Path(f'./pipeline/data/customer/')
-#     cust_path = base_path/str(customer_id)
-
-#     source_path = base_path/'0'
-#     shutil.copytree(source_path, cust_path)
-
-
-# def run_pipeline(username: str):
-#     with SpaceDict('./config.json') as config:
-#         customer_id = config["users"][username]["customer_id"]  
-#     from startup_pipeline import run_pipeline
-#     run_pipeline(customer_id=customer_id)
-
 
