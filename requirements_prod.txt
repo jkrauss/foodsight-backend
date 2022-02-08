@@ -21,15 +21,6 @@ toml
 
 openpyxl
 
-# pipeline
-featuretools[tsfresh, categorical_encoding, autonormalize]
-catboost
-traitlets
-holidays
-schedule
-
-duckdb
-
 boto3
 
 pytest
