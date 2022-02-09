@@ -10,100 +10,12 @@ import main_auth as auth
 
 import json
 
-import boto3
-import botocore.exceptions
-import os
 import dotenv
-
 from cachetools import cached, TTLCache
-
 dotenv.load_dotenv()
 # Naming convention: create_..., read_..., update_..., delete_...
 
-#__db = 'pipeline/data/food.db'
-
-
-class SpaceDict(object):
-    """
-    Class to read and write to dict/json that is in the S3 bucket - batteries included (context manager)
-    """
-
-    def __upload_file(self, file_name: str):
-        """Upload a file to the S3 bucket
-
-        :param file_name: File to upload
-        :return: True if file was uploaded, else False
-        """
-
-        # use filename as object_name
-        object_name = os.path.basename(file_name)
-
-        # create client
-        session = boto3.session.Session()
-        client = session.client('s3',
-                            region_name='us-east-1', # is mainly ignored but validated by boto3
-                            endpoint_url=os.getenv('SPACES_URL'), 
-                            aws_access_key_id=os.getenv('SPACES_KEY'),
-                            aws_secret_access_key=os.getenv('SPACES_SECRET'))
-
-        # Upload the file
-        try:
-            client.upload_file(file_name, os.getenv('SPACES_BUCKET_NAME'), object_name)
-        except botocore.exceptions.ClientError as e:
-            print(e)
-            return False
-        return True
-
-    def __download_file(self, file_name: str):
-        """Download a file from the S3 bucket
-
-        :param file_name: File to upload
-        :return: True if file was uploaded, else False
-        """
-
-        # use filename as object_name
-        object_name = os.path.basename(file_name)
-
-        # create client
-        session = boto3.session.Session()
-        client = session.client('s3',
-                            region_name='us-east-1', # is mainly ignored but validated by boto3
-                            endpoint_url=os.getenv('SPACES_URL'),
-                            aws_access_key_id=os.getenv('SPACES_KEY'),
-                            aws_secret_access_key=os.getenv('SPACES_SECRET'))
-
-        # Upload the file
-        try:
-            client.download_file(os.getenv('SPACES_BUCKET_NAME'), object_name, file_name)
-        except botocore.exceptions.ClientError as e:
-            print(e)
-            return False
-        return True
-
-    def __init__(self, config_file: str):
-        """
-        Constructor
-        :param config_file: The name of the config file in the S3 bucket
-        """
-        if self.__download_file(config_file):
-            self.file_obj = json.load(open(config_file))
-            self.file_path = config_file
-        else:
-            self.file_obj = {}
-
-    def __enter__(self):
-        return self.file_obj
-
-    def __exit__(self, exc_type, exc_val, exc_tb):
-        if exc_type is None:
-            json.dump(self.file_obj, open(self.file_path, 'w'))
-            try:
-                self.__upload_file(self.file_path)
-            except :
-                print('Error uploading config file')
-        else:
-            print('Error: {}'.format(exc_val))
-            return False
+import spaces
 class User(BaseModel):
     username: str
     full_name: Optional[str] = None
@@ -125,6 +37,8 @@ class SignupData(BaseModel):
     agree: bool
 
 
+
+
 def read_forecast(username: str, recalculate=False):
     """
     Read the forecast for a user
@@ -134,18 +48,18 @@ def read_forecast(username: str, recalculate=False):
     """
     if recalculate:
         # TODO: implement!
-        return read_cached_forecast(username)
+        return spaces.recalculate_forecast(username)
     else:
         return read_cached_forecast(username)
 
 
 @cached(cache=TTLCache(maxsize=10, ttl=600)) # 600 ~ 10 min
 def read_cached_forecast(username: str):
-    with SpaceDict('./config.json') as config:
+    with spaces.SpaceDict('./config.json') as config:
         customer_id = config["users"][username]["customer_id"]
 
-    with SpaceDict('./forecast.json') as forecast:
-        return forecast[customer_id]
+    with spaces.SpaceDict(f'./forecast_{customer_id}.json') as forecast:
+        return forecast
 
 
 def update_user_settings(username:str, user_settings: UserSettings):
@@ -159,7 +73,7 @@ def update_user_settings(username:str, user_settings: UserSettings):
     # only update cols that are not None
     updates = [(k,v) for k,v in user_settings if v is not None]
 
-    with SpaceDict('./config.json') as config:
+    with spaces.SpaceDict('./config.json') as config:
         config["users"][username].update(updates)
         return True
 
@@ -170,7 +84,7 @@ def read_user_settings(username:str):
     :param username: The username of the user
     :return: The user settings
     """
-    with SpaceDict('./config.json') as config:
+    with spaces.SpaceDict('./config.json') as config:
         user = config["users"][username]
         customer_id = user["customer_id"]
         customer = config["customers"][customer_id]
@@ -197,13 +111,13 @@ def read_users():
     Read the list of users
     :return: dict of user settings
     """
-    with SpaceDict('./config.json') as config:
+    with spaces.SpaceDict('./config.json') as config:
         return config["users"]
 
 
 def create_signup(signup_data: SignupData):
     """write registration to database, create user and customer so that user can login in next step"""
-    with SpaceDict('./config.json') as config:
+    with spaces.SpaceDict('./config.json') as config:
         # get next available signup_id
         signup_id = str(max([int(k) for k in config["signups"].keys()]) + 1)
         config["signups"][signup_id] = {

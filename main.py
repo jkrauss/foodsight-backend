@@ -45,15 +45,10 @@ app.add_middleware(
 )
 
 
-#@app.get('/')
-#def home():
-#    return FileResponse('client/dist/__app.html')
-
-
 @app.get('/api/forecast/')
 def get_forecast(store:int, recalculate=False, current_user: db.User = Depends(get_current_active_user)):
     
-    forecasts = db.read_forecast(current_user.username) # now a dict
+    forecasts = db.read_forecast(current_user.username, recalculate) # now a dict
     # store must be in forecasts
     # found = forecasts[forecasts.store==store]
     #found = forecasts[str(store)]
@@ -61,8 +56,6 @@ def get_forecast(store:int, recalculate=False, current_user: db.User = Depends(g
     if len(found)==0:
         return status.HTTP_422_UNPROCESSABLE_ENTITY , {f'store with id {store} is not known.'}
 
-    #found = found.drop('store', axis=1)
-    #return found.to_dict(orient='records') #FileResponse('client/public/tableData.json')
     return found
 
 # actual API method that delivers tokens on successful login
