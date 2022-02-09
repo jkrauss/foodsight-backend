@@ -37,6 +37,15 @@ class SignupData(BaseModel):
     agree: bool
 
 
+@cached(cache=TTLCache(maxsize=10, ttl=600)) # 600 ~ 10 min
+def get_customer_id_from_username(username:str):
+    """
+    Get the customer id from the username
+    :param username: The username of the user
+    :return: The customer id
+    """
+    with spaces.SpaceDict('./config.json') as config:
+        return config["users"][username]["customer_id"]
 
 
 def read_forecast(username: str, recalculate=False):
@@ -46,18 +55,17 @@ def read_forecast(username: str, recalculate=False):
     :param recalculate: If True, recalculate the forecast
     :return: The forecast
     """
+    customer_id = get_customer_id_from_username(username)
     if recalculate:
-        # TODO: implement!
-        return spaces.recalculate_forecast(username)
-    else:
-        return read_cached_forecast(username)
+        spaces.recalculate_forecast(customer_id)
+        _forecast_cache.clear()
+
+    return read_cached_forecast(customer_id)
 
 
-@cached(cache=TTLCache(maxsize=10, ttl=600)) # 600 ~ 10 min
-def read_cached_forecast(username: str):
-    with spaces.SpaceDict('./config.json') as config:
-        customer_id = config["users"][username]["customer_id"]
-
+_forecast_cache = TTLCache(maxsize=10, ttl=600)
+@cached(cache=_forecast_cache) # 600 ~ 10 min
+def read_cached_forecast(customer_id: str):
     with spaces.SpaceDict(f'./forecast_{customer_id}.json') as forecast:
         return forecast
 
@@ -75,6 +83,8 @@ def update_user_settings(username:str, user_settings: UserSettings):
 
     with spaces.SpaceDict('./config.json') as config:
         config["users"][username].update(updates)
+        customer_id = config["users"][username]["customer_id"]
+        config["customers"][customer_id].update(updates)
         return True
 
 
@@ -137,6 +147,8 @@ def create_signup(signup_data: SignupData):
             "register_plugin_name":"manueller Import"
           },
           "login_valid_minutes":129600,
+            "returns_current": 250,
+            "sales_price_cost_share": 0.35,
           "stores":{
              "1":{
                 "country":"DE",
@@ -154,8 +166,6 @@ def create_signup(signup_data: SignupData):
             "customer_id": customer_id,
             "store": 1,
             "display_name": signup_data.name,
-            "returns_current": 250,
-            "sales_price_cost_share": 0.35,
             "rows_per_page": 10,
             "disabled": False
         }

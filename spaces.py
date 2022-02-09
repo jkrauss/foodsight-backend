@@ -89,50 +89,49 @@ class SpaceDict(object):
             return False
 
 
-def recalculate_forecast(username: str):
+def recalculate_forecast(customer_id: str):
     """
     Recalculate the forecast for a user
-    :param username: The username of the user
+    :param customer_id: The id of the customer
     :return: The forecast
     """
 
     print('recalculating the forecast...')
     with SpaceDict('./config.json') as config:
-        customer_id = config["users"][username]["customer_id"]
-        store_id = str(config["users"][username]["store"])
-        returns_current = config["users"][username]["returns_current"]
-        sales_price_cost_share = config["users"][username]["sales_price_cost_share"]
+        returns_current = config["customers"][customer_id]["returns_current"]
+        sales_price_cost_share = config["customers"][customer_id]["sales_price_cost_share"]
     
     with SpaceDict(f'./forecast_{customer_id}.json') as forecast:
-        store_fc = forecast.get(store_id)
-        # For key in store_fc, for each donut_data in store_fc[key], calculate the forecast
-        for tshirt_size in store_fc.keys():
-            donut_data = store_fc[tshirt_size]['donut_data']
-            donut_data['returns_current'] = returns_current*30.417
-            donut_data['returns_savings'] = donut_data['returns_current'] - donut_data['above']
-            # rename above to 'returns_remaining'
-            donut_data['returns_remaining'] = donut_data['above']
+        for store_id in forecast.keys():
+            store_fc = forecast.get(store_id)
+            # For key in store_fc, for each donut_data in store_fc[key], calculate the forecast
+            for tshirt_size in store_fc.keys():
+                donut_data = store_fc[tshirt_size]['donut_data']
+                donut_data['returns_current'] = returns_current*30.417
+                donut_data['returns_savings'] = donut_data['returns_current'] - donut_data['above']
+                # rename above to 'returns_remaining'
+                donut_data['returns_remaining'] = donut_data['above']
 
-            donut_data['profits_current'] = donut_data['weekly_revenue']*4.333
-            donut_data['profits_lost'] = donut_data['below']#*4.333
-            donut_data['profits_remaining'] = donut_data['profits_current'] - donut_data['profits_lost']
+                donut_data['profits_current'] = donut_data['weekly_revenue']*4.333
+                donut_data['profits_lost'] = donut_data['below']#*4.333
+                donut_data['profits_remaining'] = donut_data['profits_current'] - donut_data['profits_lost']
 
-            # calculate return delivery fields as cost only
-            #donut_data[['returns_current', 'returns_savings', 'returns_remaining']] *= sales_price_cost_share
-            donut_data['returns_current'] *= sales_price_cost_share
-            donut_data['returns_savings'] *= sales_price_cost_share
-            donut_data['returns_remaining'] *= sales_price_cost_share
-            # calculate mohtly profits as profits only
-            #donut_data[['profits_current', 'profits_lost', 'profits_remaining']] *= ( 1- sales_price_cost_share)
-            donut_data['profits_current'] *= ( 1- sales_price_cost_share)
-            donut_data['profits_lost'] *= ( 1- sales_price_cost_share)
-            donut_data['profits_remaining'] *= ( 1- sales_price_cost_share)
+                # calculate return delivery fields as cost only
+                #donut_data[['returns_current', 'returns_savings', 'returns_remaining']] *= sales_price_cost_share
+                donut_data['returns_current'] *= sales_price_cost_share
+                donut_data['returns_savings'] *= sales_price_cost_share
+                donut_data['returns_remaining'] *= sales_price_cost_share
+                # calculate mohtly profits as profits only
+                #donut_data[['profits_current', 'profits_lost', 'profits_remaining']] *= ( 1- sales_price_cost_share)
+                donut_data['profits_current'] *= ( 1- sales_price_cost_share)
+                donut_data['profits_lost'] *= ( 1- sales_price_cost_share)
+                donut_data['profits_remaining'] *= ( 1- sales_price_cost_share)
 
-            if donut_data['returns_savings'] < 0:
-                # we save less than nothing, but negative values can't be shown in the donut-chart
-                donut_data['returns_savings'] = 0
+                if donut_data['returns_savings'] < 0:
+                    # we save less than nothing, but negative values can't be shown in the donut-chart
+                    donut_data['returns_savings'] = 0
 
-            # write back to store_fc
-            store_fc[tshirt_size]['donut_data'] = donut_data
-        forecast['store_id'] = store_fc
+                # write back to store_fc
+                store_fc[tshirt_size]['donut_data'] = donut_data
+            forecast['store_id'] = store_fc
         return forecast

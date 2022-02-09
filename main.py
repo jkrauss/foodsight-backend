@@ -1,3 +1,4 @@
+from xmlrpc.client import Boolean
 from fastapi import FastAPI, File, UploadFile, BackgroundTasks
 from fastapi import status, Depends, HTTPException, Request
 from fastapi.responses import FileResponse, JSONResponse
@@ -25,10 +26,6 @@ from main_auth import Token, SLACK_URL
 
 import main_db as db
 
-# warm up the cache
-users = db.read_users()
-for u in users:
-    db.read_cached_forecast(u)#
 
 app = FastAPI()
 origins = ["*"]
@@ -46,7 +43,7 @@ app.add_middleware(
 
 
 @app.get('/api/forecast/')
-def get_forecast(store:int, recalculate=False, current_user: db.User = Depends(get_current_active_user)):
+def get_forecast(store:int, recalculate:bool=False, current_user: db.User = Depends(get_current_active_user)):
     
     forecasts = db.read_forecast(current_user.username, recalculate) # now a dict
     # store must be in forecasts
