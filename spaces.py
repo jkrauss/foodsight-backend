@@ -3,6 +3,7 @@ import botocore.exceptions
 import os
 import json
 
+
 def upload_file(file_name: str):
     """Upload a file to the S3 bucket
 
@@ -16,10 +17,10 @@ def upload_file(file_name: str):
     # create client
     session = boto3.session.Session()
     client = session.client('s3',
-                        region_name='us-east-1', # is mainly ignored but validated by boto3
-                        endpoint_url=os.getenv('SPACES_URL'), 
-                        aws_access_key_id=os.getenv('SPACES_KEY'),
-                        aws_secret_access_key=os.getenv('SPACES_SECRET'))
+                            region_name='us-east-1',  # is mainly ignored but validated by boto3
+                            endpoint_url=os.getenv('SPACES_URL'),
+                            aws_access_key_id=os.getenv('SPACES_KEY'),
+                            aws_secret_access_key=os.getenv('SPACES_SECRET'))
 
     # Upload the file
     try:
@@ -43,10 +44,10 @@ def download_file(file_name: str):
     # create client
     session = boto3.session.Session()
     client = session.client('s3',
-                        region_name='us-east-1', # is mainly ignored but validated by boto3
-                        endpoint_url=os.getenv('SPACES_URL'),
-                        aws_access_key_id=os.getenv('SPACES_KEY'),
-                        aws_secret_access_key=os.getenv('SPACES_SECRET'))
+                            region_name='us-east-1',  # is mainly ignored but validated by boto3
+                            endpoint_url=os.getenv('SPACES_URL'),
+                            aws_access_key_id=os.getenv('SPACES_KEY'),
+                            aws_secret_access_key=os.getenv('SPACES_SECRET'))
 
     # Upload the file
     try:
@@ -82,8 +83,8 @@ class SpaceDict(object):
             json.dump(self.file_obj, open(self.file_path, 'w'))
             try:
                 upload_file(self.file_path)
-            except :
-                print('Error uploading config file')
+            except Exception as e:
+                print('Error uploading config file', e)
         else:
             print('Error: {}'.format(exc_val))
             return False
@@ -100,7 +101,7 @@ def recalculate_forecast(customer_id: str):
     with SpaceDict('./config.json') as config:
         returns_current = config["customers"][customer_id]["returns_current"]
         sales_price_cost_share = config["customers"][customer_id]["sales_price_cost_share"]
-    
+
     with SpaceDict(f'./forecast_{customer_id}.json') as forecast:
         for store_id in forecast.keys():
             store_fc = forecast.get(store_id)
@@ -113,19 +114,18 @@ def recalculate_forecast(customer_id: str):
                 donut_data['returns_remaining'] = donut_data['above']
 
                 donut_data['profits_current'] = donut_data['weekly_revenue']*4.333
-                donut_data['profits_lost'] = donut_data['below']#*4.333
+                donut_data['profits_lost'] = donut_data['below']  # *4.333
                 donut_data['profits_remaining'] = donut_data['profits_current'] - donut_data['profits_lost']
 
                 # calculate return delivery fields as cost only
-                #donut_data[['returns_current', 'returns_savings', 'returns_remaining']] *= sales_price_cost_share
                 donut_data['returns_current'] *= sales_price_cost_share
                 donut_data['returns_savings'] *= sales_price_cost_share
                 donut_data['returns_remaining'] *= sales_price_cost_share
+                
                 # calculate mohtly profits as profits only
-                #donut_data[['profits_current', 'profits_lost', 'profits_remaining']] *= ( 1- sales_price_cost_share)
-                donut_data['profits_current'] *= ( 1- sales_price_cost_share)
-                donut_data['profits_lost'] *= ( 1- sales_price_cost_share)
-                donut_data['profits_remaining'] *= ( 1- sales_price_cost_share)
+                donut_data['profits_current'] *= (1 - sales_price_cost_share)
+                donut_data['profits_lost'] *= (1 - sales_price_cost_share)
+                donut_data['profits_remaining'] *= (1 - sales_price_cost_share)
 
                 if donut_data['returns_savings'] < 0:
                     # we save less than nothing, but negative values can't be shown in the donut-chart
