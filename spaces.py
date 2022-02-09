@@ -101,7 +101,8 @@ def recalculate_forecast(customer_id: str):
     with SpaceDict('./config.json') as config:
         returns_current = config["customers"][customer_id]["returns_current"]
         sales_price_cost_share = config["customers"][customer_id]["sales_price_cost_share"]
-
+    print('returns_current: {}'.format(returns_current))
+    print('sales_price_cost_share: {}'.format(sales_price_cost_share))
     with SpaceDict(f'./forecast_{customer_id}.json') as forecast:
         for store_id in forecast.keys():
             store_fc = forecast.get(store_id)
@@ -133,5 +134,5 @@ def recalculate_forecast(customer_id: str):
 
                 # write back to store_fc
                 store_fc[tshirt_size]['donut_data'] = donut_data
-            forecast['store_id'] = store_fc
+            forecast[store_id] = store_fc
         return forecast
