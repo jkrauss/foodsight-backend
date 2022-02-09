@@ -1,31 +1,27 @@
-#import sqlite3 as sql
-import pandas as pd
+
 from pydantic import BaseModel
 from typing import Optional
 
-import pathlib
-import shutil
-
-import main_auth as auth
-
-import json
+import spaces
 
 import dotenv
 from cachetools import cached, TTLCache
 dotenv.load_dotenv()
 # Naming convention: create_..., read_..., update_..., delete_...
 
-import spaces
+
 class User(BaseModel):
     username: str
     full_name: Optional[str] = None
     disabled: Optional[bool] = None
+
 
 class UserSettings(BaseModel):
     returns_current: Optional[float] = None
     sales_price_cost_share: Optional[float] = None
     rows_per_page: Optional[int] = None
     store: Optional[int] = None
+
 
 class SignupData(BaseModel):
     name: Optional[str]
@@ -37,8 +33,8 @@ class SignupData(BaseModel):
     agree: bool
 
 
-@cached(cache=TTLCache(maxsize=10, ttl=600)) # 600 ~ 10 min
-def get_customer_id_from_username(username:str):
+@cached(cache=TTLCache(maxsize=10, ttl=600))  # 600 ~ 10 min
+def get_customer_id_from_username(username: str):
     """
     Get the customer id from the username
     :param username: The username of the user
@@ -64,13 +60,15 @@ def read_forecast(username: str, recalculate=False):
 
 
 _forecast_cache = TTLCache(maxsize=10, ttl=600)
-@cached(cache=_forecast_cache) # 600 ~ 10 min
+
+
+@cached(cache=_forecast_cache)  # 600 ~ 10 min
 def read_cached_forecast(customer_id: str):
     with spaces.SpaceDict(f'./forecast_{customer_id}.json') as forecast:
         return forecast
 
 
-def update_user_settings(username:str, user_settings: UserSettings):
+def update_user_settings(username: str, user_settings: UserSettings):
     """
     Update the user settings for a user
     :param username: The username of the user
@@ -88,7 +86,7 @@ def update_user_settings(username:str, user_settings: UserSettings):
         return True
 
 
-def read_user_settings(username:str):
+def read_user_settings(username: str):
     """
     Read the user settings for a user
     :param username: The username of the user

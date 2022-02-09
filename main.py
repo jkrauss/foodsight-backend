@@ -30,9 +30,10 @@ import main_db as db
 app = FastAPI()
 origins = ["*"]
 # to deactivate CORS completely...
-#origins = [
+# origins = [
 #    "*"
-#]
+# ]
+
 app.add_middleware(
     CORSMiddleware,
     allow_origins=origins,
@@ -43,17 +44,18 @@ app.add_middleware(
 
 
 @app.get('/api/forecast/')
-def get_forecast(store:int, recalculate:bool=False, current_user: db.User = Depends(get_current_active_user)):
-    
-    forecasts = db.read_forecast(current_user.username, recalculate) # now a dict
+def get_forecast(store: int, recalculate: bool = False, current_user: db.User = Depends(get_current_active_user)):
+
+    forecasts = db.read_forecast(current_user.username, recalculate)  # now a dict
     # store must be in forecasts
     # found = forecasts[forecasts.store==store]
-    #found = forecasts[str(store)]
+    # found = forecasts[str(store)]
     found = forecasts.get(str(store), [])
-    if len(found)==0:
-        return status.HTTP_422_UNPROCESSABLE_ENTITY , {f'store with id {store} is not known.'}
+    if len(found) == 0:
+        return status.HTTP_422_UNPROCESSABLE_ENTITY, {f'store with id {store} is not known.'}
 
     return found
+
 
 # actual API method that delivers tokens on successful login
 @app.post("/api/token", response_model=Token)
@@ -78,8 +80,9 @@ async def login_for_access_token(form_data: OAuth2PasswordRequestForm = Depends(
 def get_usersettings(current_user: db.User = Depends(get_current_active_user)):
 
     settings = db.read_user_settings(current_user.username)
-    if len(settings)==0:
-        return JSONResponse(status_code=422, content={"message": f"No configuration found for user {current_user.username}"})
+    if len(settings) == 0:
+        return JSONResponse(status_code=422,
+                            content={"message": f"No configuration found for user {current_user.username}"})
 
     return settings
 
@@ -88,6 +91,7 @@ def get_usersettings(current_user: db.User = Depends(get_current_active_user)):
 def put_usersettings(user_settings: db.UserSettings, current_user: db.User = Depends(get_current_active_user)):
     db.update_user_settings(current_user.username, user_settings)
     return get_usersettings(current_user)
+
 
 class ProblemReport(BaseModel):
     problem_text: str
@@ -109,10 +113,9 @@ def post_problem(problem_report: ProblemReport, current_user: db.User = Depends(
         if problem_report.screenshot:
             screen = base64.b64decode(problem_report.screenshot.split(',')[1])
             screen_path.write_bytes(screen)
-        
+
         message_path.write_text(problem_report.problem_text)
 
-        
         img_url = f"https://foodsight.ml4all.com/api/problems/report_{now}/screenshot.png"
 
         blocks = [
@@ -126,7 +129,7 @@ def post_problem(problem_report: ProblemReport, current_user: db.User = Depends(
         ]
         if problem_report.screenshot:
             blocks.append(
-                 {
+                {
                     "type": "image",
                     "title": {
                         "type": "plain_text",
@@ -135,7 +138,7 @@ def post_problem(problem_report: ProblemReport, current_user: db.User = Depends(
                     "block_id": "image4",
                     "image_url": img_url,
                     "alt_text": "screenshot taken from a foodsight user"
-                }               
+                }
             )
 
         payload = json.dumps({"blocks": blocks})
@@ -147,8 +150,9 @@ def post_problem(problem_report: ProblemReport, current_user: db.User = Depends(
         print(json.dumps(payload))
 
         return True
-    except:
+    except Exception as e:
         print("Error saving problem_report:", sys.exc_info()[0])
+        print(e)
         return False
 
 
@@ -190,6 +194,7 @@ def post_signup(signup_data: db.SignupData, background_tasks: BackgroundTasks):
     print(r.status_code, r.reason)
     print(r.text[:300])
 
+
 class OrderData(BaseModel):
     name: Optional[str]
     donut_data: Optional[dict]
@@ -198,6 +203,7 @@ class OrderData(BaseModel):
     line_diagram: Optional[dict]
     order_quantity: dict
     option: str
+
 
 @app.post("/api/order")
 def post_order(order_data: OrderData, current_user: db.User = Depends(get_current_active_user)):
@@ -217,7 +223,7 @@ def post_order(order_data: OrderData, current_user: db.User = Depends(get_curren
 
 @app.post("/api/sales_upload")
 async def post_sales_upload(file: UploadFile = File(...), current_user: db.User = Depends(get_current_active_user)):
-    
+
     customer_id = db._get_customer_id_from_username(current_user.username)
 
     async with aiofiles.open(f"data/sales_upload/{customer_id}/manual_import.xlsx", 'wb') as out_file:
@@ -228,5 +234,5 @@ async def post_sales_upload(file: UploadFile = File(...), current_user: db.User 
     return {"filename": file.filename}
 
 
-# Place After All Other Routes 
+# Place After All Other Routes
 app.mount("/api/problems", StaticFiles(directory="data/problem_reports"), name="problems")
