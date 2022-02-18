@@ -32,7 +32,7 @@ class SignupData(BaseModel):
     password: str
     company: Optional[str]
     location: Optional[str]
-    register_type: Optional[str]
+    registerType: Optional[str]
     agree: bool
     street: Optional[str]
     streetNumber: Optional[str]
@@ -144,7 +144,7 @@ def create_signup(signup_data: SignupData):
             "password": signup_data.password,
             "company": signup_data.company,
             "location": signup_data.location,
-            "register_type": signup_data.register_type,
+            "registerType": signup_data.registerType,
             "agree": signup_data.agree,
             "street": signup_data.street,
             "streetNumber": signup_data.streetNumber,
