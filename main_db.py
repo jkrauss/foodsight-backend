@@ -1,4 +1,5 @@
 
+from termios import CINTR
 from pydantic import BaseModel
 from typing import Optional
 
@@ -24,13 +25,20 @@ class UserSettings(BaseModel):
 
 
 class SignupData(BaseModel):
+    prename: Optional[str]
     name: Optional[str]
     email: str
     phone: str
     password: str
+    company: Optional[str]
     location: Optional[str]
     register_type: Optional[str]
     agree: bool
+    street: Optional[str]
+    streetNumber: Optional[str]
+    city: Optional[str]
+    postalCode: Optional[str]
+    locationCount: Optional[int]
 
 
 @cached(cache=TTLCache(maxsize=10, ttl=600))  # 600 ~ 10 min
@@ -129,32 +137,40 @@ def create_signup(signup_data: SignupData):
         # get next available signup_id
         signup_id = str(max([int(k) for k in config["signups"].keys()]) + 1)
         config["signups"][signup_id] = {
+            "prename": signup_data.prename,
             "name": signup_data.name,
             "email": signup_data.email.lower(),
             "phone": signup_data.phone,
             "password": signup_data.password,
+            "company": signup_data.company,
             "location": signup_data.location,
             "register_type": signup_data.register_type,
-            "agree": signup_data.agree
+            "agree": signup_data.agree,
+            "street": signup_data.street,
+            "streetNumber": signup_data.streetNumber,
+            "city": signup_data.city,
+            "postalCode": signup_data.postalCode,
+            "locationCount": signup_data.locationCount
         }
         # create customer
         customer_id = str(max([int(k) for k in config["customers"].keys()]) + 1)
         customer = {
-          "register":{
-            "register_plugin":"plugins.manual.manual",
-            "register_plugin_name":"manueller Import"
-          },
-          "login_valid_minutes":129600,
+            "register": {
+                "register_plugin": "plugins.manual.manual",
+                "register_plugin_name": "manueller Import"
+            },
+            "customer_id": customer_id,
+            "login_valid_minutes": 129600,
             "returns_current": 250,
             "sales_price_cost_share": 0.35,
-          "stores":{
-             "1":{
-                "country":"DE",
-                "state":"HE",
-                "city":"Wiesbaden",
-                "store_name":signup_data.location
-             }
-          }
+            "stores": {
+                "1": {
+                    "country": "DE",
+                    "state": "HE",
+                    "city": "Wiesbaden",
+                    "store_name": signup_data.location
+                }
+            }
         }
         config["customers"][customer_id] = customer
         # create user
