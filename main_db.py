@@ -25,20 +25,19 @@ class UserSettings(BaseModel):
 
 
 class SignupData(BaseModel):
-    prename: Optional[str]
-    name: Optional[str]
+    first_name: Optional[str]
+    last_name: Optional[str]
     email: str
     phone: str
     password: str
     company: Optional[str]
-    location: Optional[str]
-    registerType: Optional[str]
-    agree: bool
     street: Optional[str]
-    streetNumber: Optional[str]
+    street_number: Optional[str]
+    postal_code: Optional[str]
     city: Optional[str]
-    postalCode: Optional[str]
-    locationCount: Optional[int]
+    location_count: Optional[int]
+    invoicing_system: Optional[str]
+    agree: bool
 
 
 @cached(cache=TTLCache(maxsize=10, ttl=600))  # 600 ~ 10 min
@@ -137,20 +136,19 @@ def create_signup(signup_data: SignupData):
         # get next available signup_id
         signup_id = str(max([int(k) for k in config["signups"].keys()]) + 1)
         config["signups"][signup_id] = {
-            "prename": signup_data.prename,
-            "name": signup_data.name,
-            "email": signup_data.email.lower(),
+            "first_name": signup_data.first_name,
+            "last_name": signup_data.last_name,
+            "email": signup_data.email,
             "phone": signup_data.phone,
             "password": signup_data.password,
             "company": signup_data.company,
-            "location": signup_data.location,
-            "registerType": signup_data.registerType,
-            "agree": signup_data.agree,
             "street": signup_data.street,
-            "streetNumber": signup_data.streetNumber,
+            "street_number": signup_data.street_number,
+            "postal_code": signup_data.postal_code,
             "city": signup_data.city,
-            "postalCode": signup_data.postalCode,
-            "locationCount": signup_data.locationCount
+            "location_count": signup_data.location_count,
+            "invoicing_system": signup_data.invoicing_system,
+            "agree": signup_data.agree
         }
         # create customer
         customer_id = str(max([int(k) for k in config["customers"].keys()]) + 1)
