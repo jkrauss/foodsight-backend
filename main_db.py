@@ -127,7 +127,7 @@ def read_users():
     :return: dict of user settings
     """
     with spaces.SpaceDict('./config.json') as config:
-        return config["users"]
+        return config.get("users")
 
 
 def create_signup(signup_data: SignupData):
@@ -165,8 +165,8 @@ def create_signup(signup_data: SignupData):
                 "1": {
                     "country": "DE",
                     "state": "HE",
-                    "city": "Wiesbaden",
-                    "store_name": signup_data.location
+                    "city": signup_data.city,
+                    "store_name": signup_data.street + " " + signup_data.street_number,
                 }
             }
         }
@@ -177,7 +177,7 @@ def create_signup(signup_data: SignupData):
             "hashed_password": signup_data.password,
             "customer_id": customer_id,
             "store": 1,
-            "display_name": signup_data.name,
+            "display_name": signup_data.first_name + " " + signup_data.last_name,
             "rows_per_page": 10,
             "disabled": False
         }

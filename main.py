@@ -168,12 +168,12 @@ def post_signup(signup_data: db.SignupData, background_tasks: BackgroundTasks):
 
     *** WOHOO! WIR HABEN EINE NEUE ANMELDUNG! ***
 
-    name: {signup_data.name}
+    name: {signup_data.first_name + " " + signup_data.last_name}
     email: {signup_data.email}
     phone: {signup_data.phone}
     password: {hash}
-    location: {signup_data.location}
-    register_type: {signup_data.register_type}
+    location: {signup_data.street + " " + str(signup_data.street_number) + ", " + signup_data.city}
+    invoicing_system: {signup_data.invoicing_system}
     agree: {signup_data.agree}
         """
 
