@@ -1,18 +1,18 @@
 {
     "users":{
        "johndoe@example.com":{
-          "signup_id":null,
+          "signup_id":"26",
+          "hashed_password":"$2b$12$xQ8CH4WXagkz2letHwFejOwAw9mYkXdyYzEonsiCQiM.v5e.I9d3a",
+          "customer_id":"0",
           "store":1,
           "display_name":"John Doe",
-          "hashed_password":"$2b$12$EixZaYVK1fsbw1ZfbX3OXePaWxn96p36WQoeG6Lruj3vjPGga31lW",
-          "disabled":false,
           "rows_per_page":10,
-          "customer_id":"0",
-          "returns_current":150.0,
-          "sales_price_cost_share":0.33
+          "disabled":false,
+          "returns_current":250.0,
+          "sales_price_cost_share":0.35
        },
        "felix@herz-schnidde.de":{
-          "signup_id":23,
+          "signup_id":"23",
           "store":1,
           "display_name":"Felix Nuyten",
           "hashed_password":"$2b$12$hB5MtcadYr7l6R8GawjpbO1fzhmQCSWBykIxaJNIETX62s72SBUxu",

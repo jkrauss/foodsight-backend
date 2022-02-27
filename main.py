@@ -162,6 +162,10 @@ def post_signup(signup_data: db.SignupData, background_tasks: BackgroundTasks):
     signup_data.password = hash
     signup_data.email = signup_data.email.lower()
 
+    if signup_data.email in db.read_users().keys():
+        return JSONResponse(status_code=422,
+                            content={"message": f"User {signup_data.email} already exists."})
+
     db.create_signup(signup_data)
 
     slack_text = f"""
