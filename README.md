@@ -1,4 +1,4 @@
-bar
+November '25 - making this public, maybe someone finds it useful. This was the backend/API of a machine-learning startup we tried to pull of. The purpose was to serve bakeries with sales predictions so they can optimize their stocklevels
 
 # Backend
 
