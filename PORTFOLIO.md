@@ -50,36 +50,43 @@ The system follows a layered architecture:
 **Architecture diagram:**
 
 ```mermaid
-flowchart LR
-    subgraph Frontend ["Svelte SPA"]
-        direction TB
-        F1["Dashboard\nChart.js bar + donut"]
-        F2["Data Table\nsearch, sort, export"]
-        F3["Auth & Settings\nSignup, Login"]
+flowchart TD
+    subgraph frontend ["Svelte SPA"]
+        F1["Dashboard - Chart.js bar & donut"]
+        F2["Data Table - search, sort, export"]
+        F3["Auth & Settings - Signup, Login"]
     end
 
-    subgraph Backend ["FastAPI Backend"]
-        direction TB
-        B1["JWT Auth\nOAuth2 + bcrypt"]
-        B2["REST API\nForecast, Settings, Order"]
-        B3["Config\nTOML multi-store"]
+    subgraph backend ["FastAPI Backend"]
+        B1["JWT Auth - OAuth2 + bcrypt"]
+        B2["REST API - Forecast, Settings, Order"]
+        B3["Config - TOML multi-store"]
     end
 
-    subgraph Pipeline ["ML Pipeline"]
-        direction TB
-        P1["Ingest\nSales, Weather, Holidays"]
-        P2["Transform\nFeature engineering"]
-        P3["Train\nCatBoost regressor"]
-        P4["Serve\n7-day forecasts"]
+    subgraph pipeline ["ML Pipeline"]
+        P1["Ingest - Sales, Weather, Holidays"]
+        P2["Transform - Feature engineering"]
+        P3["Train - CatBoost regressor"]
+        P4["Serve - 7-day forecasts"]
+        P1 --> P2 --> P3 --> P4
     end
 
-    Frontend <-->|"REST + JWT"| Backend
-    Backend <-->|"predictions.csv"| Pipeline
-    Pipeline -.->|"Scheduled 2x/day"| Pipeline
+    frontend <-->|"REST + JWT"| backend
+    backend <-->|"predictions.csv"| pipeline
 
-    style Frontend fill:#e8f5e9,stroke:#30974e
-    style Backend fill:#e3f2fd,stroke:#1565c0
-    style Pipeline fill:#fff3e0,stroke:#ef6c00
+    style frontend fill:#0496FF,stroke:#300A6E,color:#FFFFFF
+    style backend fill:#300A6E,stroke:#0496FF,color:#FFFFFF
+    style pipeline fill:#FB5012,stroke:#300A6E,color:#FFFFFF
+    style F1 fill:#EBEBEB,stroke:#0496FF,color:#000000
+    style F2 fill:#EBEBEB,stroke:#0496FF,color:#000000
+    style F3 fill:#EBEBEB,stroke:#0496FF,color:#000000
+    style B1 fill:#EBEBEB,stroke:#300A6E,color:#000000
+    style B2 fill:#EBEBEB,stroke:#300A6E,color:#000000
+    style B3 fill:#EBEBEB,stroke:#300A6E,color:#000000
+    style P1 fill:#FFFFFF,stroke:#FB5012,color:#000000
+    style P2 fill:#FFFFFF,stroke:#FB5012,color:#000000
+    style P3 fill:#FFFFFF,stroke:#FB5012,color:#000000
+    style P4 fill:#FFFFFF,stroke:#FB5012,color:#000000
 ```
 
 ## Tech Stack
