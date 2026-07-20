@@ -49,17 +49,47 @@ The system follows a layered architecture:
 
 **Architecture diagram:**
 
-```
-┌─────────────────┐     ┌──────────────────────┐     ┌──────────────────────┐
-│  Svelte SPA     │────▶│  FastAPI Backend      │────▶│  ML Pipeline         │
-│  (Chart.js)     │◀────│  (JWT, CORS)          │◀────│  (CatBoost)          │
-└─────────────────┘     └──────────────────────┘     └──────────────────────┘
-       │                        │                            │
-       │ Material Design        │ REST API                   │ Scheduled
-       │ Tailwind CSS           │ Pydantic v2                │ 2x daily
-       ▼                        ▼                            ▼
-   Dashboard              JSON responses              predictions.csv
-   + Data Table           + Excel/CSV export          per store/product
+```mermaid
+flowchart LR
+    subgraph Frontend ["🖥️ Svelte SPA"]
+        direction TB
+        F1[Dashboard
+Chart.js bar + donut]
+        F2[Data Table
+search · sort · export]
+        F3[Auth · Settings
+Signup · Login]
+    end
+
+    subgraph Backend ["⚡ FastAPI Backend"]
+        direction TB
+        B1[JWT Auth
+OAuth2 + bcrypt]
+        B2[REST API
+Forecast · Settings · Order]
+        B3[Config
+TOML multi-store]
+    end
+
+    subgraph Pipeline ["🧠 ML Pipeline"]
+        direction TB
+        P1[Ingest
+Sales · Weather · Holidays]
+        P2[Transform
+Feature engineering]
+        P3[Train
+CatBoost regressor]
+        P4[Serve
+7-day forecasts]
+    end
+
+    Frontend <-->|REST + JWT| Backend
+    Backend <-->|predictions.csv| Pipeline
+    Pipeline -.->|Scheduled 2×/day| Pipeline
+
+    style Frontend fill:#e8f5e9,stroke:#30974e
+    style Backend fill:#e3f2fd,stroke:#1565c0
+    style Pipeline fill:#fff3e0,stroke:#ef6c00
 ```
 
 ## Tech Stack
