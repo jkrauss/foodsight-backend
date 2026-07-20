@@ -91,15 +91,10 @@
 						<li on:click={auth} class="cursor-pointer p-2">
 							{#if $user && Object.keys($user).length}Logout{:else}Login{/if}
 						</li>
-						<li on:click={intro} class="cursor-pointer p-2">
-							Los gehts
+						<li on:click={() => { $mainContent = "dashboard"; }} class="cursor-pointer p-2">
+							Dashboard
 						</li>
-						<li
-							on:click={() => {
-								$mainContent = "table";
-							}}
-							class="cursor-pointer p-2"
-						>
+						<li on:click={() => { $mainContent = "table"; }} class="cursor-pointer p-2">
 							Planung
 						</li>
 						<li on:click={settings} class="cursor-pointer p-2">

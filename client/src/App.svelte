@@ -3,6 +3,7 @@
 	import Settings from "./Settings.svelte";
 	import Modal from "./lib/Modal.svelte";
 	import Foodtable from "./Foodtable.svelte";
+	import Dashboard from "./Dashboard.svelte";
 	import Intro from "./Intro.svelte";
 	import Tailwind from "./Tailwind.svelte";
 	import Nav from "./lib/nav/main.svelte";
@@ -46,10 +47,12 @@
 			<Settings />		
 		{:else if $mainContent === "table"}
 			<Foodtable />		
+		{:else if $mainContent === "dashboard"}
+			<Dashboard />
 		{:else if $mainContent === "signup"}
 			<Signup />
 		{:else}
-			<Intro />
+			<Dashboard />
 		{/if}
 	</div>
 	<Footer />
