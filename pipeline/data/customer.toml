@@ -1,0 +1,46 @@
+[base]
+pipeline_path = "pipeline"
+login_valid_minutes = 60
+tomorrow = true
+day_after_tomorrow = false
+next_seven_days = false
+rows_per_page = 10
+store = 1
+state = "HE"
+city = "Wiesbaden"
+store_name = "Kirchgasse"
+forecast_url = "/api/forecast"
+order_url = "/api/order"
+problem_url = "/api/problem"
+settings_url = "/api/usersettings"
+token_url = "/api/token"
+register_plugin_name = "ready2order"
+country = "DE"
+editable_properties = ["tomorrow", "day_after_tomorrow", "next_seven_days", "rows_per_page", "login_valid_minutes", "store"]
+
+[[users]]
+username = "demo"
+email = "demo@foodsight.de"
+full_name = "Demo User"
+disabled = false
+hashed_password = "$2b$12$JtSUFEa6DO1wTIuzmGc2Y.oDWypB7KVNt0fu0hTmv9BGgEDiE.N4i"
+returns_current = "50"
+sales_price_cost_share = "30"
+
+[[stores]]
+store = 1
+state = "HE"
+city = "Wiesbaden"
+store_name = "Kirchgasse"
+
+[[stores]]
+store = 2
+state = "RP"
+city = "Mainz"
+store_name = "Am Brand"
+
+[[stores]]
+store = 3
+state = "HE"
+city = "Taunusstein"
+store_name = "Zentrum"

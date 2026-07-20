@@ -1,74 +1,66 @@
-import importlib
-import glob
-import sys, os
-import schedule
-import time
+"""Pipeline scheduler — runs all pipeline steps on a daily schedule.
+
+This module discovers and imports every Python file in the `pipeline/`
+directory (sorted alphabetically), then executes them in order twice daily.
+Used in production to keep predictions up-to-date.
+"""
+
+from __future__ import annotations
+
 import datetime as dt
+import glob
+import importlib
+import os
+import sys
+import time
 
+import schedule
 
-# required so that plugins can be loaded 
+# Ensure the pipeline package is importable
 HERE = os.path.dirname(os.path.abspath(__file__))
-sys.path.append(HERE+'/pipeline')
+sys.path.append(os.path.join(HERE, "pipeline"))
 
-def _import(pipeline, step):
-    """Import the given plugin file from a package"""
+
+def _import_module(pipeline: str, step: str):
+    """Import a single pipeline step module."""
     return importlib.import_module(f"{pipeline}.{step}")
-    
-def _import_pipeline(pipeline):
 
-    cwd = os.getcwd()
 
-    """import all steps/modules of the folder/package 'pipeline' in alphabetical order"""
-    flist = list()
-    for filepath in glob.iglob(f'{pipeline}/*.py'):
-        if filepath != f'{pipeline}/util.py':
-            flist.append(filepath)
+def _discover_pipeline(pipeline_dir: str = "pipeline"):
+    """Return a sorted list of pipeline step modules (excluding util.py)."""
+    flist = sorted(
+        f for f in glob.iglob(f"{pipeline_dir}/*.py")
+        if not f.endswith("util.py")
+    )
+    return [_import_module(*f[:-3].split("/")) for f in flist]
 
-    # this sorts the original list in place - handy for a sequential pipeline
-    flist.sort()
 
-    pipeline_steps = list()
-    steps = [f[:-3] for f in flist if f[0] != "_"]
-    for step in steps:
-        pipeline_steps.append(_import(*step.split('/')))
-
-    os.chdir(cwd)
-    
-    return pipeline_steps
-
-def run_pipeline(pipeline_steps):
-    print(f'starting pipeline run at {dt.datetime.now()}')
-    for step in pipeline_steps:
-        step.run()
+def run_pipeline(steps):
+    """Execute every step in sequence. Logs success/failure."""
+    print(f"Pipeline run started at {dt.datetime.now()}")
     try:
-        # run whole pipeline or break, but without breaking the process
-        for step in pipeline_steps:
+        for step in steps:
             step.run()
     except Exception as e:
-        print(f'pipeline run failed in step {str(step)} at {dt.datetime.now()}, exception below..')
-        print(e)
+        print(f"Pipeline failed in {step.__name__} at {dt.datetime.now()}: {e}")
     else:
-        print(f'pipeline completed successfully at {dt.datetime.now()}')
+        print(f"Pipeline completed successfully at {dt.datetime.now()}")
 
 
-def start_schedule(pipeline_steps):
+def main():
+    os.environ["CONFIG_DIR"] = os.getcwd()
+    steps = _discover_pipeline()
 
-    schedule.every().day.at('03:00').do(run_pipeline, pipeline_steps)
-    #schedule.every().day.at('09:00').do(run_pipeline, pipeline_steps)
-    schedule.every().day.at('15:00').do(run_pipeline, pipeline_steps)
-    #schedule.every().day.at('21:00').do(run_pipeline, pipeline_steps)    
+    # Run immediately, then on schedule
+    run_pipeline(steps)
+    schedule.every().day.at("03:00").do(run_pipeline, steps)
+    schedule.every().day.at("15:00").do(run_pipeline, steps)
 
-    #schedule.every(10).minutes.do(run_pipeline, pipeline_steps)
-    run_pipeline(pipeline_steps)
-
+    print("Scheduler running (Ctrl+C to stop)...")
     while True:
         schedule.run_pending()
         time.sleep(10)
 
-if __name__ == "__main__":
-    os.environ["CONFIG_DIR"] = os.getcwd()
 
-    # import all steps/modules of the folder/package in alphabetical order
-    pipeline_steps = _import_pipeline('pipeline')
-    # start the schedule to run the pipeline
-    start_schedule(pipeline_steps)
+if __name__ == "__main__":
+    main()

@@ -1,44 +1,141 @@
-November '25 - making this public, maybe someone finds it useful. This was the backend/API of a machine-learning startup we tried to pull of. The purpose was to serve bakeries with sales predictions so they can optimize their stocklevels
+# Foodsight
 
+**ML-powered sales prediction for bakeries** — helps optimize daily stock levels by forecasting product demand for tomorrow, the day after, and the coming week.
+
+Foodsight was built as a SaaS product for artisan bakeries in Germany. It ingests POS sales data and weather forecasts, trains a gradient-boosted model, and presents actionable order suggestions through an intuitive web dashboard.
+
+> **Live demo credentials** — username: `demo` / password: `demo123`
+
+---
+
+## Architecture
+
+```
+┌──────────────┐     ┌──────────────────┐     ┌──────────────────┐
+│  Svelte SPA  │────▶│  FastAPI Backend  │────▶│  ML Pipeline     │
+│  (Rollup)    │◀────│  (uvicorn)        │◀────│  (CatBoost)      │
+└──────────────┘     └──────────────────┘     └──────────────────┘
+       │                     │                         │
+       │ JWT auth            │ REST API                │ Scheduled
+       │ Static files        │ CORS enabled            │ 2x daily
+       ▼                     ▼                         ▼
+   Client browser      JSON responses           predictions.csv
+```
+
+### Pipeline stages
+
+| Stage | Purpose |
+|-------|---------|
+| `0_load_*` | Ingest sales history, weather data, date dimensions |
+| `1_transform_*` | Clean, normalise, feature-engineer raw data |
+| `2_prepare_training_data` | Merge sources, create train/test/predict splits |
+| `4_train_model` | Train CatBoost regressor, save production model |
+| `6_serve_predictions` | Generate 7-day forecasts per store and product |
+
+### API endpoints
+
+| Method | Path | Description |
+|--------|------|-------------|
+| `POST` | `/api/token` | Authenticate, receive JWT |
+| `GET` | `/api/forecast/?store={id}` | Sales predictions (authenticated) |
+| `GET` | `/api/usersettings/` | User + store configuration |
+| `PUT` | `/api/usersettings/` | Update user preferences |
+| `POST` | `/api/order` | Export order as Excel/CSV |
+| `POST` | `/api/signup` | Register new bakery |
+| `POST` | `/api/problem` | Submit feedback with screenshot |
+
+---
+
+## Tech Stack
+
+- **Backend:** Python 3.12, FastAPI, uvicorn, Pandas
+- **Frontend:** Svelte 3, SMUI (Material Design), Tailwind CSS, Rollup
+- **ML:** CatBoost, scikit-learn, featuretools, tsfresh
+- **Auth:** JWT (python-jose), bcrypt password hashing
+- **Data:** CSV-based pipeline with TOML configuration
+- **Infra:** Docker, Render (staging)
+
+---
+
+## Local Development
+
+```bash
 # Backend
+python -m venv .venv && source .venv/bin/activate
+pip install -r requirements.txt
+uvicorn main:app --reload
 
-## Startup
-- To start the webserver and in parallel schedule the pipeline  do `python -m startup` .
-- To start the webserver only run `uvicorn main:app`
-- To run the pipeline 'unscheduled' the easiest is to run the scripts in order e.g. `python -m 0_load_date_dimension`
+# Frontend (in a second terminal)
+cd client && npm install && npm run dev
+```
 
-## Data-pipeline
+The app runs at `http://localhost:8000`. Without login it operates in demo mode with sample data.
 
-The data-folder has several subfolders, that represent different stages in the data transformation-pipeline. For every stage there's also one or more corresponding jupyter-notebooks. 
-- e.g. 0_load_weather_history loads data from external sources and writes to the 0_raw directory
-- 2_prepare_training_data reads from layers below and writes to the 2_pre_train directory
-- The stages are to be run in order e.g. first complete all that start with 0_ then 1_ ...
-- The notebooks are 'paired' with .py-files, using jupytext. Only the .py-files go into the git-repository
-  - use sync_notebooks.sh to sync
-  - each script is wrapped in a run()-method, and these are used to run the pipeline in production
+---
 
-- For the start I used an open dataset of orange-juice-sales:
-  - Description of the orange-juice data / columns can be found here: https://rdrr.io/cran/bayesm/man/orangeJuice.html
+## Deployment
 
-## API
+```bash
+docker build -t foodsight .
+docker run -p 8000:8000 foodsight
+```
 
-The API is built using the fantastic fastapi-package. The development server can be started with `uvicorn main:app --reload`
+Or deploy directly to Render/Railway/Fly.io — the Dockerfile handles everything.
 
-# Frontend
+---
 
-## fastapi-svelte
+## Project Structure
 
-Simple Combination of FastAPI and Svelte.
+```
+foodsight-backend/
+├── main.py                 # FastAPI application & routes
+├── main_auth.py            # JWT auth & password hashing
+├── startup_pipeline.py     # Scheduled pipeline runner
+├── requirements.txt
+├── Dockerfile
+├── client/                 # Svelte frontend
+│   ├── src/
+│   │   ├── App.svelte
+│   │   ├── Foodtable.svelte    # Main prediction table
+│   │   ├── Settings.svelte     # User preferences
+│   │   ├── Intro.svelte        # Landing page
+│   │   └── lib/
+│   │       ├── stores.js       # Svelte stores & auth interceptor
+│   │       ├── auth/           # Login component
+│   │       ├── nav/            # Navigation
+│   │       └── components/     # UI components
+│   └── public/
+│       ├── build/              # Compiled bundle
+│       └── *.json              # Demo data files
+└── pipeline/
+    ├── 0_load_*.py             # Data ingestion
+    ├── 1_transform_*.py        # Feature engineering
+    ├── 2_prepare_training_data.py
+    ├── 4_train_model.py        # Model training
+    ├── 6_serve_predictions.py  # Forecast generation
+    ├── plugins/                # POS system integrations
+    │   ├── oj/                 # Orange juice dataset
+    │   └── ready2order/        # ready2order POS API
+    └── data/
+        └── customer.toml       # Store & user configuration
+```
 
-### Setup Instructions:
+---
 
-1. Clone this Repo
-2. ```pip install -r requirements.txt``` to install python dependencies.
-3. Run ```npx degit sveltejs/template client``` inside root directory to create Svelte app inside ```client``` directory.
-4. Inside ```client``` directory run ```npm install```
+## Key Design Decisions
 
-### Local Development:
+- **TOML for configuration** — human-readable, supports nested tables for multi-store setups, easy to edit without a database
+- **Plugin architecture for POS systems** — new cash-register systems can be integrated by adding a plugin module
+- **JWT with configurable expiry** — balances security with UX for bakery staff who share terminals
+- **CatBoost for ML** — handles categorical features natively (product names, weekdays, holidays) without one-hot encoding
+- **Pipeline as scheduled scripts** — each stage is independently runnable for debugging, paired with Jupyter notebooks for exploration
 
-**Build Svelte app and watch for changes:**```npm run dev``` (run inside client folder)
+---
 
-**Run Uvicorn server for FastAPI app with hotreloading:** ```uvicorn main:app --reload```
+## License
+
+MIT
+
+---
+
+*Built by [Jonas Krauss](https://jonaskrauss.de) · [LinkedIn](https://www.linkedin.com/in/kraussjonas/)*

@@ -1,123 +1,133 @@
-from datetime import datetime, timedelta
-import pytz
+"""JWT authentication and password hashing for Foodsight."""
+
+from __future__ import annotations
+
+import os
+from datetime import datetime, timedelta, timezone
 from typing import Optional
 
-from fastapi import Depends, FastAPI, HTTPException, status
-from fastapi.security import OAuth2PasswordBearer, OAuth2PasswordRequestForm
+import toml
+from dotenv import load_dotenv
+from fastapi import Depends, HTTPException, status
+from fastapi.security import OAuth2PasswordBearer
 from jose import JWTError, jwt
 from passlib.context import CryptContext
 from pydantic import BaseModel
 
-import dotenv
-import os
-import toml
+# ---------------------------------------------------------------------------
+# Configuration
+# ---------------------------------------------------------------------------
 
-#TODO: Allow user to change expiration time for tokens in UI between 1 day and 6 months
+load_dotenv(".env")
 
-# to get a __SECRET_KEY run:
-# openssl rand -hex 32
-# load env vars
-dotenv.load_dotenv('.env')
+config = toml.load("pipeline/data/customer.toml")
 
-# load customer specific config
-config = toml.load('pipeline/data/customer.toml')
+SECRET_KEY = os.environ.get("SECRET_KEY", "change-me-in-production")
+ALGORITHM = os.environ.get("ALGORITHM", "HS256")
+ACCESS_TOKEN_EXPIRE_MINUTES: int = config["base"]["login_valid_minutes"]
+SLACK_URL: str = os.environ.get("SLACK_WEBHOOK_URL", "")
 
-__SECRET_KEY = os.environ.get('SECRET_KEY')
-__ALGORITHM = os.environ.get('ALGORITHM')
-ACCESS_TOKEN_EXPIRE_MINUTES = config['base']['login_valid_minutes'] #60*18
-SLACK_URL = "https://hooks.slack.com/services/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"
+_users_db: list[dict] = config["users"]
 
-__users_db = config['users']
-#print(__users_db)
+# ---------------------------------------------------------------------------
+# Pydantic models
+# ---------------------------------------------------------------------------
 
-# used to be handed to the client for authenticated requests
+
 class Token(BaseModel):
+    """JWT token returned to the client after successful login."""
     access_token: str
     token_type: str
     expires: str
 
-# used to extract username from token we received from the client
+
 class TokenData(BaseModel):
+    """Data extracted from a validated JWT."""
     username: Optional[str] = None
 
 
 class User(BaseModel):
+    """Public user representation (no password)."""
     username: str
     email: Optional[str] = None
     full_name: Optional[str] = None
     disabled: Optional[bool] = None
 
-# used to retrieve the hashed password of the user from db 
+
 class UserInDB(User):
+    """User with hashed password, as stored in the config."""
     hashed_password: str
 
-# used to hash and verify passwords
-__pwd_context = CryptContext(schemes=["bcrypt"], deprecated="auto")
 
-# we use the OAuth2 "Password with Bearer"-flow
-__oauth2_scheme = OAuth2PasswordBearer(tokenUrl="api/token")
+# ---------------------------------------------------------------------------
+# Password helpers
+# ---------------------------------------------------------------------------
 
-# does the plaintext-password match the hashed version on file?
-def __verify_password(plain_password, hashed_password):
-    return __pwd_context.verify(plain_password, hashed_password)
+_pwd_context = CryptContext(schemes=["bcrypt"], deprecated="auto")
+_oauth2_scheme = OAuth2PasswordBearer(tokenUrl="api/token")
 
-# hashes a password
-def get_password_hash(password):
-    return __pwd_context.hash(password)
 
-# retrieve a user's hashed password from db (could retrieve more)
-def __get_user(db, username: str):
-    result = [e for e in db if e['username']==username]
-    if len(result) > 0:
-        #print(result)
-        return UserInDB(**result[0])
+def _verify_password(plain_password: str, hashed_password: str) -> bool:
+    return _pwd_context.verify(plain_password, hashed_password)
 
-# * check if password is correct. If true return users hashed password
-def authenticate_user(username: str, password: str):
-    user = __get_user(__users_db, username)
-    if not user:
-        return False
-    if not __verify_password(password, user.hashed_password):
-        return False
+
+def get_password_hash(password: str) -> str:
+    return _pwd_context.hash(password)
+
+
+# ---------------------------------------------------------------------------
+# User lookup
+# ---------------------------------------------------------------------------
+
+def _get_user(db: list[dict], username: str) -> Optional[UserInDB]:
+    result = [e for e in db if e["username"] == username]
+    return UserInDB(**result[0]) if result else None
+
+
+def authenticate_user(username: str, password: str) -> Optional[UserInDB]:
+    """Return the user if credentials are valid, else None."""
+    user = _get_user(_users_db, username)
+    if not user or not _verify_password(password, user.hashed_password):
+        return None
     return user
 
-# * relatively generic method to generate a jwt-token from a dict
-def create_access_token(data: dict, expires_delta: Optional[timedelta] = None):
-    to_encode = data.copy()
-    tz = pytz.timezone('Europe/Berlin')
-    if expires_delta:
-        expire = datetime.utcnow() + expires_delta
-        exp_local = datetime.now(tz) + expires_delta
-    else:
-        expire = datetime.utcnow() + timedelta(minutes=15)
-        exp_local = datetime.now(tz) + timedelta(minutes=15)
-    to_encode.update({"exp": expire})
-    encoded_jwt = jwt.encode(to_encode, __SECRET_KEY, algorithm=__ALGORITHM)
-    return encoded_jwt, exp_local
 
-# validate a token received from client and if successful return users hashed password
-async def __get_current_user(token: str = Depends(__oauth2_scheme)):
+# ---------------------------------------------------------------------------
+# JWT creation & validation
+# ---------------------------------------------------------------------------
+
+def create_access_token(data: dict, expires_delta: Optional[timedelta] = None):
+    """Create a signed JWT and return (token, expiry_datetime)."""
+    to_encode = data.copy()
+    expire = datetime.now(timezone.utc) + (expires_delta or timedelta(minutes=15))
+    to_encode["exp"] = expire
+    encoded_jwt = jwt.encode(to_encode, SECRET_KEY, algorithm=ALGORITHM)
+    return encoded_jwt, expire.astimezone()
+
+
+async def _get_current_user(token: str = Depends(_oauth2_scheme)) -> User:
+    """Decode the JWT from the Authorization header and return the user."""
     credentials_exception = HTTPException(
         status_code=status.HTTP_401_UNAUTHORIZED,
         detail="Could not validate credentials",
         headers={"WWW-Authenticate": "Bearer"},
     )
     try:
-        payload = jwt.decode(token, __SECRET_KEY, algorithms=[__ALGORITHM])
+        payload = jwt.decode(token, SECRET_KEY, algorithms=[ALGORITHM])
         username: str = payload.get("sub")
         if username is None:
             raise credentials_exception
-        token_data = TokenData(username=username)
     except JWTError:
         raise credentials_exception
-    user = __get_user(__users_db, username=token_data.username)
+
+    user = _get_user(_users_db, username=username)
     if user is None:
         raise credentials_exception
     return user
 
-# * wrapper around get_current_user that checks if the user is inactve
-async def get_current_active_user(current_user: User = Depends(__get_current_user)):
+
+async def get_current_active_user(current_user: User = Depends(_get_current_user)) -> User:
+    """Ensure the authenticated user is not disabled."""
     if current_user.disabled:
         raise HTTPException(status_code=400, detail="Inactive user")
     return current_user
-
