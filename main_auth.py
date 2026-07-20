@@ -18,7 +18,7 @@ from pydantic import BaseModel
 # Configuration
 # ---------------------------------------------------------------------------
 
-load_dotenv(".env")
+load_dotenv(".env", override=False)
 
 config = toml.load("pipeline/data/customer.toml")
 

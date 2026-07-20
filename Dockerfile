@@ -20,5 +20,9 @@ RUN mkdir -p pipeline/data/6_predict pipeline/data/problem_reports
 # Expose port
 EXPOSE 8000
 
+# Environment variables (override at runtime)
+ENV SECRET_KEY=""
+ENV ALGORITHM="HS256"
+
 # Start the server
 CMD ["uvicorn", "main:app", "--host", "0.0.0.0", "--port", "8000"]

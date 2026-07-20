@@ -27,4 +27,4 @@ pipeline/data/problem_reports/
 
 # Keep config files needed for demo
 !pipeline/data/customer.toml
-!.env
+# .env never in repo — use env vars or Docker secrets
