@@ -51,41 +51,31 @@ The system follows a layered architecture:
 
 ```mermaid
 flowchart LR
-    subgraph Frontend ["🖥️ Svelte SPA"]
+    subgraph Frontend ["Svelte SPA"]
         direction TB
-        F1[Dashboard
-Chart.js bar + donut]
-        F2[Data Table
-search · sort · export]
-        F3[Auth · Settings
-Signup · Login]
+        F1["Dashboard\nChart.js bar + donut"]
+        F2["Data Table\nsearch, sort, export"]
+        F3["Auth & Settings\nSignup, Login"]
     end
 
-    subgraph Backend ["⚡ FastAPI Backend"]
+    subgraph Backend ["FastAPI Backend"]
         direction TB
-        B1[JWT Auth
-OAuth2 + bcrypt]
-        B2[REST API
-Forecast · Settings · Order]
-        B3[Config
-TOML multi-store]
+        B1["JWT Auth\nOAuth2 + bcrypt"]
+        B2["REST API\nForecast, Settings, Order"]
+        B3["Config\nTOML multi-store"]
     end
 
-    subgraph Pipeline ["🧠 ML Pipeline"]
+    subgraph Pipeline ["ML Pipeline"]
         direction TB
-        P1[Ingest
-Sales · Weather · Holidays]
-        P2[Transform
-Feature engineering]
-        P3[Train
-CatBoost regressor]
-        P4[Serve
-7-day forecasts]
+        P1["Ingest\nSales, Weather, Holidays"]
+        P2["Transform\nFeature engineering"]
+        P3["Train\nCatBoost regressor"]
+        P4["Serve\n7-day forecasts"]
     end
 
-    Frontend <-->|REST + JWT| Backend
-    Backend <-->|predictions.csv| Pipeline
-    Pipeline -.->|Scheduled 2×/day| Pipeline
+    Frontend <-->|"REST + JWT"| Backend
+    Backend <-->|"predictions.csv"| Pipeline
+    Pipeline -.->|"Scheduled 2x/day"| Pipeline
 
     style Frontend fill:#e8f5e9,stroke:#30974e
     style Backend fill:#e3f2fd,stroke:#1565c0
