@@ -50,23 +50,22 @@ The system follows a layered architecture:
 **Architecture diagram:**
 
 ```mermaid
-%%{init: {"theme": "base", "themeVariables": {"primaryColor": "#300A6E", "primaryTextColor": "#FFFFFF", "primaryBorderColor": "#0496FF", "lineColor": "#300A6E", "secondaryColor": "#EBEBEB", "tertiaryColor": "#FFFFFF", "fontFamily": "system-ui, sans-serif"}}}%%
 flowchart TD
-    subgraph frontend ["Frontend — Svelte SPA"]
+    subgraph zone_fe ["Frontend — Svelte SPA"]
         direction TB
         F1["Dashboard — Chart.js bar & donut"]
         F2["Data Table — search, sort, export"]
         F3["Auth & Settings — Signup, Login"]
     end
 
-    subgraph backend ["Backend — FastAPI"]
+    subgraph zone_be ["Backend — FastAPI"]
         direction TB
         B1["JWT Auth — OAuth2 + bcrypt"]
         B2["REST API — Forecast, Settings, Order"]
         B3["Config — TOML multi-store"]
     end
 
-    subgraph pipeline ["Pipeline — CatBoost ML"]
+    subgraph zone_ml ["Pipeline — CatBoost ML"]
         direction TB
         P1["Ingest — Sales, Weather, Holidays"]
         P2["Transform — Feature engineering"]
@@ -74,28 +73,22 @@ flowchart TD
         P4["Serve — 7-day forecasts"]
     end
 
-    P1 --> P2
-    P2 --> P3
-    P3 --> P4
-    frontend <-->|"REST + JWT"| backend
-    backend <-->|"predictions.csv"| pipeline
+    P1 --> P2 --> P3 --> P4
+    zone_fe <-->|"REST + JWT"| zone_be
+    zone_be <-->|"predictions.csv"| zone_ml
 
-    classDef frontend fill:#0496FF,stroke:#300A6E,color:#FFFFFF,stroke-width:2px
-    classDef backend fill:#300A6E,stroke:#0496FF,color:#FFFFFF,stroke-width:2px
-    classDef pipeline fill:#FB5012,stroke:#300A6E,color:#FFFFFF,stroke-width:2px
-    classDef nodeLight fill:#EBEBEB,stroke:#300A6E,color:#000000
-    classDef nodeWhite fill:#FFFFFF,stroke:#FB5012,color:#000000
+    classDef fe fill:#0496FF,stroke:#300A6E,color:#FFFFFF,stroke-width:2px
+    classDef be fill:#300A6E,stroke:#0496FF,color:#FFFFFF,stroke-width:2px
+    classDef ml fill:#FB5012,stroke:#300A6E,color:#FFFFFF,stroke-width:2px
+    classDef light fill:#EBEBEB,stroke:#300A6E,color:#000000
+    classDef white fill:#FFFFFF,stroke:#FB5012,color:#000000
 
-    class frontend frontend
-    class backend backend
-    class pipeline pipeline
-    class F1,F2,F3 nodeLight
-    class B1,B2,B3 nodeLight
-    class P1,P2,P3,P4 nodeWhite
-
-    linkStyle 0,1,2 stroke:#FB5012,stroke-width:2px
-    linkStyle 3,4 stroke:#300A6E,stroke-width:2px
-    linkStyle 5,6 stroke:#0496FF,stroke-width:2px
+    class zone_fe fe
+    class zone_be be
+    class zone_ml ml
+    class F1,F2,F3 light
+    class B1,B2,B3 light
+    class P1,P2,P3,P4 white
 ```
 
 ## Tech Stack
